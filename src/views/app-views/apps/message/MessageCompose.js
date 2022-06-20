@@ -1,96 +1,52 @@
 import React, { Component } from "react";
-import { Form, Input, Button, message, Radio, Select, Row } from "antd";
-import ReactQuill from "react-quill";
-import companies from "assets/data/companies.json";
+import { Form, Input, Button, Select, Radio } from "antd";
+import CompaniesData from "assets/data/companies.json";
+const { Option } = Select;
+const { TextArea } = Input;
 
-export class MailCompose extends Component {
+class MessageCompose extends Component {
   state = {
-    checked: 1,
-    size: "large",
-    hallo: 1,
+    checked: "a",
   };
-  modules = {
-    toolbar: [
-      [{ header: [1, 2, false] }],
-      ["bold", "italic", "underline"],
-      ["image", "code-block"],
-    ],
-  };
-
-  back = () => {
-    this.props.history.goBack();
-  };
-
-  onFinish = (values) => {
-    const { history } = this.props;
-    message.success("Email has been sent");
-    history.push(`inbox`);
-  };
-
-  onChange = (value) => {
-    let current = value;
-    console.log(`radio checked:${current}`);
+  onChange = (e) => {
+    console.log(`radio checked:${e.target.value}`);
     this.setState({
-      checked: current,
+      checked: e.target.value,
     });
   };
-
-  handleSizeChange = (e) => {
-    this.setState({ size: e.target.value });
-  };
-
-  handleCompanyChange(value) {
-    console.log("selected", value);
-    this.setState({
-      hallo: value,
-    });
-  }
-
   render() {
-    const { size } = this.state;
-    console.log("Size", size);
+    console.log("Comoanies", CompaniesData);
     return (
       <div className="mail-compose">
         <h4 className="mb-4">New Message</h4>
 
-        <Button
-          className="mr-4"
-          onClick={() => {
-            this.handleCompanyChange(this.state.checked);
-          }}
+        <Radio.Group
+          defaultValue="a"
+          buttonStyle="solid"
+          className="mb-4"
+          onChange={this.onChange}
         >
-          Single / Multiple
-        </Button>
-        <Button
-          onClick={() => {
-            this.onChange(2);
-          }}
-        >
-          Company
-        </Button>
-
+          <Radio.Button value="a">Single / Multiple</Radio.Button>
+          <Radio.Button value="b">Company</Radio.Button>
+        </Radio.Group>
         {this.state.checked === "b" ? (
           <Select
             placeholder="Select company to send message"
             onChange={this.handleCompanyChange}
             style={{ width: "100%" }}
           >
-            {}
+            {CompaniesData.map((company) => (
+              <Option key={company.value}>{company.label}</Option>
+            ))}
           </Select>
         ) : null}
+
         <Form name="nest-messages" onFinish={this.onFinish} className="mt-3">
           <Form.Item name={["mail", "to"]}>
             <Input placeholder="To:" />
           </Form.Item>
-          {/* <Form.Item name={["mail", "cc"]}>
-            <Input placeholder="Cc:" />
-          </Form.Item> */}
-          {/* <Form.Item name={["mail", "subject"]}>
-            <Input placeholder="Subject:" />
-          </Form.Item> */}
-          <Form.Item name={["mail", "content"]}>
-            <ReactQuill theme="snow" modules={this.modules} />
-          </Form.Item>
+          <TextArea rows={4} placeholder="Type message" />
+
           <Form.Item>
             <div className="mt-5 text-right">
               <Button type="link" className="mr-2">
@@ -110,4 +66,4 @@ export class MailCompose extends Component {
   }
 }
 
-export default MailCompose;
+export default MessageCompose;

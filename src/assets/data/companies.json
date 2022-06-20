@@ -1,5 +1,4 @@
-
-{  "companies": [
+ [
     { "value":1,"label": "HELA CAPITALS" },
     { "value":3,"label": "DANSAR INVESTMENTS LTD" },
     { "value":4,"label": "NATURES CHOICE FRESH PRODUCE EXPORTERS LTD" },
@@ -59,4 +58,4 @@
     { "value":58,"label": "COUNTY GOVERNMENT OF KAJIANDO" },
     { "value":59,"label": "COUNTY GOVERNMENT OF MACHAKOS" },
     { "value":60,"label": "DIRECTORATE OF PUBLIC PROSECUTION " }]
-    }
+    

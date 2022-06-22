@@ -79,7 +79,7 @@ const navTree = [
         ],
       },
       {
-        key: "datasheets",
+        key: "all-datasheets",
         path: `${APP_PREFIX_PATH}`,
         title: "Datasheet",
         icon: DatabaseOutlined,
@@ -275,7 +275,7 @@ const navTree = [
         breadcrumb: true,
         submenu: [
           {
-            key: "advance-requests",
+            key: "reports-advance-requests",
             path: `${APP_PREFIX_PATH}/reports-advance-requests`,
             title: "Advance Requests",
             icon: "",
@@ -283,7 +283,7 @@ const navTree = [
             submenu: [],
           },
           {
-            key: "datasheets",
+            key: "reports-datasheets",
             path: `${APP_PREFIX_PATH}/reports-datasheets`,
             title: "Datasheets",
             icon: "",
@@ -291,7 +291,7 @@ const navTree = [
             submenu: [],
           },
           {
-            key: "Sales",
+            key: "reports-sales",
             path: `${APP_PREFIX_PATH}/reports-sales`,
             title: "Sales",
             icon: "",
@@ -324,7 +324,7 @@ const navTree = [
             submenu: [],
           },
           {
-            key: "status",
+            key: "company-status",
             path: `${APP_PREFIX_PATH}/status`,
             title: "Status",
             icon: "",

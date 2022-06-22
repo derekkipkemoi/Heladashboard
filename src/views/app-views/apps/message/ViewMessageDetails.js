@@ -43,14 +43,14 @@ export class ViewMessageDetails extends Component {
       <div className="mail-detail">
         <div className="d-lg-flex align-items-center justify-content-between">
           <div className="d-flex align-items-center mb-3">
-            <div
+            <a
               className="font-size-md mr-3"
               onClick={() => {
                 this.back();
               }}
             >
               <LeftCircleOutlined className="mail-detail-action-icon font-size-md ml-0" />
-            </div>
+            </a>
             <AvatarStatus
               src="avatar"
               name={messageItem.id}

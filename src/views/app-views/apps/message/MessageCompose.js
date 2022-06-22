@@ -31,6 +31,7 @@ class MessageCompose extends Component {
         </Radio.Group>
         {this.state.checked === "b" ? (
           <Select
+          className="mb-4"
             placeholder="Select company to send message"
             onChange={this.handleCompanyChange}
             style={{ width: "100%" }}
@@ -41,12 +42,15 @@ class MessageCompose extends Component {
           </Select>
         ) : null}
 
-        <Form name="nest-messages" onFinish={this.onFinish} className="mt-3">
-          <Form.Item name={["mail", "to"]}>
-            <Input placeholder="To:" />
-          </Form.Item>
+        <Form name="nest-messages" onFinish={this.onFinish}>
+          {this.state.checked === "a" ? (
+            <div>
+              <Form.Item name={["mail", "to"]}>
+                <Input placeholder="To:" />
+              </Form.Item>
+            </div>
+          ) : null}
           <TextArea rows={4} placeholder="Type message" />
-
           <Form.Item>
             <div className="mt-5 text-right">
               <Button type="link" className="mr-2">

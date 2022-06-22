@@ -231,14 +231,14 @@ const navTree = [
         path: `${APP_PREFIX_PATH}`,
         title: "User Management",
         icon: TeamOutlined,
-        breadcrumb: true,
+        breadcrumb: false,
         submenu: [
           {
             key: "user-management-users",
             path: `${APP_PREFIX_PATH}/user-management-users`,
             title: "Users",
             icon: "",
-            breadcrumb: true,
+            breadcrumb: false,
             submenu: [],
           },
           {
@@ -251,10 +251,10 @@ const navTree = [
           },
           {
             key: "user-management-roles-permissions",
-            path: `${APP_PREFIX_PATH}/user-management-roles-permissions`,
+            path: `${APP_PREFIX_PATH}/apps/roles-permissions/roles`,
             title: "Roles & Permissions",
             icon: "",
-            breadcrumb: true,
+            breadcrumb: false,
             submenu: [],
           }
         ],

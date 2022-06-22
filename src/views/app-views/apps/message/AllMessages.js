@@ -1,4 +1,4 @@
-import { Table, Typography, Input, Row } from "antd";
+import { Table, Typography, Input, Row, Tooltip } from "antd";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getMessagesList } from "redux/actions/Messaging";
@@ -25,29 +25,17 @@ const columns = [
     dataIndex: "message",
     key: "message",
     ellipsis: true,
-    render: (text) => <Link type="info">{text}</Link>,
+    render: (text, record) => (
+      <Link type="info">
+        <Tooltip title={`${record.message}`}>{text}</Tooltip>
+      </Link>
+    ),
   },
   {
     title: "Created At",
     dataIndex: "created_at",
     key: "createdAt",
   },
-  //   {
-  //     title: "Action",
-  //     key: "action",
-  //     render: () => (
-  //       <span>
-  //         <Divider type="vertical" />
-  //         <Popconfirm
-  //           title="Are you sure ?"
-  //           icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-  //           onConfirm={confirm}
-  //         >
-  //           <Link type="danger">Delete</Link>
-  //         </Popconfirm>
-  //       </span>
-  //     ),
-  //   },
 ];
 
 class AllMessages extends Component {

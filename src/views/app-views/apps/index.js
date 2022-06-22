@@ -6,6 +6,7 @@ const Apps = ({ match }) => (
   <Suspense fallback={<Loading cover="content"/>}>
     <Switch>
       <Route path={`${match.url}/message`} component={lazy(() => import(`./message`))} />
+      <Route path={`${match.url}/roles-permissions`} component={lazy(() => import(`./rolesPermissions`))} />
       <Route path={`${match.url}/calendar`} component={lazy(() => import(`./calendar`))} />
       <Redirect from={`${match.url}`} to={`${match.url}/message`} />
     </Switch>

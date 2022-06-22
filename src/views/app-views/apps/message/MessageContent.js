@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Route, Switch, } from 'react-router-dom';
 import MailItem from './MessageItem';
-import MailDetail from './MessageDetail';
 import MessageCompose from './MessageCompose';
 import AllMessages from './AllMessages';
 import ViewMessageDetails from './ViewMessageDetails';

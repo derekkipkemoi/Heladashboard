@@ -31,6 +31,10 @@ export class ViewMessageDetails extends Component {
     const { id } = this.props.match.params;
     let messageItem = {};
 
+    const idTString = (id)=>{
+      return "" + id
+    }
+
     for (let index = 0; index < this.state.data.length; index++) {
       const element = this.state.data[index];
 
@@ -53,7 +57,7 @@ export class ViewMessageDetails extends Component {
             </a>
             <AvatarStatus
               src="avatar"
-              name={messageItem.id}
+              name={idTString(messageItem.id)}
               subTitle={`To: ${messageItem.contacts}`}
             />
           </div>

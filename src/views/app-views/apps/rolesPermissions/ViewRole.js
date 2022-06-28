@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Result, Spin, Alert } from "antd";
+import { Card, Result, Spin, Alert, Tag } from "antd";
 import { connect } from "react-redux";
 import { LeftCircleOutlined, DeleteOutlined } from "@ant-design/icons";
 import AvatarStatus from "components/shared-components/AvatarStatus";
@@ -21,16 +21,16 @@ class ViewRole extends Component {
       description: description,
     });
     console.log("Roles name", role, description);
-    this.props.getRolesAssignedPermissions(role);  
+    this.props.getRolesAssignedPermissions(role);
   };
 
-  componentDidUpdate =(prevProps)=>{
-    if(this.props !== prevProps){
+  componentDidUpdate = (prevProps) => {
+    if (this.props !== prevProps) {
       this.setState({
-        loading: false
+        loading: false,
       });
     }
-  }
+  };
   render() {
     const gridStyle = {
       width: "25%",
@@ -73,7 +73,7 @@ class ViewRole extends Component {
           </a>
           <AvatarStatus
             src="avatar"
-            name={this.state.role}
+            name={this.state.role + " " + " "}
             subTitle={`Description: ${this.state.description}`}
           />
         </div>
@@ -94,9 +94,13 @@ class ViewRole extends Component {
                 {assignedPermissions.map((permission, index) => {
                   return (
                     <Card
-                      title={toTitleCase(
-                        permissionsNames[index].replace(/_/g, " ")
-                      )}
+                      title={
+                        <Tag className="text-capitalize mb-3" color="cyan">
+                          {toTitleCase(
+                            permissionsNames[index].replace(/_/g, " ")
+                          )}
+                        </Tag>
+                      }
                     >
                       {permissionsDescriptions[index].map(
                         (permissionDescription, index1) => {

@@ -56,6 +56,16 @@ class AllMessages extends Component {
       data: data,
     });
   }
+
+  componentDidUpdate = (prevProps) => {
+    if (this.props !== prevProps) {
+      let data = [];
+      data = this.props.messages;
+      this.setState({
+        data: data,
+      });
+    }
+  };
   render() {
     return (
       <div>

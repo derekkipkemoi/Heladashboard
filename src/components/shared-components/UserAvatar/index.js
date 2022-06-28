@@ -15,8 +15,8 @@ const normalizeHash = (hash, min, max) => {
   return Math.floor((hash % (max - min)) + min);
 };
 
-const hRange = [150, 30];
-const sRange = [50, 200];
+const hRange = [100, 360];
+const sRange = [100, 200];
 const lRange = [0, 65];
 
 const generateHSL = (name) => {
@@ -29,10 +29,11 @@ const generateHSL = (name) => {
 };
 
 const getInitials = (user) => {
-  console.log("User Avatar", user)
-  return `${user[0]}${user[1].toUpperCase()}`;
+  let name = user.replace(/ +(?= )/g, "");
+  let firstName = name.split(" ")[0];
+  let lastName = name.split(" ")[1];
+  return `${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`;
 };
-
 
 const renderAvatar = (props) => {
   const backgroundColor123 = {
@@ -49,7 +50,7 @@ const renderAvatar = (props) => {
   );
 };
 
-export const AvatarStatus = (props) => {
+export const UserAvatar = (props) => {
   const {
     name,
     suffix,
@@ -99,11 +100,11 @@ export const AvatarStatus = (props) => {
   );
 };
 
-AvatarStatus.propTypes = {
+UserAvatar.propTypes = {
   name: PropTypes.string,
   src: PropTypes.string,
   type: PropTypes.string,
   onNameClick: PropTypes.func,
 };
 
-export default AvatarStatus;
+export default UserAvatar;

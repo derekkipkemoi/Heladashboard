@@ -16,6 +16,14 @@ export class Roles extends Component {
     });
   };
 
+  componentDidUpdate = (prevProps)=>{
+    if (this.props !== prevProps) {
+      this.setState({
+        data: this.props.roles,
+      });
+    }
+  }
+
   viewMessageDetails = (id) => {
     const { match, history } = this.props;
     history.push(`${match.url}/${id}`);

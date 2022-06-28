@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Checkbox, Space, Button, Spin, Alert } from "antd";
+import { Card, Checkbox, Space, Button, Spin, Alert, Tag } from "antd";
 import { connect } from "react-redux";
 import { LeftCircleOutlined } from "@ant-design/icons";
 import AvatarStatus from "components/shared-components/AvatarStatus";
@@ -42,7 +42,7 @@ class UpdateRole extends Component {
     if (this.props !== prevProps) {
       this.setState({
         data: this.props.allPermissionsList,
-        loading: false
+        loading: false,
       });
     }
   };
@@ -120,7 +120,7 @@ class UpdateRole extends Component {
           </a>
           <AvatarStatus
             src="avatar"
-            name={this.state.role}
+            name={this.state.role + " " + " "}
             subTitle={`Description: ${this.state.description}`}
           />
         </div>
@@ -128,20 +128,24 @@ class UpdateRole extends Component {
         <h5>Roles permission</h5>
         {this.state.loading ? (
           <Spin tip="Loading...">
-          <Alert
-            message="Loading permissions"
-            description="Please wait.... Permissions loading"
-            type="info"
-          />
-        </Spin>
+            <Alert
+              message="Loading permissions"
+              description="Please wait.... Permissions loading"
+              type="info"
+            />
+          </Spin>
         ) : (
           <div>
             {permissions.map((permission, index) => {
               return (
                 <Card
-                  title={toTitleCase(
-                    permission.permissionGroup.replace(/_/g, " ")
-                  )}
+                  title={
+                    <Tag className="text-capitalize mb-3" color="cyan">
+                      {toTitleCase(
+                        permission.permissionGroup.replace(/_/g, " ")
+                      )}
+                    </Tag>
+                  }
                 >
                   {permission.permissionsList.map(
                     (permisionsListNames, index1) => {

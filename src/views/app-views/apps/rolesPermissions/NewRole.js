@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Input, Button, Card, Space, Checkbox } from "antd";
+import { Form, Input, Button, Card, Space, Checkbox, Tag } from "antd";
 import { connect } from "react-redux";
 import { getPermissionsList } from "redux/actions/RolesPermissions";
 const { TextArea } = Input;
@@ -40,9 +40,11 @@ class NewRole extends Component {
             {this.props.allPermissionsList.map((permission, index) => {
               return (
                 <Card
-                  title={toTitleCase(
-                    permission.permissionGroup.replace(/_/g, " ")
-                  )}
+                  title={
+                    <Tag className="text-capitalize mb-3" color="cyan">
+                      {toTitleCase(permission.permissionGroup.replace(/_/g, " "))}
+                    </Tag>
+                  }
                 >
                   {permission.permissionsList.map(
                     (permissionDescription, index1) => {

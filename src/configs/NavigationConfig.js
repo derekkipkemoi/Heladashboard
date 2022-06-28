@@ -235,7 +235,7 @@ const navTree = [
         submenu: [
           {
             key: "user-management-users",
-            path: `${APP_PREFIX_PATH}/user-management-users`,
+            path: `${APP_PREFIX_PATH}/apps/users/users/all`,
             title: "Users",
             icon: "",
             breadcrumb: false,
@@ -243,10 +243,10 @@ const navTree = [
           },
           {
             key: "user-management-approved",
-            path: `${APP_PREFIX_PATH}/user-management-approved`,
+            path: `${APP_PREFIX_PATH}/apps/users/users/active`,
             title: "Approved",
             icon: "",
-            breadcrumb: true,
+            breadcrumb: false,
             submenu: [],
           },
           {
@@ -256,12 +256,12 @@ const navTree = [
             icon: "",
             breadcrumb: false,
             submenu: [],
-          }
+          },
         ],
       },
       {
         key: "intitutions",
-        path: `${APP_PREFIX_PATH}/institutions`,
+        path: `${APP_PREFIX_PATH}/apps/institutions/institutions`,
         title: "Intitutions",
         icon: BankOutlined,
         breadcrumb: false,
@@ -297,7 +297,7 @@ const navTree = [
             icon: "",
             breadcrumb: true,
             submenu: [],
-          }
+          },
         ],
       },
       {
@@ -330,7 +330,7 @@ const navTree = [
             icon: "",
             breadcrumb: true,
             submenu: [],
-          }
+          },
         ],
       },
     ],

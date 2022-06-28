@@ -14,13 +14,21 @@ export class Permissions extends Component {
     });
   };
 
+  componentDidUpdate = (prevProps) => {
+    if (this.props !== prevProps) {
+      this.setState({
+        data: this.props.permissions,
+      });
+    }
+  };
+
   render() {
-    let color = 'geekblue';
+    let color = "geekblue";
     const columns = [
       {
         title: "Name",
         dataIndex: "permissionName",
-        key: "permissionName"
+        key: "permissionName",
       },
       {
         title: "Description",
@@ -32,14 +40,16 @@ export class Permissions extends Component {
         title: "Permissions Group",
         key: "permissionGroup",
         dataIndex: "permissionGroup",
-        render: (permissionGroup) => (
-          <Tag color={color}>
-            {permissionGroup}
-          </Tag>
-        ),
+        render: (permissionGroup) => <Tag color={color}>{permissionGroup}</Tag>,
       },
     ];
-    return <Table columns={columns} dataSource={this.state.data} rowKey='permissionName'/>;
+    return (
+      <Table
+        columns={columns}
+        dataSource={this.state.data}
+        rowKey="permissionName"
+      />
+    );
   }
 }
 
@@ -65,7 +75,7 @@ const mapStateToProps = ({ rolesPermissions }) => {
     let permissionGroupName = permissionsArrayed[x][0];
     let arrayedSub = Object.entries(permissionsArrayed[x][1]);
     for (let y = 0; y < arrayedSub.length; y++) {
-      let permissionName = arrayedSub[y][0].replace(/-/g, " ")
+      let permissionName = arrayedSub[y][0].replace(/-/g, " ");
       let permissionDescription = arrayedSub[y][1];
       permissionList[y] = createData(
         y + 1,

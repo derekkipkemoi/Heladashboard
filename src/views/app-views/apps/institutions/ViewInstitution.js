@@ -137,15 +137,21 @@ class ViewInstitution extends Component {
           <Row>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
               <div>
-                <Text strong>Name : </Text>{" "}
-                {data.name !== "" ? data.name : <Tag color="gold">Not Set</Tag>}
+                <Text className="text-muted">Name : </Text>{" "}
+                {data.name !== "" ? (
+                  <Text className="font-weight-semibold pl-3">{data.name}</Text>
+                ) : (
+                  <Tag color="gold">Not Set</Tag>
+                )}
               </div>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
               <div>
-                <Text strong>Phone : </Text>
+                <Text className="text-muted">Phone : </Text>
                 {data.phone !== "" ? (
-                  data.phone
+                  <Text className="font-weight-semibold pl-3">
+                    {data.phone}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
@@ -153,9 +159,11 @@ class ViewInstitution extends Component {
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
               <div>
-                <Text strong>Code : </Text>
+                <Text className="text-muted">Code : </Text>
                 {data.company_code !== "" ? (
-                  data.company_code
+                  <Text className="font-weight-semibold pl-3">
+                    {data.company_code}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
@@ -163,15 +171,23 @@ class ViewInstitution extends Component {
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
               <div>
-                <Text strong>Account Status : </Text>
-                {data.approved === 0 ? "Not approved" : "Approved"}
+                <Text className="text-muted">Account Status : </Text>
+                {data.approved === 0 ? (
+                  <Text className="font-weight-semibold pl-3">
+                    Not approved
+                  </Text>
+                ) : (
+                  <Text className="font-weight-semibold pl-3">Approved</Text>
+                )}
               </div>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
               <div>
-                <Text strong>Limit % : </Text>
+                <Text className="text-muted">Limit % : </Text>
                 {data.s_a_percentage !== null ? (
-                  data.s_a_percentage
+                  <Text className="font-weight-semibold pl-3">
+                    {data.s_a_percentage}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
@@ -179,78 +195,100 @@ class ViewInstitution extends Component {
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
               <div>
-                <Text strong>Loan Interest : </Text>
-                {data.loan_interest}
+                <Text className="text-muted">Loan Interest : </Text>
+                <Text className="font-weight-semibold pl-3">
+                  {data.loan_interest}
+                </Text>
               </div>
             </Col>
 
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
               <div>
-                <Text strong>Minimum Month : </Text>
-                {data.min_month}
+                <Text className="text-muted">Minimum Month : </Text>
+                <Text className="font-weight-semibold pl-3">
+                  {data.min_month}
+                </Text>
               </div>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
               <div>
-                <Text strong>Max Month : </Text>
-                {data.max_month}
+                <Text className="text-muted">Max Month : </Text>
+                <Text className="font-weight-semibold pl-3">
+                  {data.max_month}
+                </Text>
               </div>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
               <div>
-                <Text strong>4 To 6 Months' Interest : </Text>
-                {data.four_to_six_interest}
+                <Text className="text-muted">4 To 6 Months' Interest : </Text>
+                <Text className="font-weight-semibold pl-3">
+                  {data.four_to_six_interest}
+                </Text>
               </div>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
               <div>
-                <Text strong>7 To 9 Months' Interest : </Text>
-                {data.seven_to_nine_interest}
+                <Text className="text-muted">7 To 9 Months' Interest : </Text>
+                <Text className="font-weight-semibold pl-3">
+                  {data.seven_to_nine_interest}
+                </Text>
               </div>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
               <div>
-                <Text strong>10 To 12 Months' Interest : </Text>
-                {data.ten_to_twelve_interest}
-              </div>
-            </Col>
-
-            <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>13 to 15 Months' Interest : </Text>
-                {data.thirteen_to_fifteen_interest}
-              </div>
-            </Col>
-            <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>16 to 18 Months' Interest : </Text>
-                {data.sixteen_to_eighteen_interest}
+                <Text className="text-muted">10 To 12 Months' Interest : </Text>
+                <Text className="font-weight-semibold pl-3">
+                  {data.ten_to_twelve_interest}
+                </Text>
               </div>
             </Col>
 
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
               <div>
-                <Text strong>19 to 21 Months' Interest : </Text>
-                {data.nineteen_to_twentyone_interest}
+                <Text className="text-muted">13 to 15 Months' Interest : </Text>
+                <Text className="font-weight-semibold pl-3">
+                  {data.thirteen_to_fifteen_interest}
+                </Text>
               </div>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
               <div>
-                <Text strong>Loan Limit : </Text>
-              </div>
-            </Col>
-            <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>22 to 24 Months' Interest : </Text>
-                {data.twentytwo_to_twentyfour_interest}
+                <Text className="text-muted">16 to 18 Months' Interest : </Text>
+                <Text className="font-weight-semibold pl-3">
+                  {data.sixteen_to_eighteen_interest}
+                </Text>
               </div>
             </Col>
 
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
               <div>
-                <Text strong>Agreemt Date : </Text>
+                <Text className="text-muted">19 to 21 Months' Interest : </Text>
+                <Text className="font-weight-semibold pl-3">
+                  {data.nineteen_to_twentyone_interest}
+                </Text>
+              </div>
+            </Col>
+            <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
+              <div>
+                <Text className="text-muted">Loan Limit : </Text>
+              </div>
+            </Col>
+            <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
+              <div>
+                <Text className="text-muted">22 to 24 Months' Interest : </Text>
+                <Text className="font-weight-semibold pl-3">
+                  {data.twentytwo_to_twentyfour_interest}
+                </Text>
+              </div>
+            </Col>
+
+            <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
+              <div>
+                <Text className="text-muted">Agreemt Date : </Text>
                 {data.date_of_agreement !== null ? (
-                  data.date_of_agreement
+                  <Text className="font-weight-semibold pl-3">
+                    {data.date_of_agreement}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
@@ -258,9 +296,11 @@ class ViewInstitution extends Component {
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
               <div>
-                <Text strong>Location : </Text>
+                <Text className="text-muted">Location : </Text>
                 {data.location !== "" ? (
-                  data.location
+                  <Text className="font-weight-semibold pl-3">
+                    {data.location}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
@@ -268,9 +308,11 @@ class ViewInstitution extends Component {
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
               <div>
-                <Text strong>Reporting Date: </Text>
+                <Text className="text-muted">Reporting Date: </Text>
                 {data.reporting_date !== null ? (
-                  data.reporting_date
+                  <Text className="font-weight-semibold pl-3">
+                    {data.reporting_date}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
@@ -278,13 +320,15 @@ class ViewInstitution extends Component {
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
               <div>
-                <Text strong>Type: </Text>
-                {data.type_id}
+                <Text className="text-muted">Type: </Text>
+                <Text className="font-weight-semibold pl-3">
+                  {data.type_id}
+                </Text>
               </div>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
               <div>
-                <Text strong>Status : </Text>
+                <Text className="text-muted">Status : </Text>
                 {data.status === 1 ? (
                   <Tag color="cyan">Active</Tag>
                 ) : (
@@ -294,14 +338,18 @@ class ViewInstitution extends Component {
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
               <div>
-                <Text strong>Created At : </Text>
-                {data.created_at}
+                <Text className="text-muted">Created At : </Text>
+                <Text className="font-weight-semibold pl-3">
+                  {data.created_at}
+                </Text>
               </div>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
               <div>
-                <Text strong>Updated At : </Text>
-                {data.updated_at}
+                <Text className="text-muted">Updated At : </Text>
+                <Text className="font-weight-semibold pl-3">
+                  {data.updated_at}
+                </Text>
               </div>
             </Col>
           </Row>

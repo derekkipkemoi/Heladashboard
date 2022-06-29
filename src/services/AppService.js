@@ -65,4 +65,12 @@ appService.getInstitute = function (id) {
   });
 };
 
+appService.updateInstitute = function (data) {
+  return fetch({
+    url: "/update-company",
+    method: "put",
+    data: data
+  });
+};
+
 export default appService;

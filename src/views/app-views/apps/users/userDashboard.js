@@ -40,6 +40,7 @@ class UserDashboard extends Component {
     let weeklYRegistration = [];
     let weekly = [];
     let latestRegistrations = [];
+    let lastDateIndex = "";
 
     if (data.weeks_dates) {
       for (let x = 0; x < data.weeks_dates.length; x++) {
@@ -49,6 +50,8 @@ class UserDashboard extends Component {
         dates[x] = day + " " + month;
       }
     }
+
+    lastDateIndex = dates.length - 1;
 
     if (data.latest_registrations) {
       latestRegistrations = data.latest_registrations;
@@ -73,7 +76,9 @@ class UserDashboard extends Component {
               >
                 <div>
                   <h4 className="mb-0">Weekly Registration</h4>
-                  <span className="text-muted">8 - 15 Jul, 2020</span>
+                  <span className="text-muted">
+                    {dates[0]} - {dates[lastDateIndex]}
+                  </span>
                 </div>
                 <div className="mb-4">
                   <h1 className="font-weight-bold">

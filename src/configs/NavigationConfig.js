@@ -241,14 +241,14 @@ const navTree = [
             breadcrumb: false,
             submenu: [],
           },
-          {
-            key: "user-management-approved",
-            path: `${APP_PREFIX_PATH}/apps/users/users/active`,
-            title: "Approved",
-            icon: "",
-            breadcrumb: false,
-            submenu: [],
-          },
+          // {
+          //   key: "user-management-approved",
+          //   path: `${APP_PREFIX_PATH}/apps/users/users/active`,
+          //   title: "Approved",
+          //   icon: "",
+          //   breadcrumb: false,
+          //   submenu: [],
+          // },
           {
             key: "user-management-roles-permissions",
             path: `${APP_PREFIX_PATH}/apps/roles-permissions/roles`,

@@ -21,12 +21,14 @@ import { ROW_GUTTER } from "constants/ThemeConstant";
 import moment from "moment";
 import { connect } from "react-redux";
 import monthsList from "assets/data/months.json";
-import { getInstitute } from "redux/actions/Institutions";
+import { getInstitute, updateInstitute } from "redux/actions/Institutions";
 const { Option } = Select;
 
 class UpdateInstitution extends Component {
   state = {
     data: {},
+    message: "",
+    loading: false,
   };
   componentDidMount = () => {
     const { id } = this.props.match.params;
@@ -34,12 +36,16 @@ class UpdateInstitution extends Component {
 
     this.setState({
       data: this.props.institutionDetails,
+      message: this.props.message,
+      // loading: this.props.loading,
     });
   };
   componentDidUpdate = (prevProps) => {
     if (this.props !== prevProps) {
       this.setState({
         data: this.props.institutionDetails,
+        message: this.props.message,
+        // loading: this.props.loading,
       });
     }
   };
@@ -48,7 +54,18 @@ class UpdateInstitution extends Component {
     this.props.history.goBack();
   }
 
-  onFinish = (values) => {};
+  onFinish = (values) => {
+    console.log("Values", values);
+
+    const key = "updatable";
+    message.loading({ content: "Updating...", key });
+
+    this.props.updateInstitute(values);
+
+    if (this.state.message.length > 1) {
+      message.success("This is a success message");
+    }
+  };
   render() {
     let institute = {};
     let userObject = {};
@@ -82,6 +99,7 @@ class UpdateInstitution extends Component {
                 name="basicInformation"
                 layout="vertical"
                 fields={[
+                  { name: "id", value: institute.id },
                   { name: "name", value: institute.name },
                   { name: "reporting_date", value: institute.reporting_date },
                   { name: "approved", value: institute.approved },
@@ -139,7 +157,7 @@ class UpdateInstitution extends Component {
                     value: institute.max_month,
                   },
                 ]}
-                onFinish={"onFinish"}
+                onFinish={this.onFinish}
                 onFinishFailed={"onFinishFailed"}
               >
                 <Row>
@@ -147,12 +165,25 @@ class UpdateInstitution extends Component {
                     <Row gutter={ROW_GUTTER}>
                       <Col xs={24} sm={24} md={12} xl={8} xxl={8}>
                         <Form.Item
+                          label="Company ID"
+                          name="id"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Please enter company id",
+                            },
+                          ]}
+                        >
+                          <Input />
+                        </Form.Item>
+                      </Col>
+                      <Col xs={24} sm={24} md={12} xl={8} xxl={8}>
+                        <Form.Item
                           label="Name"
                           name="name"
                           rules={[
                             {
                               required: true,
-                              type: "name",
                               message: "Please enter company name",
                             },
                           ]}
@@ -185,7 +216,6 @@ class UpdateInstitution extends Component {
                           rules={[
                             {
                               required: false,
-                              type: "email",
                               message: "Please enter a Limit (%)!",
                             },
                           ]}
@@ -200,7 +230,6 @@ class UpdateInstitution extends Component {
                           rules={[
                             {
                               required: false,
-                              type: "email",
                               message: "Please enter a Limit (%)!",
                             },
                           ]}
@@ -233,7 +262,6 @@ class UpdateInstitution extends Component {
                           rules={[
                             {
                               required: true,
-                              type: "company_code",
                               message: "Please enter code",
                             },
                           ]}
@@ -258,8 +286,12 @@ class UpdateInstitution extends Component {
                             style={{ width: "100%" }}
                             // onChange={""}
                           >
-                            <Option key="male">Active</Option>
-                            <Option key="female">Suspended</Option>
+                            <Option key="active" value={1}>
+                              Active
+                            </Option>
+                            <Option key="suspended" value={0}>
+                              Suspended
+                            </Option>
                           </Select>
                         </Form.Item>
                       </Col>
@@ -274,11 +306,19 @@ class UpdateInstitution extends Component {
                             <Option key="tsc">
                               Teachers Service Commission
                             </Option>
-                            <Option key="forces">Forces/Police</Option>
-                            <Option key="civil-servants">Civil Servants</Option>
-                            <Option key="county-staff">County Staff</Option>
-                            <Option key="parastatals">Parastatals</Option>
-                            <Option key="private-companies">
+                            <Option key="forces" value={1}>
+                              Forces/Police
+                            </Option>
+                            <Option key="civil-servants" value={2}>
+                              Civil Servants
+                            </Option>
+                            <Option key="county-staff" value={3}>
+                              County Staff
+                            </Option>
+                            <Option key="parastatals" value={4}>
+                              Parastatals
+                            </Option>
+                            <Option key="private-companies" value={5}>
                               Private Companies
                             </Option>
                           </Select>
@@ -352,7 +392,9 @@ class UpdateInstitution extends Component {
                           >
                             {monthsList.map((month) => {
                               return (
-                                <Option key={month.value}>{month.label}</Option>
+                                <Option key={month.value} value={month.value}>
+                                  {month.label}
+                                </Option>
                               );
                             })}
                           </Select>
@@ -367,7 +409,9 @@ class UpdateInstitution extends Component {
                           >
                             {monthsList.map((month) => {
                               return (
-                                <Option key={month.value}>{month.label}</Option>
+                                <Option key={month.value} value={month.value}>
+                                  {month.label}
+                                </Option>
                               );
                             })}
                           </Select>
@@ -389,16 +433,19 @@ class UpdateInstitution extends Component {
 }
 
 const mapStateToProps = ({ institutions }) => {
-  let { institutionDetails } = institutions;
+  let { institutionDetails, message, loading } = institutions;
 
-  console.log("Institution in component", institutionDetails);
+  console.log("Message", message);
   return {
     institutionDetails,
+    message,
+    loading,
   };
 };
 
 const mapDispatchToProps = {
   getInstitute,
+  updateInstitute,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateInstitution);

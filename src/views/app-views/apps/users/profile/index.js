@@ -266,222 +266,262 @@ export class Profile extends Component {
         <div className="mb-3">
           <Row>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>First Name : </Text>{" "}
+              <Space>
+                <Text className="text-muted">First Name : </Text>{" "}
                 {userObject.first_name !== null ? (
-                  userObject.first_name
+                  <Text className="font-weight-semibold pl-3">
+                    {userObject.first_name}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>Middle Name : </Text>
+              <Space>
+                <Text className="text-muted">Middle Name : </Text>
                 {userObject.middle_name !== null ? (
-                  userObject.middle_name
+                  <Text className="font-weight-semibold pl-3">
+                    {userObject.middle_name}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>Surname : </Text>
+              <Space>
+                <Text className="text-muted">Surname : </Text>
                 {userObject.surname !== null ? (
-                  userObject.surname
+                  <Text className="font-weight-semibold pl-3">
+                    {userObject.surname}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>Natiobal ID : </Text>
+              <Space>
+                <Text className="text-muted">Natiobal ID : </Text>
                 {userObject.national_id !== null ? (
-                  userObject.national_id
+                  <Text className="font-weight-semibold pl-3">
+                    {userObject.national_id}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>Payroll No : </Text>
+              <Space>
+                <Text className="text-muted">Payroll No : </Text>
                 {userObject.payroll_no !== null ? (
-                  userObject.payroll_no
+                  <Text className="font-weight-semibold pl-3">
+                    {userObject.payroll_no}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>Phone : </Text>
+              <Space>
+                <Text className="text-muted">Phone : </Text>
                 {userObject.phone !== null ? (
-                  userObject.phone
+                  <Text className="font-weight-semibold pl-3">
+                    {userObject.phone}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
 
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>Date of Birth : </Text>
+              <Space>
+                <Text className="text-muted">Date of Birth : </Text>
                 {userObject.dob !== null ? (
-                  userObject.dob
+                  <Text className="font-weight-semibold pl-3">
+                    {userObject.dob}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>Employed : </Text>
+              <Space>
+                <Text className="text-muted">Employed : </Text>
                 {userObject.employed !== null ? (
-                  userObject.employed
+                  <Text className="font-weight-semibold pl-3">
+                    {userObject.employed}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>Gender : </Text>
+              <Space>
+                <Text className="text-muted">Gender : </Text>
                 {userObject.gender !== null ? (
                   userObject.gender === 0 ? (
-                    "Male"
+                    <Text className="font-weight-semibold pl-3">"Male"</Text>
                   ) : (
-                    "Female"
+                    <Text className="font-weight-semibold pl-3">"Female"</Text>
                   )
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>Loan Balance : </Text>
+              <Space>
+                <Text className="text-muted">Loan Balance : </Text>
                 {userObject.loan_balance !== null ? (
-                  userObject.loan_balance
+                  <Text className="font-weight-semibold pl-3">
+                    {userObject.loan_balance}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>Advance Balance : </Text>
+              <Space>
+                <Text className="text-muted">Advance Balance : </Text>
                 {userObject.s_a_balance !== null ? (
-                  userObject.s_a_balance
+                  <Text className="font-weight-semibold pl-3">
+                    {userObject.s_a_balance}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
 
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>Advance Request Status : </Text>
+              <Space>
+                <Text className="text-muted">Advance Request Status : </Text>
                 {userObject.s_a_status !== null ? (
-                  userObject.s_a_status
+                  <Text className="font-weight-semibold pl-3">
+                    {userObject.s_a_status}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>Advance Status : </Text>
+              <Space>
+                <Text className="text-muted">Advance Status : </Text>
                 {userObject.s_a_status !== null ? (
-                  userObject.s_a_status
+                  <Text className="font-weight-semibold pl-3">
+                    {userObject.s_a_status}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
 
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>Credit Score : </Text>
+              <Space>
+                <Text className="text-muted">Credit Score : </Text>
                 {userObject.credit_score !== null ? (
-                  userObject.credit_score
+                  <Text className="font-weight-semibold pl-3">
+                    {userObject.credit_score}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>Loan Limit : </Text>
+              <Space>
+                <Text className="text-muted">Loan Limit : </Text>
                 {userObject.loan_limit !== null ? (
-                  userObject.loan_limit
+                  <Text className="font-weight-semibold pl-3">
+                    {userObject.loan_limit}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>Advance Limit : </Text>
+              <Space>
+                <Text className="text-muted">Advance Limit : </Text>
                 {userObject.advance_limit !== null ? (
-                  userObject.advance_limit
+                  <Text className="font-weight-semibold pl-3">
+                    {userObject.advance_limit}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
 
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>Gross Salary : </Text>
+              <Space>
+                <Text className="text-muted">Gross Salary : </Text>
                 {userObject.gross_salary !== null ? (
-                  userObject.gross_salary
+                  <Text className="font-weight-semibold pl-3">
+                    {userObject.gross_salary}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>Net Salary : </Text>
+              <Space>
+                <Text className="text-muted">Net Salary : </Text>
                 {userObject.net_salary !== null ? (
-                  userObject.net_salary
+                  <Text className="font-weight-semibold pl-3">
+                    {userObject.net_salary}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>Referer Code : </Text>
+              <Space>
+                <Text className="text-muted">Referer Code : </Text>
                 {userObject.refer_code !== null ? (
-                  userObject.refer_code
+                  <Text className="font-weight-semibold pl-3">
+                    {userObject.refer_code}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>Referer ID : </Text>
+              <Space>
+                <Text className="text-muted">Referer ID : </Text>
                 {userObject.referer_user_id !== null ? (
-                  userObject.referer_user_id
+                  <Text className="font-weight-semibold pl-3">
+                    {userObject.referer_user_id}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
             <Col sm={24} md={12} xl={8} xxl={8} xs={24}>
-              <div>
-                <Text strong>Created At : </Text>
+              <Space>
+                <Text className="text-muted">Created At :</Text>
                 {userObject.created_at !== null ? (
-                  userObject.created_at
+                  <Text className="font-weight-semibold pl-3">
+                    {userObject.created_at}
+                  </Text>
                 ) : (
                   <Tag color="gold">Not Set</Tag>
                 )}
-              </div>
+              </Space>
             </Col>
           </Row>
         </div>
@@ -490,11 +530,7 @@ export class Profile extends Component {
     const avatarSize = 150;
     return (
       <>
-        <PageHeaderAlt
-          background="/img/others/img-12.jpg"
-          cssClass="bg-primary"
-          overlap
-        >
+        <PageHeaderAlt cssClass="bg-primary" overlap>
           <div className="container text-center">
             <div className="py-3 my-4"></div>
           </div>

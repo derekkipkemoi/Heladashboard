@@ -1,8 +1,11 @@
-import { SAVE_INSTITUTE, SAVE_INSTITUTIONS } from "redux/constants/Institutions";
+import { message } from "antd";
+import { INSTITUTE_UPDATED, SAVE_INSTITUTE, SAVE_INSTITUTIONS } from "redux/constants/Institutions";
 
 const initState = {
   institutionsList: [],
-  institutionDetails: {}
+  institutionDetails: {},
+  loading: true,
+  message: ""
 };
 
 const Institutions = (state = initState, action) => {
@@ -17,6 +20,13 @@ const Institutions = (state = initState, action) => {
       return {
         ...state,
         institutionDetails: action.instituteDetails,
+      };
+
+      case INSTITUTE_UPDATED:
+      return {
+        ...state,
+        message: action.message,
+        loading: false
       };
 
     default:

@@ -42,7 +42,7 @@ class UserMenu extends React.Component {
         mode="horizontal"
         className="pb-3 pl-3 pt-3"
       >
-        <Link to={`${match.url}/compose`}>
+        <Link to={`/app/apps/users/newuser`}>
           <Button type="primary" block>
             <UserAddOutlined />
             <span>Add New User</span>

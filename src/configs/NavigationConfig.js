@@ -309,10 +309,10 @@ const navTree = [
         submenu: [
           {
             key: "company-settings",
-            path: `${APP_PREFIX_PATH}/company-settings`,
+            path: `${APP_PREFIX_PATH}/apps/settings/settings`,
             title: "Company Settings",
             icon: "",
-            breadcrumb: true,
+            breadcrumb: false,
             submenu: [],
           },
           {

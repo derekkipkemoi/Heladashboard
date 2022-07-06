@@ -27,6 +27,7 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import UsersMenu from "./UsersMenu";
 import UsersDashboard from "./userDashboard";
+import DeclineUser from "./profile/DeclineUser";
 const { Text } = Typography;
 export class Users extends Component {
   state = {
@@ -95,6 +96,7 @@ export class Users extends Component {
     let data = [];
     this.props.getUsers();
     data = this.props.users;
+    console.log("User data", data);
     this.setState({
       users: data,
     });
@@ -104,8 +106,39 @@ export class Users extends Component {
     if (this.props !== prevProps) {
       let data = [];
       data = this.props.users;
+      console.log("User data", data);
       this.setState({
         users: data,
+      });
+    }
+  };
+
+  filterData(inputValue) {
+    const data = this.state.users;
+    const filtered = data.filter(
+      (item) =>
+        item.first_name.includes(inputValue) ||
+        item.middle_name.includes(inputValue) ||
+        item.surname.includes(inputValue) ||
+        item.email.includes(inputValue) ||
+        item.phone.includes(inputValue) ||
+        item.dob.includes(inputValue) ||
+        item.created_at.includes(inputValue) ||
+        item.national_id.includes(inputValue) 
+    );
+
+    this.setState({
+      users: filtered,
+    });
+  }
+
+  onSearch = (event) => {
+    const inputValue = event.target.value;
+    this.filterData(inputValue);
+
+    if (inputValue.length <= 0) {
+      this.setState({
+        users: this.props.users,
       });
     }
   };
@@ -141,24 +174,21 @@ export class Users extends Component {
             <span className="ml-2">View User</span>
           </Flex>
         </Menu.Item>
-        <Menu.Item>
-          <Flex alignItems="center">
-            <CheckOutlined />
-            <span className="ml-2">Approve User</span>
-          </Flex>
-        </Menu.Item>
+        {row.user_status === "active" ? null : (
+          <Menu.Item>
+            <Flex alignItems="center">
+              <CheckOutlined />
+              <span className="ml-2">Approve User</span>
+            </Flex>
+          </Menu.Item>
+        )}
         <Menu.Item onClick={(e) => updateUser(row)}>
           <Flex alignItems="center">
             <EditOutlined />
             <span className="ml-2">Edit User</span>
           </Flex>
         </Menu.Item>
-        <Menu.Item>
-          <Flex alignItems="center">
-            <StopOutlined />
-            <span className="ml-2">Decline User</span>
-          </Flex>
-        </Menu.Item>
+        <DeclineUser userDetails={row}/>
       </Menu>
     );
 
@@ -166,7 +196,7 @@ export class Users extends Component {
       {
         title: "User",
         dataIndex: "first_name",
-        width: 270,
+        width: 300,
         render: (_, record) => (
           <div className="d-flex">
             <UserAvatar
@@ -187,98 +217,98 @@ export class Users extends Component {
       {
         title: "User Phone",
         dataIndex: "phone",
-        width: 140,
+        // width: 140,
       },
       {
         title: "National ID",
         dataIndex: "national_id",
-        width: 120,
+        // width: 120,
         sorter: (a, b) => parseInt(a.national_id) - parseInt(b.national_id),
         sortDirections: ["descend", "ascend"],
       },
       {
         title: "DOB",
         dataIndex: "dob",
-        width: 110,
+        // width: 110,
         render: (dob) => <span>{moment(dob).format("MM/DD/YYYY")} </span>,
         sorter: (a, b) => moment(a.dob).unix() - moment(b.dob).unix(),
       },
       {
         title: "Registered Date",
         dataIndex: "created_at",
-        width: 150,
+        // width: 150,
         render: (date) => <span>{moment(date).format("MM/DD/YYYY")} </span>,
         sorter: (a, b) =>
           moment(a.created_at).unix() - moment(b.created_at).unix(),
       },
-      {
-        title: "Loan Bal.",
-        dataIndex: "loan_balance",
-        render: (loan_balance) => (
-          <div>
-            {loan_balance === null ? (
-              <Tag className="text-capitalize" color="yellow">
-                Not Set
-              </Tag>
-            ) : (
-              <Text>{loan_balance}</Text>
-            )}
-          </div>
-        ),
-        sorter: (a, b) => parseInt(a.loan_balance) - parseInt(b.loan_balance),
-        sortDirections: ["descend", "ascend"],
-      },
-      {
-        title: "Advance Bal.",
-        dataIndex: "advance_limit",
-        render: (advance_limit) => (
-          <div>
-            {advance_limit === null ? (
-              <Tag className="text-capitalize" color="yellow">
-                Not Set
-              </Tag>
-            ) : (
-              <Text>{advance_limit}</Text>
-            )}
-          </div>
-        ),
-        sorter: (a, b) => parseInt(a.advance_limit) - parseInt(b.advance_limit),
-        sortDirections: ["descend", "ascend"],
-      },
-      {
-        title: "Gross Sal.",
-        dataIndex: "gross_salary",
-        render: (gross_salary) => (
-          <div>
-            {gross_salary === null ? (
-              <Tag className="text-capitalize" color="yellow">
-                Not Set
-              </Tag>
-            ) : (
-              <Text>{gross_salary}</Text>
-            )}
-          </div>
-        ),
-        sorter: (a, b) => parseInt(a.gross_salary) - parseInt(b.gross_salary),
-        sortDirections: ["descend", "ascend"],
-      },
-      {
-        title: "Net Sal.",
-        dataIndex: "net_salary",
-        render: (net_salary) => (
-          <div>
-            {net_salary === null ? (
-              <Tag className="text-capitalize" color="yellow">
-                Not Set
-              </Tag>
-            ) : (
-              <Text>{net_salary}</Text>
-            )}
-          </div>
-        ),
-        sorter: (a, b) => parseInt(a.net_salary) - parseInt(b.net_salary),
-        sortDirections: ["descend", "ascend"],
-      },
+      // {
+      //   title: "Loan Bal.",
+      //   dataIndex: "loan_balance",
+      //   render: (loan_balance) => (
+      //     <div>
+      //       {loan_balance === null ? (
+      //         <Tag className="text-capitalize" color="yellow">
+      //           Not Set
+      //         </Tag>
+      //       ) : (
+      //         <Text>{loan_balance}</Text>
+      //       )}
+      //     </div>
+      //   ),
+      //   sorter: (a, b) => parseInt(a.loan_balance) - parseInt(b.loan_balance),
+      //   sortDirections: ["descend", "ascend"],
+      // },
+      // {
+      //   title: "Advance Bal.",
+      //   dataIndex: "advance_limit",
+      //   render: (advance_limit) => (
+      //     <div>
+      //       {advance_limit === null ? (
+      //         <Tag className="text-capitalize" color="yellow">
+      //           Not Set
+      //         </Tag>
+      //       ) : (
+      //         <Text>{advance_limit}</Text>
+      //       )}
+      //     </div>
+      //   ),
+      //   sorter: (a, b) => parseInt(a.advance_limit) - parseInt(b.advance_limit),
+      //   sortDirections: ["descend", "ascend"],
+      // },
+      // {
+      //   title: "Gross Sal.",
+      //   dataIndex: "gross_salary",
+      //   render: (gross_salary) => (
+      //     <div>
+      //       {gross_salary === null ? (
+      //         <Tag className="text-capitalize" color="yellow">
+      //           Not Set
+      //         </Tag>
+      //       ) : (
+      //         <Text>{gross_salary}</Text>
+      //       )}
+      //     </div>
+      //   ),
+      //   sorter: (a, b) => parseInt(a.gross_salary) - parseInt(b.gross_salary),
+      //   sortDirections: ["descend", "ascend"],
+      // },
+      // {
+      //   title: "Net Sal.",
+      //   dataIndex: "net_salary",
+      //   render: (net_salary) => (
+      //     <div>
+      //       {net_salary === null ? (
+      //         <Tag className="text-capitalize" color="yellow">
+      //           Not Set
+      //         </Tag>
+      //       ) : (
+      //         <Text>{net_salary}</Text>
+      //       )}
+      //     </div>
+      //   ),
+      //   sorter: (a, b) => parseInt(a.net_salary) - parseInt(b.net_salary),
+      //   sortDirections: ["descend", "ascend"],
+      // },
       {
         title: "Status",
         dataIndex: "user_status",
@@ -341,7 +371,7 @@ export class Users extends Component {
                   size="small"
                   placeholder="Search"
                   onChange={(e) => {
-                    this.search(e);
+                    this.onSearch(e);
                   }}
                 />
               </div>

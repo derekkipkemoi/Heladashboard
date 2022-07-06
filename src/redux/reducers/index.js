@@ -5,6 +5,7 @@ import Messaging from './Messaging'
 import RolesPermissions from './RolesPermissions';
 import Users from './Users';
 import Institutions from './Institutions';
+import settings from './Settings';
 
 const reducers = combineReducers({
     theme: Theme,
@@ -12,7 +13,8 @@ const reducers = combineReducers({
     messaging: Messaging,
     rolesPermissions: RolesPermissions,
     usersList: Users,
-    institutions: Institutions
+    institutions: Institutions,
+    systemSettings: settings
 });
 
 export default reducers;

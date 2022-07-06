@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
+import AddInstitution from "./AddInstitution";
 import Institutions from "./Institutions";
 import UpdateInstitution from "./UpdateIntitution";
 import ViewInstitution from "./ViewInstitution";
@@ -18,6 +19,16 @@ export class InstitutionsContent extends Component {
           exact
           path={`${match.url}/viewinstitution/:id`}
           component={ViewInstitution}
+        />
+        <Route
+          exact
+          path={`${match.url}/viewinstitution/:id`}
+          component={ViewInstitution}
+        />
+        <Route
+          exact
+          path={`${match.url}/addinstitution`}
+          component={AddInstitution}
         />
         <Route exact path={`${match.url}/updateinstitution/:id`} component={UpdateInstitution} />
       </Switch>

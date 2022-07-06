@@ -4,7 +4,16 @@ import {
   SAVE_WEEKLY_DATA,
   GET_WEEKLY_DATA,
   GET_USER_DETAILS,
-  SAVE_USER
+  SAVE_USER,
+  USER_UPDATED,
+  UPDATE_USER,
+  CHANGE_USER_ROLE,
+  CHANGE_USER_TYPE,
+  DEACTIVATE_USER,
+  ACTIVATE_USER,
+  DECLINE_USER,
+  APPROVE_USER,
+  CHANGE_PASSWORD,
 } from "redux/constants/Users";
 
 export const getUsers = () => {
@@ -29,21 +38,84 @@ export const getWeeklyData = () => {
 export const saveWeeklyData = (data) => {
   return {
     type: SAVE_WEEKLY_DATA,
-    data
+    data,
   };
 };
 
 export const getUserDetails = (id) => {
-  console.log("Id in action", id)
+  console.log("Id in action", id);
   return {
     type: GET_USER_DETAILS,
-    payload: id
+    payload: id,
   };
 };
 
 export const saveUser = (user) => {
   return {
     type: SAVE_USER,
-    user
+    user,
+  };
+};
+
+export const updateUser = (id, user) => {
+  return {
+    type: UPDATE_USER,
+    payload: { id, user },
+  };
+};
+
+export const userUpdated = (message) => {
+  return {
+    type: USER_UPDATED,
+    message,
+  };
+};
+
+export const changeUserRole = (id) => {
+  return {
+    type: CHANGE_USER_ROLE,
+    payload: id,
+  };
+};
+
+export const changeUserType = (id) => {
+  return {
+    type: CHANGE_USER_TYPE,
+    payload: id,
+  };
+};
+
+export const deactivateUser = (id, data) => {
+  return {
+    type: DEACTIVATE_USER,
+    payload: { id, data },
+  };
+};
+
+export const activateUser = (id) => {
+  return {
+    type: ACTIVATE_USER,
+    payload: id,
+  };
+};
+
+export const declineUser = (id) => {
+  return {
+    type: DECLINE_USER,
+    payload: id,
+  };
+};
+
+export const approveUser = (id) => {
+  return {
+    type: APPROVE_USER,
+    payload: id,
+  };
+};
+
+export const changePassword = (id) => {
+  return {
+    type: CHANGE_PASSWORD,
+    payload: id,
   };
 };

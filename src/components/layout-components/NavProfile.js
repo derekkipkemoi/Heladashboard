@@ -1,6 +1,7 @@
 import React from "react";
 import { Menu, Dropdown, Avatar } from "antd";
 import { connect } from "react-redux";
+import { USER_ID, USER_NAME } from "redux/constants/Auth";
 import {
   EditOutlined,
   SettingOutlined,
@@ -10,18 +11,20 @@ import {
 } from "@ant-design/icons";
 import Icon from "components/util-components/Icon";
 import { signOut } from "redux/actions/Auth";
+import UserAvatar from "components/shared-components/UserAvatar";
+import TopBarAvatar from "components/shared-components/TopBarAvatar";
 
 const menuItem = [
   {
     title: "Edit Profile",
     icon: EditOutlined,
-    path: "/",
+    path: `/app/apps/users/updateuser/${localStorage.getItem(USER_ID)}/${"updateprofile"}`,
   },
 
   {
     title: "Account Setting",
     icon: SettingOutlined,
-    path: "/",
+    path: `/app/apps/users/viewuser/${localStorage.getItem(USER_ID)}/${"details"}`,
   },
   //   {
   // 	title: "Billing",
@@ -37,15 +40,22 @@ const menuItem = [
 
 export const NavProfile = ({ signOut }) => {
   const profileImg = "/img/avatars/thumb-1.jpg";
+  const id = localStorage.getItem(USER_ID);
+  const name = localStorage.getItem(USER_NAME);
+  console.log("User name", name, id);
   const profileMenu = (
     <div className="nav-profile nav-dropdown">
       <div className="nav-profile-header">
         <div className="d-flex">
-          <Avatar size={45} src={profileImg} />
-          <div className="pl-3">
-            <h4 className="mb-0">Charlie Howard</h4>
-            <span className="text-muted">Frontend Developer</span>
-          </div>
+          {/* <Avatar size={45} src={profileImg} /> */}
+          <UserAvatar
+              src={""}
+              name={name}
+              // subTitle={record.email}
+            />
+          {/* <div className="pl-3">
+            <h4 className="mb-0 pb-0">{name}</h4>
+          </div> */}
         </div>
       </div>
       <div className="nav-profile-body">
@@ -74,7 +84,7 @@ export const NavProfile = ({ signOut }) => {
     <Dropdown placement="bottomRight" overlay={profileMenu} trigger={["click"]}>
       <Menu className="d-flex align-item-center" mode="horizontal">
         <Menu.Item key="profile">
-          <Avatar src={profileImg} />
+          <TopBarAvatar name={localStorage.getItem(USER_NAME)}/>
         </Menu.Item>
       </Menu>
     </Dropdown>

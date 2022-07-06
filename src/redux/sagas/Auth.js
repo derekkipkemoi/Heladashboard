@@ -2,6 +2,8 @@ import { all, takeEvery, put, fork, call } from "redux-saga/effects";
 import {
   AUTH_TOKEN,
   USER_PHONE,
+  USER_ID,
+  USER_NAME,
   SIGNIN,
   SIGNOUT,
   SIGNUP,
@@ -29,6 +31,8 @@ export function* signInWithFBEmail() {
       } else if (response.data.message === "logged in successful") {
         localStorage.setItem(AUTH_TOKEN, response.headers.token);
         localStorage.setItem(USER_PHONE, response.data.phone);
+        localStorage.setItem(USER_ID, response.data.user_id);
+        localStorage.setItem(USER_NAME, response.data.first_name + " " + response.data.surname);
         yield put(authenticated(response.headers.token));
       }
       //   if (user === 'username/password is wrong!') {

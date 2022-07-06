@@ -12,6 +12,8 @@ import {
   Select,
   Radio,
   Alert,
+  Card,
+  PageHeader,
 } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { ROW_GUTTER } from "constants/ThemeConstant";
@@ -23,7 +25,7 @@ import { getUserDetails, updateUser } from "redux/actions/Users";
 import moment from "moment";
 const { Option } = Select;
 
-export class EditProfile extends Component {
+export class NewUser extends Component {
   avatarEndpoint = "https://www.mocky.io/v2/5cc8019d300000980a055e76";
 
   state = {
@@ -51,27 +53,31 @@ export class EditProfile extends Component {
     user: {},
   };
 
-  componentDidMount() {
-    const { id } = this.props.match.params;
-    this.props.getUserDetails(id);
-    if (this.props.user.user) {
-      console.log("User Details", this.props.user);
-      this.setState({
-        id: id
-      });
-    }
-  }
+  //   componentDidMount() {
+  //     const { id } = this.props.match.params;
+  //     this.props.getUserDetails(id);
+  //     if (this.props.user.user) {
+  //       console.log("User Details", this.props.user);
+  //       this.setState({
+  //         id: id
+  //       });
+  //     }
+  //   }
 
-  componentDidUpdate = (prevProps) => {
-    const { id } = this.props.match.params;
-    if (this.props !== prevProps) {
-      this.setState({
-        user: this.props.user,
-        loading: this.props.loadingUser,
-        id: id
-      });
-    }
-  };
+  //   componentDidUpdate = (prevProps) => {
+  //     const { id } = this.props.match.params;
+  //     if (this.props !== prevProps) {
+  //       this.setState({
+  //         user: this.props.user,
+  //         loading: this.props.loadingUser,
+  //         id: id
+  //       });
+  //     }
+  //   };
+
+  back() {
+    this.props.history.goBack();
+  }
 
   getBase64(img, callback) {
     const reader = new FileReader();
@@ -80,13 +86,11 @@ export class EditProfile extends Component {
   }
 
   onFinish = (values) => {
-    console.log("User update", values)
-    this.props.updateUser(this.state.id, values)
+    console.log("User update", values);
+    // this.props.updateUser(this.state.id, values)
   };
 
   render() {
-    
-
     const onFinishFailed = (errorInfo) => {
       console.log("Failed:", errorInfo);
     };
@@ -116,20 +120,26 @@ export class EditProfile extends Component {
     let { user } = this.state;
 
     let userObject = {};
-    let dateOfBirth = ""
+    let dateOfBirth = "";
 
     if (user.user) {
       userObject = user.user;
-      dateOfBirth = userObject.dob
+      dateOfBirth = userObject.dob;
     }
 
     return (
-      <div>
+      <Card>
+        <PageHeader
+          onBack={() => {
+            this.back();
+          }}
+          title="Add New User"
+        />
         {this.state.loading ? (
           <Spin tip="Loading...">
             <Alert
-              message="Loading permissions"
-              description="Please wait.... Permissions loading"
+              message="Adding New User"
+              description="Please wait...."
               type="info"
             />
           </Spin>
@@ -163,41 +173,6 @@ export class EditProfile extends Component {
               <Form
                 name="basicInformation"
                 layout="vertical"
-                fields={[
-                  { name: "first_name", value: userObject.first_name },
-                  { name: "middle_name", value: userObject.middle_name },
-                  { name: "surname", value: userObject.surname },
-                  { name: "email", value: userObject.email },
-                  {
-                    name: "gender",
-                    value: userObject.gender === 0 ? "Male" : "Female",
-                  },
-                  { name: "dob", value: userObject.dob },
-                  { name: "phone", value: userObject.phone },
-                  { name: "national_id", value: userObject.national_id },
-                  {
-                    name: "employed",
-                    value:
-                      userObject.employed === 0 ? "Employed" : "Self Employed",
-                  },
-                  { name: "payroll_no", value: userObject.payroll_no },
-                  {
-                    name: "advance_request_status",
-                    value: userObject.advance_request_status,
-                  },
-                  { name: "loan_status", value: userObject.loan_status },
-                  { name: "s_a_status", value: userObject.s_a_status },
-                  { name: "verified", value: userObject.verified },
-                  { name: "credit_score", value: userObject.credit_score },
-                  { name: "loan_limit", value: userObject.loan_limit },
-                  { name: "gross_salary", value: userObject.gross_salary },
-                  { name: "advance_limit", value: userObject.advance_limit },
-                  {
-                    name: "loan_request_status",
-                    value: userObject.loan_request_status,
-                  },
-                  { name: "net_salary", value: userObject.net_salary },
-                ]}
                 onFinish={this.onFinish}
                 onFinishFailed={onFinishFailed}
               >
@@ -263,10 +238,7 @@ export class EditProfile extends Component {
                       </Col>
                       <Col xs={24} sm={24} md={12} xl={8} xxl={8}>
                         <Form.Item label="Date of Birth">
-                          <DatePicker
-                            defaultValue={moment(userObject.dob, "YYYY-MM-DD")}
-                            format="YYYY-MM-DD"
-                          />
+                          <DatePicker format="YYYY-MM-DD" />
                         </Form.Item>
                       </Col>
                       <Col xs={24} sm={24} md={12} xl={8} xxl={8}>
@@ -332,12 +304,8 @@ export class EditProfile extends Component {
                           name="advance_request_status"
                         >
                           <Radio.Group defaultValue="a" size="small">
-                            <Radio.Button value={0}>
-                              Inactive
-                            </Radio.Button>
-                            <Radio.Button value={1}>
-                              Active
-                            </Radio.Button>
+                            <Radio.Button value={0}>Inactive</Radio.Button>
+                            <Radio.Button value={1}>Active</Radio.Button>
                           </Radio.Group>
                         </Form.Item>
                       </Col>
@@ -420,7 +388,7 @@ export class EditProfile extends Component {
             </div>
           </div>
         )}
-      </div>
+      </Card>
     );
   }
 }
@@ -437,7 +405,7 @@ const mapStateToProps = ({ usersList }) => {
 
 const mapDispatchToProps = {
   getUserDetails,
-  updateUser
+  updateUser,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(NewUser);

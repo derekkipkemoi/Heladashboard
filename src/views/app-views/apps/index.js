@@ -25,6 +25,10 @@ const Apps = ({ match }) => (
         path={`${match.url}/institutions`}
         component={lazy(() => import(`./institutions`))}
       />
+      <Route
+        path={`${match.url}/settings`}
+        component={lazy(() => import(`./settings`))}
+      />
       <Redirect from={`${match.url}`} to={`${match.url}/message`} />
     </Switch>
   </Suspense>

@@ -40,7 +40,7 @@ class ProfileMenu extends Component {
             User Request Files
           </Link>
         </Menu.Item>
-        <Menu.Item key="user-salary-advances" icon={<DollarOutlined />}>
+        {/* <Menu.Item key="user-salary-advances" icon={<DollarOutlined />}>
           <Link
             to={{
               pathname: `advances`,
@@ -48,7 +48,7 @@ class ProfileMenu extends Component {
           >
             User Salary Advances
           </Link>
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item key="crb-report" icon={<DollarOutlined />}>
           <Link
             to={{

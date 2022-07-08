@@ -41,7 +41,7 @@ function CreateTemplate(props) {
         <span>Create Template</span>
       </Button>
       <Modal
-        title="Update Reminder"
+        title="Create Template Message"
         visible={visible}
         onOk={form.submit}
         confirmLoading={confirmLoading}

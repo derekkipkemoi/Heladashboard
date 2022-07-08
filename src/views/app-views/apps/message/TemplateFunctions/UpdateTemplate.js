@@ -45,7 +45,7 @@ function UpdateTemplate(props) {
         onClick={showModal}
       />
       <Modal
-        title="Update Reminder"
+        title="Update Template Message"
         visible={visible}
         onOk={form.submit}
         confirmLoading={confirmLoading}

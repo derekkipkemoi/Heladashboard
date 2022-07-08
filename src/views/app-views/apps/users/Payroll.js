@@ -288,7 +288,7 @@ export class Payroll extends Component {
       //   sortDirections: ["descend", "ascend"],
       // },
       {
-        title: "Comapany",
+        title: "Company",
         dataIndex: "company_name",
         key: "company_name"
       },
@@ -298,9 +298,9 @@ export class Payroll extends Component {
         render: (status) => (
             status === "1" ?
           <Tag className="text-capitalize" color="cyan">
-            Active
-          </Tag> : <Tag className="text-capitalize" color="cyan">
             Inactive
+          </Tag> : <Tag className="text-capitalize" color="cyan">
+            Active
           </Tag>
         ),
       },

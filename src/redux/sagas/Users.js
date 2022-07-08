@@ -12,7 +12,12 @@ import {
   APPROVE_USER,
   CHANGE_PASSWORD,
 } from "redux/constants/Users";
-import { saveUser, saveUsers, saveWeeklyData, userUpdated } from "redux/actions/Users";
+import {
+  saveUser,
+  saveUsers,
+  saveWeeklyData,
+  userUpdated,
+} from "redux/actions/Users";
 import AppService from "services/AppService";
 
 export function* getUsers() {
@@ -42,9 +47,7 @@ export function* getUsersWeeklyRegistration() {
 export function* getUserDetails() {
   yield takeEvery(GET_USER_DETAILS, function* ({ payload }) {
     try {
-      console.log("Payload", payload);
       const response = yield call(AppService.getUserDetails, payload);
-      console.log("Sagas weekly data response", response);
       yield put(saveUser(response));
     } catch (err) {
       console.log("Messages listing error in sagas", err);
@@ -88,9 +91,8 @@ export function* changeUserType() {
 export function* deactivateUser() {
   yield takeEvery(DEACTIVATE_USER, function* ({ payload }) {
     try {
-      console.log("Payload", payload);
       const response = yield call(AppService.deactivateUser, payload);
-      console.log("Sagas user update", response.message);
+
       yield put(userUpdated(response.message));
     } catch (err) {
       console.log("Messages listing error in sagas", err);
@@ -101,9 +103,8 @@ export function* deactivateUser() {
 export function* activateUser() {
   yield takeEvery(ACTIVATE_USER, function* ({ payload }) {
     try {
-      console.log("Payload", payload);
       const response = yield call(AppService.activateUser, payload);
-      console.log("Sagas user update", response);
+
       // yield put(saveUser(response));
     } catch (err) {
       console.log("Messages listing error in sagas", err);
@@ -114,7 +115,6 @@ export function* activateUser() {
 export function* declineUser() {
   yield takeEvery(DECLINE_USER, function* ({ payload }) {
     try {
-      console.log("Payload", payload);
       const response = yield call(AppService.declineUser, payload);
       yield put(userUpdated(response.message));
     } catch (err) {
@@ -126,9 +126,7 @@ export function* declineUser() {
 export function* approveUser() {
   yield takeEvery(APPROVE_USER, function* ({ payload }) {
     try {
-      console.log("Payload", payload);
       const response = yield call(AppService.approveUser, payload);
-      console.log("Sagas user update", response);
       // yield put(saveUser(response));
     } catch (err) {
       console.log("Messages listing error in sagas", err);
@@ -139,9 +137,7 @@ export function* approveUser() {
 export function* changePassword() {
   yield takeEvery(CHANGE_PASSWORD, function* ({ payload }) {
     try {
-      console.log("Payload", payload);
       const response = yield call(AppService.changePassword, payload);
-      console.log("Sagas user update", response);
       // yield put(saveUser(response));
     } catch (err) {
       console.log("Messages listing error in sagas", err);
@@ -161,6 +157,6 @@ export default function* rootSaga() {
     fork(activateUser),
     fork(declineUser),
     fork(approveUser),
-    fork(changePassword)
+    fork(changePassword),
   ]);
 }

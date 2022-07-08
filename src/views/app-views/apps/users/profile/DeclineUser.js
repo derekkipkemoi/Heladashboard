@@ -60,7 +60,7 @@ function DeclineUser(props) {
             </Text>
           </Space>
         ) : (
-          <Space>
+          
             <Form
               form={form}
               onFinish={handleSubmit}
@@ -84,7 +84,7 @@ function DeclineUser(props) {
                 <Input />
               </Form.Item>
             </Form>
-          </Space>
+          
         )}
       </Modal>
     </div>

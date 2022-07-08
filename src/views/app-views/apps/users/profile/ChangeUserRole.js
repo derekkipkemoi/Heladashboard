@@ -19,8 +19,8 @@ function ChangeUserRole(props) {
     setUpdate(true);
     props.changeUserRole(params.id);
     update(props.loadingUser);
-    if(!props.loadingUser){
-      setVisible(false)
+    if (!props.loadingUser) {
+      setVisible(false);
     }
   };
 
@@ -34,31 +34,34 @@ function ChangeUserRole(props) {
       <Button size="small" type="primary" onClick={showModal}>
         Change User Role
       </Button>
-      <Modal title="Change User Role" visible={visible} onOk={form.submit} onCancel={handleCancel}>
+      <Modal
+        title="Change User Role"
+        visible={visible}
+        onOk={form.submit}
+        onCancel={handleCancel}
+      >
         {update ? (
           <Spin tip="Updating user role...">
             <Alert message="Updating user role" type="info" />
           </Spin>
         ) : (
-          <Space>
-            <Form form={form} onFinish={handleSubmit}>
-              <Form.Item
-                label="Role Name"
-                name="item_name"
-                rules={[{ required: true, message: "Please input role name!" }]}
-              >
-                <Input />
-              </Form.Item>
+          <Form form={form} onFinish={handleSubmit}>
+            <Form.Item
+              label="Role Name"
+              name="item_name"
+              rules={[{ required: true, message: "Please input role name!" }]}
+            >
+              <Input />
+            </Form.Item>
 
-              <Form.Item
-                label="Email"
-                name="email"
-                rules={[{ required: true, message: "Please input email!" }]}
-              >
-                <Input />
-              </Form.Item>
-            </Form>
-          </Space>
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[{ required: true, message: "Please input email!" }]}
+            >
+              <Input />
+            </Form.Item>
+          </Form>
         )}
       </Modal>
     </div>

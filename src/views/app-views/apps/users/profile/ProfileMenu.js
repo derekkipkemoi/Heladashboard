@@ -9,36 +9,46 @@ import { Link } from "react-router-dom";
 
 const { SubMenu } = Menu;
 class ProfileMenu extends Component {
-  state = {};
+  // state = {
+  //   current: "user-details",
+  // };
+  // handleClick = (e) => {
+  //   console.log("click ", e.key);
+  //   this.setState({ current: e.key });
+  // };
+
+  componentDidMount = () => {
+    const { content } = this.props.match.params;
+    console.log("content", content);
+  };
+
   render() {
+    const { content } = this.props.match.params;
     return (
-      <Menu onClick={this.handleClick} mode="horizontal">
-        <Menu.Item key="user-details" icon={<UserOutlined />}>
+      <Menu selectedKeys={[content]} mode="horizontal">
+        <Menu.Item key="details" icon={<UserOutlined />}>
           <Link
             to={{
               pathname: `details`,
             }}
-          >
-            User Details
-          </Link>
+          ></Link>
+          User Details
         </Menu.Item>
         <Menu.Item key="registration-files" icon={<FileSyncOutlined />}>
           <Link
             to={{
               pathname: `registration-files`,
             }}
-          >
-            User Registration Files
-          </Link>
+          ></Link>
+          User Registration Files
         </Menu.Item>
         <Menu.Item key="request-files" icon={<FileSyncOutlined />}>
           <Link
             to={{
               pathname: `request-files`,
             }}
-          >
-            User Request Files
-          </Link>
+          ></Link>
+          User Request Files
         </Menu.Item>
         {/* <Menu.Item key="user-salary-advances" icon={<DollarOutlined />}>
           <Link
@@ -49,14 +59,13 @@ class ProfileMenu extends Component {
             User Salary Advances
           </Link>
         </Menu.Item> */}
-        <Menu.Item key="crb-report" icon={<DollarOutlined />}>
+        <Menu.Item key="crb" icon={<DollarOutlined />}>
           <Link
             to={{
               pathname: `crb`,
             }}
-          >
-            CRB Report
-          </Link>
+          ></Link>
+          CRB Report
         </Menu.Item>
       </Menu>
     );

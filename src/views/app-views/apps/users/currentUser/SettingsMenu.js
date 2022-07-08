@@ -7,21 +7,20 @@ import { Link } from "react-router-dom";
 class SettingsMenu extends Component {
   state = {};
   render() {
-    const { match, location } = this.props;
+    const { match } = this.props;
     const { content } = this.props.match.params;
-    console.log("Match url", match.url)
     return (
       <Menu
         defaultSelectedKeys={`${match.url}/updateuser`}
         mode="inline"
         selectedKeys={[content]}
       >
-        <Menu.Item key={`updateprofile`}>
+        <Menu.Item key={`viewprofile`}>
           <UserOutlined />
-          <span>Edit Profile</span>
+          <span>Profile</span>
           <Link
             to={{
-              pathname: `updateprofile`,
+              pathname: `viewprofile`,
             }}
           ></Link>
         </Menu.Item>

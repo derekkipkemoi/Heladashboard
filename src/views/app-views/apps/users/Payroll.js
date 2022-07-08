@@ -23,13 +23,14 @@ import Flex from "components/shared-components/Flex";
 import EllipsisDropdown from "components/shared-components/EllipsisDropdown";
 import { connect } from "react-redux";
 import { getUsers } from "redux/actions/Users";
+import { payRollRegistration } from "redux/actions/Payroll";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import UsersMenu from "./UsersMenu";
 import UsersDashboard from "./userDashboard";
 import DeclineUser from "./profile/DeclineUser";
 const { Text } = Typography;
-export class Users extends Component {
+export class Payroll extends Component {
   state = {
     users: [],
     userProfileVisible: false,
@@ -59,8 +60,6 @@ export class Users extends Component {
   };
 
   printPdf = (value) => {
-   
-
     // html2canvas(document.querySelector("#capture")).then((canvas) => {
     //   document.body.appendChild(canvas); // if you want see your screenshot in body.
     //   const imgData = canvas.toDataURL("image/png");
@@ -95,6 +94,7 @@ export class Users extends Component {
   componentDidMount() {
     let data = [];
     this.props.getUsers();
+    this.props.payRollRegistration();
     data = this.props.users;
     this.setState({
       users: data,
@@ -122,7 +122,7 @@ export class Users extends Component {
         item.phone.includes(inputValue) ||
         item.dob.includes(inputValue) ||
         item.created_at.includes(inputValue) ||
-        item.national_id.includes(inputValue) 
+        item.national_id.includes(inputValue)
     );
 
     this.setState({
@@ -183,7 +183,7 @@ export class Users extends Component {
             <span className="ml-2">Edit User</span>
           </Flex>
         </Menu.Item>
-        <DeclineUser userDetails={row}/>
+        <DeclineUser userDetails={row} />
       </Menu>
     );
 
@@ -287,49 +287,37 @@ export class Users extends Component {
       //   sorter: (a, b) => parseInt(a.gross_salary) - parseInt(b.gross_salary),
       //   sortDirections: ["descend", "ascend"],
       // },
-      // {
-      //   title: "Net Sal.",
-      //   dataIndex: "net_salary",
-      //   render: (net_salary) => (
-      //     <div>
-      //       {net_salary === null ? (
-      //         <Tag className="text-capitalize" color="yellow">
-      //           Not Set
-      //         </Tag>
-      //       ) : (
-      //         <Text>{net_salary}</Text>
-      //       )}
-      //     </div>
-      //   ),
-      //   sorter: (a, b) => parseInt(a.net_salary) - parseInt(b.net_salary),
-      //   sortDirections: ["descend", "ascend"],
-      // },
+      {
+        title: "Comapany",
+        dataIndex: "company_name",
+        key: "company_name"
+      },
       {
         title: "Status",
         dataIndex: "user_status",
         render: (status) => (
-          <Tag
-            className="text-capitalize"
-            color={status === "active" ? "cyan" : "red"}
-          >
-            {status}
+            status === "1" ?
+          <Tag className="text-capitalize" color="cyan">
+            Active
+          </Tag> : <Tag className="text-capitalize" color="cyan">
+            Inactive
           </Tag>
         ),
       },
-      {
-        title: "",
-        dataIndex: "actions",
-        fixed: "right",
-        render: (_, elm) => (
-          <div className="text-right">
-            <EllipsisDropdown menu={dropdownMenu(elm)} />
-          </div>
-        ),
-      },
+    //   {
+    //     title: "",
+    //     dataIndex: "actions",
+    //     fixed: "right",
+    //     render: (_, elm) => (
+    //       <div className="text-right">
+    //         <EllipsisDropdown menu={dropdownMenu(elm)} />
+    //       </div>
+    //     ),
+    //   },
     ];
     return (
       <div>
-        <UsersDashboard />
+        {/* <UsersDashboard /> */}
         <Card
           bodyStyle={{ padding: "0" }}
           //   style={{
@@ -393,8 +381,48 @@ export class Users extends Component {
   }
 }
 
-const mapStateToProps = ({ usersList }) => {
-  const { users } = usersList;
+const mapStateToProps = ({ usersList, payRollRegistration }) => {
+  //   const { users } = usersList;
+  function user(
+    first_name,
+    middle_name,
+    national_id,
+    phone,
+    surname,
+    email,
+    dob,
+    status,
+    company_name
+  ) {
+    return {
+      first_name,
+      middle_name,
+      national_id,
+      phone,
+      surname,
+      email,
+      dob,
+      status,
+      company_name,
+    };
+  }
+  let usersInPayroll = [];
+  usersInPayroll = payRollRegistration.payRollRegistration;
+  let users = [];
+
+  for (let x = 0; x < usersInPayroll.length; x++) {
+    users[x] = user(
+      usersInPayroll[x].user.first_name,
+      usersInPayroll[x].user.middle_name,
+      usersInPayroll[x].user.national_id,
+      usersInPayroll[x].user.phone,
+      usersInPayroll[x].user.surname,
+      usersInPayroll[x].user.email,
+      usersInPayroll[x].user.dob,
+      usersInPayroll[x].status,
+      usersInPayroll[x].company.name
+    );
+  }
   return {
     users,
   };
@@ -402,6 +430,7 @@ const mapStateToProps = ({ usersList }) => {
 
 const mapDispatchToProps = {
   getUsers,
+  payRollRegistration,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Users);
+export default connect(mapStateToProps, mapDispatchToProps)(Payroll);

@@ -12,13 +12,18 @@ import {
 } from "antd";
 import { Icon } from "components/util-components/Icon";
 import {
-  GlobalOutlined,
+  AuditOutlined,
   MailOutlined,
   CalendarOutlined,
   PhoneOutlined,
   IdcardOutlined,
   DownloadOutlined,
   DeleteOutlined,
+  DollarOutlined,
+  UserOutlined,
+  CheckOutlined,
+  ManOutlined,
+  WomanOutlined
 } from "@ant-design/icons";
 import PageHeaderAlt from "components/layout-components/PageHeaderAlt";
 import Flex from "components/shared-components/Flex";
@@ -68,7 +73,6 @@ export class Profile extends Component {
     );
   };
 
-
   render() {
     let { id, content, user } = this.state;
 
@@ -85,8 +89,6 @@ export class Profile extends Component {
       userCRB[0] = user.crbreport;
     }
 
-    console.log("user", userData);
-
     if (user.userRegistrationFiles || user.userRequestFiles) {
       userRegistrationFiles = user.userRegistrationFiles;
       userRequestFiles = user.userRequestFiles;
@@ -95,13 +97,13 @@ export class Profile extends Component {
     const ProfileInfo = (props) => (
       <Card>
         <Row justify="center">
-          <Col sm={24} md={23}>
+          <Col sm={24} md={24}>
             <div className="d-md-flex">
               <div
-                className="rounded p-2 bg-white shadow-sm mx-auto"
+                className="rounded p-1 bg-white shadow-sm mx-auto"
                 style={{
-                  marginTop: "-3.5rem",
-                  maxWidth: `${props.avatarSize + 16}px`,
+                  marginTop: "-0.5rem",
+                  maxWidth: `${props.avatarSize}px`,
                 }}
               >
                 <UserProfileAvatar
@@ -110,7 +112,7 @@ export class Profile extends Component {
                   size={props.avatarSize}
                 />
               </div>
-              <div className="ml-md-4 w-100">
+              <div className="w-100">
                 <Flex
                   alignItems="center"
                   mobileFlex={false}
@@ -123,42 +125,42 @@ export class Profile extends Component {
                       " " +
                       userObject.surname}
                   </h2>
-                  <div className="ml-md-3 mt-3 mt-md-0">
+                  <div className="ml-md-1 mt-md-0">
                     <Space>
-                      <Button size="small" type="primary" onClick={(e) => this.updateUser()}>
+                      <Button
+                        size="small"
+                        type="primary"
+                        onClick={(e) => this.updateUser()}
+                      >
                         Update User
                       </Button>
                       <ChangeUserRole />
                       <ChangeUserType />
-                      <DeactivateUser/>
+                      <DeactivateUser />
                     </Space>
                   </div>
                 </Flex>
-                <Row gutter="16">
+                <Row>
                   <Col xs={24} sm={24} md={8}>
                     <Row className="mb-2">
-                      <Col xs={12} sm={12} md={9}>
+                      <Col xs={24} sm={24} md={24}>
                         <Icon
                           type={MailOutlined}
                           className="text-primary font-size-md"
                         />
-                        <span className="text-muted ml-2">Email:</span>
-                      </Col>
-                      <Col xs={12} sm={12} md={15}>
+                        <span className="text-muted ml-2">EMail: </span>
                         <span className="font-weight-semibold">
                           {userObject.email}
                         </span>
                       </Col>
                     </Row>
                     <Row>
-                      <Col xs={12} sm={12} md={9}>
+                      <Col xs={24} sm={24} md={24}>
                         <Icon
                           type={PhoneOutlined}
                           className="text-primary font-size-md"
                         />
-                        <span className="text-muted ml-2">Phone:</span>
-                      </Col>
-                      <Col xs={12} sm={12} md={15}>
+                        <span className="text-muted ml-2">Phone: </span>
                         <span className="font-weight-semibold">
                           {userObject.phone}
                         </span>
@@ -167,30 +169,132 @@ export class Profile extends Component {
                   </Col>
                   <Col xs={24} sm={24} md={8}>
                     <Row className="mb-2 mt-2 mt-md-0 ">
-                      <Col xs={12} sm={12} md={9}>
+                      <Col xs={24} sm={24} md={24}>
                         <Icon
                           type={IdcardOutlined}
                           className="text-primary font-size-md"
                         />
-                        <span className="text-muted ml-2">National ID:</span>
-                      </Col>
-                      <Col xs={12} sm={12} md={15}>
+                        <span className="text-muted ml-2">National ID: </span>
                         <span className="font-weight-semibold">
                           {userObject.national_id}
                         </span>
                       </Col>
                     </Row>
                     <Row className="mb-2">
-                      <Col xs={12} sm={12} md={9}>
+                      <Col xs={24} sm={24} md={24}>
                         <Icon
                           type={CalendarOutlined}
                           className="text-primary font-size-md"
                         />
-                        <span className="text-muted ml-2">Date of Birth:</span>
-                      </Col>
-                      <Col xs={12} sm={12} md={15}>
+                        <span className="text-muted ml-2">Date of Birth: </span>
                         <span className="font-weight-semibold">
                           {userObject.dob}
+                        </span>
+                      </Col>
+                    </Row>
+                  </Col>
+                  <Col xs={24} sm={24} md={8}>
+                    <Row className="mb-2 mt-2 mt-md-0 ">
+                      <Col xs={24} sm={24} md={24}>
+                        <Icon
+                          type={IdcardOutlined}
+                          className="text-primary font-size-md"
+                        />
+                        <span className="text-muted ml-2">Payroll No: </span>
+                        <span className="font-weight-semibold">
+                          {userObject.payroll_no === null ? <Tag color="yellow">Not Set</Tag> : userObject.payroll_no}
+                        </span>
+                      </Col>
+                    </Row>
+                    <Row className="mb-2">
+                      <Col xs={24} sm={24} md={24}>
+                        <Icon
+                          type={DollarOutlined}
+                          className="text-primary font-size-md"
+                        />
+                        <span className="text-muted ml-2">Loan Limit: </span>
+                        <span className="font-weight-semibold">
+                          {userObject.loan_limit}
+                        </span>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={24} sm={24} md={8}>
+                    <Row className="mb-2">
+                      <Col xs={24} sm={24} md={24}>
+                        <Icon
+                          type={userObject.gender === 1 ? WomanOutlined : ManOutlined}
+                          className="text-primary font-size-md"
+                        />
+                        <span className="text-muted ml-2">Gender: </span>
+                        <span className="font-weight-semibold">
+                          {userObject.gender === 1 ? "Female" : "Male"}
+                        </span>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col xs={24} sm={24} md={24}>
+                        <Icon
+                          type={AuditOutlined}
+                          className="text-primary font-size-md"
+                        />
+                        <span className="text-muted ml-2">Employment: </span>
+                        <span className="font-weight-semibold">
+                          {userObject.employed === 0 ? "Self Employed" : "Employed"}
+                        </span>
+                      </Col>
+                    </Row>
+                  </Col>
+                  <Col xs={24} sm={24} md={8}>
+                    <Row className="mb-2 mt-2 mt-md-0 ">
+                      <Col xs={24} sm={24} md={24}>
+                        <Icon
+                          type={IdcardOutlined}
+                          className="text-primary font-size-md"
+                        />
+                        <span className="text-muted ml-2">ID: </span>
+                        <span className="font-weight-semibold">
+                          {userObject.national_id}
+                        </span>
+                      </Col>
+                    </Row>
+                    <Row className="mb-2">
+                      <Col xs={24} sm={24} md={24}>
+                        <Icon
+                          type={CheckOutlined}
+                          className="text-primary font-size-md"
+                        />
+                        <span className="text-muted ml-2">Status: </span>
+                        <span className="font-weight-semibold">
+                          {userObject.status}
+                        </span>
+                      </Col>
+                    </Row>
+                  </Col>
+                  <Col xs={24} sm={24} md={8}>
+                    <Row className="mb-2 mt-2 mt-md-0 ">
+                      <Col xs={24} sm={24} md={24}>
+                        <Icon
+                          type={IdcardOutlined}
+                          className="text-primary font-size-md"
+                        />
+                        <span className="text-muted ml-2">Credit Score: </span>
+                        <span className="font-weight-semibold">
+                          {userObject.payroll_no === null ? <Tag color="yellow">Not Set</Tag> : userObject.payroll_no}
+                        </span>
+                      </Col>
+                    </Row>
+                    <Row className="mb-2">
+                      <Col xs={24} sm={24} md={24}>
+                        <Icon
+                          type={DollarOutlined}
+                          className="text-primary font-size-md"
+                        />
+                        <span className="text-muted ml-2">Total Points: </span>
+                        <span className="font-weight-semibold">
+                          {userObject.loan_limit}
                         </span>
                       </Col>
                     </Row>
@@ -271,59 +375,43 @@ export class Profile extends Component {
     ];
 
     const UserInformation = [
-      {
-        title: "Payroll No",
-        dataIndex: "payroll_no",
-        render: (payroll_no) => (
-          <div>
-            {payroll_no === null ? (
-              <Tag className="text-capitalize" color="yellow">
-                Not Set
-              </Tag>
-            ) : (
-              <span>{payroll_no} </span>
-            )}
-          </div>
-        ),
-      },
       // {
-      //   title: "Company",
-      //   key: "company",
-      //   dataIndex: "company",
-      //   render: (company) => (
+      //   title: "Payroll No",
+      //   dataIndex: "payroll_no",
+      //   render: (payroll_no) => (
       //     <div>
-      //       {company === null ? (
+      //       {payroll_no === null ? (
       //         <Tag className="text-capitalize" color="yellow">
       //           Not Set
       //         </Tag>
       //       ) : (
-      //         <span>{company} </span>
+      //         <span>{payroll_no} </span>
       //       )}
       //     </div>
       //   ),
       // },
-      {
-        title: "Gender",
-        key: "gender",
-        dataIndex: "gender",
-        render: (gender) => (
-          <div>{gender === 0 ? <span> Male </span> : <span>Female </span>}</div>
-        ),
-      },
-      {
-        title: "Employment",
-        key: "employed",
-        dataIndex: "employed",
-        render: (employed) => (
-          <div>
-            {employed === 0 ? (
-              <span>Self Employed </span>
-            ) : (
-              <span>Employed </span>
-            )}
-          </div>
-        ),
-      },
+      // {
+      //   title: "Gender",
+      //   key: "gender",
+      //   dataIndex: "gender",
+      //   render: (gender) => (
+      //     <div>{gender === 0 ? <span> Male </span> : <span>Female </span>}</div>
+      //   ),
+      // },
+      // {
+      //   title: "Employment",
+      //   key: "employed",
+      //   dataIndex: "employed",
+      //   render: (employed) => (
+      //     <div>
+      //       {employed === 0 ? (
+      //         <span>Self Employed </span>
+      //       ) : (
+      //         <span>Employed </span>
+      //       )}
+      //     </div>
+      //   ),
+      // },
       {
         title: "Advance Balance",
         key: "s_a_balance",
@@ -452,38 +540,6 @@ export class Profile extends Component {
           </div>
         ),
       },
-      // {
-      //   title: "Created At",
-      //   key: "created_at",
-      //   dataIndex: "created_at",
-      //   render: (created_at) => (
-      //     <div>
-      //       {created_at === null ? (
-      //         <Tag className="text-capitalize" color="yellow">
-      //           Not Set
-      //         </Tag>
-      //       ) : (
-      //         <span>{moment(created_at).format("YYYY/MM DD")} </span>
-      //       )}
-      //     </div>
-      //   ),
-      // },
-      // {
-      //   title: "User Status",
-      //   dataIndex: "user_status",
-      //   key: "user_status",
-      //   render: (user_status) => (
-      //     <div>
-      //       {user_status === null ? (
-      //         <Tag className="text-capitalize" color="yellow">
-      //           Not Set
-      //         </Tag>
-      //       ) : (
-      //         <span>{user_status} </span>
-      //       )}
-      //     </div>
-      //   ),
-      // },
     ];
 
     const UserAdvanceRequests = [
@@ -563,7 +619,7 @@ export class Profile extends Component {
 
     const UserAdvancesData = [];
 
-    const avatarSize = 150;
+    const avatarSize = 90;
     return (
       <>
         <PageHeaderAlt cssClass="bg-primary" overlap>
@@ -571,35 +627,27 @@ export class Profile extends Component {
             <div className="py-3 my-4"></div>
           </div>
         </PageHeaderAlt>
-        <div className="container my-4">
+        <div>
           <ProfileInfo avatarSize={avatarSize} />
           <Card>
-            <Col xs={24} sm={24} md={24} xl={24} xxl={24}>
-              <ProfileMenu {...this.props} />
-            </Col>
-            <Row gutter="16">
-              {content === "details" ? (
-                <Col xs={24} sm={24} md={16} xl={24} xxl={24}>
-                  <Table columns={UserInformation} dataSource={userData} />
-                </Col>
-              ) : null}
-              {content === "registration-files" ? (
-                <Col xs={24} sm={24} md={16} xl={24} xxl={24}>
-                  <Table
-                    columns={UserRequestFilescolumns}
-                    dataSource={userRegistrationFiles}
-                  />
-                </Col>
-              ) : null}
-              {content === "request-files" ? (
-                <Col xs={24} sm={24} md={16} xl={24} xxl={24}>
-                  <Table
-                    columns={UserRequestFilescolumns}
-                    dataSource={userRequestFiles}
-                  />
-                </Col>
-              ) : null}
-              {/* {content === "advances" ? (
+            <ProfileMenu {...this.props} />
+
+            {content === "details" ? (
+              <Table columns={UserInformation} dataSource={userData} />
+            ) : null}
+            {content === "registration-files" ? (
+              <Table
+                columns={UserRequestFilescolumns}
+                dataSource={userRegistrationFiles}
+              />
+            ) : null}
+            {content === "request-files" ? (
+              <Table
+                columns={UserRequestFilescolumns}
+                dataSource={userRequestFiles}
+              />
+            ) : null}
+            {/* {content === "advances" ? (
                 <Col xs={24} sm={24} md={16} xl={24} xxl={24}>
                   <Table
                     columns={UserAdvanceRequests}
@@ -608,12 +656,9 @@ export class Profile extends Component {
                 </Col>
               ) : null} */}
 
-              {content === "crb" ? (
-                <Col xs={24} sm={24} md={16} xl={24} xxl={24}>
-                  <Table columns={UserCRBColumns} dataSource={userCRB} />
-                </Col>
-              ) : null}
-            </Row>
+            {content === "crb" ? (
+              <Table columns={UserCRBColumns} dataSource={userCRB} />
+            ) : null}
           </Card>
         </div>
       </>
@@ -623,7 +668,7 @@ export class Profile extends Component {
 
 const mapStateToProps = ({ usersList }) => {
   const { user } = usersList;
-
+  console.log("user", user)
   return {
     user,
   };

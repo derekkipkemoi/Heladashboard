@@ -40,7 +40,7 @@ function ChangeUserType(props) {
             <Alert message="Updating user type" type="info" />
           </Spin>
         ) : (
-          <Space>
+          
             <Form form={form} onFinish={handleSubmit}>
               <Form.Item
                 label="User Type"
@@ -52,7 +52,7 @@ function ChangeUserType(props) {
                 <Input />
               </Form.Item>
             </Form>
-          </Space>
+         
         )}
       </Modal>
     </div>

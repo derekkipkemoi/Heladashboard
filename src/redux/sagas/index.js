@@ -5,7 +5,8 @@ import RolesPermissions from "./RolesPermissions";
 import Users from "./Users";
 import Institutions from "./Institutions";
 import Settings from "./Settings"
+import { getPayRollRegistration } from "./Payroll";
 
 export default function* rootSaga(getState) {
-  yield all([Auth(), Messaging(), RolesPermissions(), Users(), Institutions(), Settings()]);
+  yield all([Auth(), Messaging(), RolesPermissions(), Users(), Institutions(), Settings(), getPayRollRegistration()]);
 }

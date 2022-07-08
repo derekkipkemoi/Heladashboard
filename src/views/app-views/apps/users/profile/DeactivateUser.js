@@ -52,7 +52,7 @@ function DeactivateUser(props) {
             </Text>
           </Space>
         ) : (
-          <Space>
+          
             <Form form={form} onFinish={handleSubmit}>
               <Form.Item
                 label="Status"
@@ -72,7 +72,7 @@ function DeactivateUser(props) {
                 <Input />
               </Form.Item>
             </Form>
-          </Space>
+          
         )}
       </Modal>
     </div>
@@ -81,7 +81,6 @@ function DeactivateUser(props) {
 
 const mapStateToProps = ({ usersList }) => {
   const { loadingUser, message } = usersList;
-  console.log("Response", loadingUser);
   return {
     loadingUser,
     message,

@@ -69,16 +69,16 @@ appService.updateInstitute = function (data) {
   return fetch({
     url: "/update-company",
     method: "put",
-    data: data
+    data: data,
   });
 };
 
 appService.updateUser = function (payload) {
-  const {id, user} = payload
+  const { id, user } = payload;
   return fetch({
     url: "/update-client?id=" + id,
     method: "put",
-    data: user
+    data: user,
   });
 };
 
@@ -97,12 +97,12 @@ appService.changeUserType = function (id) {
 };
 
 appService.deactivateUser = function (payload) {
-  const { id, data } = payload
-  console.log("Update data", data)
+  const { id, data } = payload;
+  console.log("Update data", data);
   return fetch({
     url: "/deactivate-staff?id=" + id,
     method: "post",
-    data: data
+    data: data,
   });
 };
 
@@ -114,8 +114,8 @@ appService.activateUser = function (id) {
 };
 
 appService.declineUser = function (payload) {
-  const id = payload
-  console.log("Update data", id)
+  const id = payload;
+  console.log("Update data", id);
   return fetch({
     url: "/decline-client-registration?id=" + id,
     method: "post",
@@ -144,12 +144,100 @@ appService.getSettings = function () {
 };
 
 appService.updateSettings = function (payload) {
-  const { data } = payload
-  console.log("Update settings service", payload)
   return fetch({
     url: "/update-setting?id=1",
     method: "post",
-    data: data
+    data: payload,
+  });
+};
+
+appService.getPayRollRegistration = function () {
+  return fetch({
+    url: "/payroll-registration",
+    method: "get",
+  });
+};
+
+appService.getTemplateList = function () {
+  return fetch({
+    url: "/filter-template-messages",
+    method: "get",
+  });
+};
+
+appService.getTemplate = function (payload) {
+  const  id  = payload;
+  return fetch({
+    url: "/view-template-message?id=" + id,
+    method: "get",
+  });
+};
+
+appService.createTemplate = function (payload) {
+  console.log("create template", payload)
+  return fetch({
+    url: "/create-template-message",
+    method: "post",
+    data: payload
+  });
+};
+
+appService.deleteTemplate = function (payload) {
+  const  id  = payload;
+  console.log("Id", id)
+  return fetch({
+    url: "/delete-template-message?id=" + id,
+    method: "delete",
+  });
+};
+
+appService.updateTemplate = function (payload) {
+  const { id, template } = payload;
+  return fetch({
+    url: "/update-template-message?id=" + id,
+    method: "patch",
+    data: template
+  });
+};
+
+appService.getReminderList = function () {
+  return fetch({
+    url: "/filter-reminders",
+    method: "get",
+  });
+};
+
+appService.getReminder = function (payload) {
+  const id = payload;
+  return fetch({
+    url: "/view-reminder?id=" + id,
+    method: "get",
+  });
+};
+
+appService.createReminder = function (payload) {
+  return fetch({
+    url: "/create-reminder-message",
+    method: "post",
+    data: payload,
+  });
+};
+
+appService.deleteReminder = function (payload) {
+  const id = payload;
+  return fetch({
+    url: "/delete-reminder?id=" + id,
+    method: "delete",
+  });
+};
+
+appService.updateReminder = function (payload) {
+  const { id, reminder } = payload;
+  console.log("Payload", id, reminder);
+  return fetch({
+    url: "/update-reminder?id=" + id,
+    method: "patch",
+    data: reminder,
   });
 };
 export default appService;

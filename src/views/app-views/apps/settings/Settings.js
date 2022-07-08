@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Card, Button, Space, Tag } from "antd";
+import { Row, Col, Card, Button, Space, Tag, Table, Divider } from "antd";
 import {
   WhatsAppOutlined,
   MailOutlined,
@@ -12,145 +12,138 @@ import Flex from "components/shared-components/Flex";
 import { Link } from "react-router-dom";
 
 const ProfileInfo = (props) => (
-  <Card>
+  <div>
+    <div className="ml-md-3 mt-3 mt-md-0"></div>
+
     <Row>
-      <Col sm={24} md={23}>
-        <div className="d-md-flex">
-          <div className="w-100">
-            <Flex
-              alignItems="center"
-              mobileFlex={false}
-              className="mb-3 text-md-left text-center"
-            >
-              <h2 className="mb-0 mt-md-0 mt-2">Settings</h2>
-              <div className="ml-md-3 mt-3 mt-md-0">
-                <Link
-                  to={{
-                    pathname: `updatesettings`,
-                  }}
-                >
-                  <Button size="small" type="primary">
-                    Update Settings
-                  </Button>
-                </Link>
-              </div>
-            </Flex>
-            <Row gutter="16">
-              <Col sm={24} md={24} xl={24} xxl={24}>
-                <h4 className="mb-0 mt-md-0 mt-2">About</h4>
-                <p className="mt-0 mr-3 text-muted text-md-left text-center">
-                  {props.profileSettings.about_us}
-                </p>
-              </Col>
-            </Row>
-          </div>
-        </div>
+      <Col flex="1 1 200px">
+        <h2 className="mb-0 mt-md-0 mt-2">Settings</h2>
+      </Col>
+      <Col flex="0 1 300px">
+        <Link
+          to={{
+            pathname: `updatesettings`,
+          }}
+        >
+          <Button size="small" type="primary">
+            Update Settings
+          </Button>
+        </Link>
       </Col>
     </Row>
-  </Card>
+    <Divider orientation="left">About</Divider>
+    <Row gutter="16">
+      <Col sm={24} md={24} xl={24} xxl={24}>
+        <p className="mt-0 mr-3 text-muted text-md-left text-center">
+          {props.profileSettings.about_us}
+        </p>
+      </Col>
+    </Row>
+  </div>
 );
 
 const Experiences = (props) => (
-  <Card title="Conatct Info">
-    <div className="mb-3">
-      <Row>
-        <Space>
-          <div>
-            <WhatsAppOutlined style={{ fontSize: "150%", color: "#25D366" }} />{" "}
-            {props.profileSettings.whatsapp === null ? (
-              <Tag className="text-capitalize" color="yellow">
-                Not Set
-              </Tag>
-            ) : (
-              props.profileSettings.whatsapp
-            )}
-          </div>
-          <div>
-            <MailOutlined style={{ fontSize: "150%", color: "#EA4335" }} />{" "}
-            {props.profileSettings.email === null ? (
-              <Tag className="text-capitalize" color="yellow">
-                Not Set
-              </Tag>
-            ) : (
-              props.profileSettings.email
-            )}
-          </div>
-          <div>
-            <PhoneOutlined style={{ fontSize: "150%", color: "#FBBC05" }} />{" "}
-            {props.profileSettings.call_phone === null ? (
-              <Tag className="text-capitalize" color="yellow">
-                Not Set
-              </Tag>
-            ) : (
-              props.profileSettings.call_phone
-            )}
-          </div>
-        </Space>
-      </Row>
-    </div>
-  </Card>
+  <div className="mb-3">
+    <Row>
+      <Space>
+        <div>
+          <WhatsAppOutlined style={{ fontSize: "150%", color: "#25D366" }} />{" "}
+          {props.profileSettings.whatsapp === null ? (
+            <Tag className="text-capitalize" color="yellow">
+              Not Set
+            </Tag>
+          ) : (
+            props.profileSettings.whatsapp
+          )}
+        </div>
+        <div>
+          <MailOutlined style={{ fontSize: "150%", color: "#EA4335" }} />{" "}
+          {props.profileSettings.email === null ? (
+            <Tag className="text-capitalize" color="yellow">
+              Not Set
+            </Tag>
+          ) : (
+            props.profileSettings.email
+          )}
+        </div>
+        <div>
+          <PhoneOutlined style={{ fontSize: "150%", color: "#FBBC05" }} />{" "}
+          {props.profileSettings.call_phone === null ? (
+            <Tag className="text-capitalize" color="yellow">
+              Not Set
+            </Tag>
+          ) : (
+            props.profileSettings.call_phone
+          )}
+        </div>
+      </Space>
+    </Row>
+  </div>
 );
 
-const Interested = (props) => (
-  <Card>
-    <Row gutter={30}>
-      <Col sm={24} md={8}>
-        <div className="mb-3">
-          <h4 className="font-weight-semibold">Interest Rate</h4>
-          <p>{props.profileSettings.interest_rate}</p>
-        </div>
-        <div className="mb-3">
-          <h4 className="font-weight-semibold">Rollover Rate</h4>
-          <p>{props.profileSettings.rollover_rate}</p>
-        </div>
-        <div className="mb-3">
-          <h4 className="font-weight-semibold">Disbursements Orientation</h4>
-          <p>{props.profileSettings.automatic}</p>
-        </div>
-        <div className="mb-3">
-          <h4 className="font-weight-semibold">Minimum Amount</h4>
-          <p>{props.profileSettings.min_amount}</p>
-        </div>
-      </Col>
-      <Col sm={24} md={8}>
-        <div className="mb-3">
-          <h4 className="font-weight-semibold">Commission Rate</h4>
-          <p>{props.profileSettings.commission_rate}</p>
-        </div>
-        <div className="mb-3">
-          <h4 className="font-weight-semibold">Available Funds</h4>
-          <p>KES {props.profileSettings.available_funds}</p>
-        </div>
-        <div className="mb-3">
-          <h4 className="font-weight-semibold">Minimum Commission Amount</h4>
-          <p>KES {props.profileSettings.min_commission_amount}</p>
-        </div>
-        <div className="mb-3">
-          <h4 className="font-weight-semibold">Minimum Redeem Points</h4>
-          <p>{props.profileSettings.min_redeem_points}</p>
-        </div>
-      </Col>
-      <Col sm={24} md={8}>
-        <div className="mb-3">
-          <h4 className="font-weight-semibold">Points Rate</h4>
-          <p>{props.profileSettings.points_rate}</p>
-        </div>
-        <div className="mb-3">
-          <h4 className="font-weight-semibold">Amount Per Point</h4>
-          <p>{props.profileSettings.amount_per_point}</p>
-        </div>
-        <div className="mb-3">
-          <h4 className="font-weight-semibold">Limit Amount</h4>
-          <p>KES {props.profileSettings.limit_amount}</p>
-        </div>
-        <div className="mb-3">
-          <h4 className="font-weight-semibold">Flag</h4>
-          <p>{props.profileSettings.flag}</p>
-        </div>
-      </Col>
-    </Row>
-  </Card>
-);
+const columns = [
+  {
+    title: "interest Rate",
+    dataIndex: "interest_rate",
+    key: "interest_rate",
+  },
+  {
+    title: "Rollover Rate",
+    dataIndex: "rollover_rate",
+    key: "rollover_rate",
+  },
+  {
+    title: "Disbursements Orientation",
+    dataIndex: "automatic",
+    key: "automatic",
+  },
+  {
+    title: "Minimum Amount",
+    dataIndex: "min_amount",
+    key: "min_amount",
+  },
+  {
+    title: "Commission Rate",
+    dataIndex: "commission_rate",
+    key: "commission_rate",
+  },
+  {
+    title: "Available Funds",
+    dataIndex: "available_funds",
+    key: "available_funds",
+  },
+
+  {
+    title: "Minimum Commission Amount",
+    dataIndex: "min_commission_amount",
+    key: "min_commission_amount",
+  },
+  {
+    title: "Minimum Redeem Points",
+    dataIndex: "min_redeem_points",
+    key: "min_redeem_points",
+  },
+  {
+    title: "Points Rate",
+    dataIndex: "points_rate",
+    key: "points_rate",
+  },
+  {
+    title: "Amount Per Point",
+    dataIndex: "amount_per_point",
+    key: "amount_per_point",
+  },
+  {
+    title: "Limit Amount",
+    dataIndex: "limit_amount",
+    key: "limit_amount",
+  },
+  {
+    title: "Flag",
+    dataIndex: "flag",
+    key: "flag",
+  },
+];
 
 export class settings extends Component {
   state = {
@@ -164,18 +157,34 @@ export class settings extends Component {
       setting: setting,
     });
   };
+
+  componentDidUpdate = (prevProps) => {
+    if (this.props !== prevProps) {
+      let setting = {};
+      setting = this.props.setting;
+      this.setState({
+        setting: setting,
+      });
+    }
+  };
   render() {
     let { setting } = this.state;
+    let companyFinance = [];
+    companyFinance[0] = setting;
     return (
-      <div className="container my-4">
+      <Card>
         <ProfileInfo profileSettings={setting} />
+
+        <Divider orientation="left">Finance Info</Divider>
+        <Table columns={columns} dataSource={companyFinance} />
+
+        <Divider orientation="left">Contact Info</Divider>
         <Row gutter="24">
           <Col xs={24} sm={24} md={24} xl={24} xxl={24}>
-            <Interested profileSettings={setting} />
             <Experiences profileSettings={setting} />
           </Col>
         </Row>
-      </div>
+      </Card>
     );
   }
 }

@@ -43,7 +43,6 @@ export const saveWeeklyData = (data) => {
 };
 
 export const getUserDetails = (id) => {
-  console.log("Id in action", id);
   return {
     type: GET_USER_DETAILS,
     payload: id,

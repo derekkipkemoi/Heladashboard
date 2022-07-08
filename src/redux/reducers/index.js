@@ -6,6 +6,7 @@ import RolesPermissions from './RolesPermissions';
 import Users from './Users';
 import Institutions from './Institutions';
 import settings from './Settings';
+import payRollRegistration from './Payroll';
 
 const reducers = combineReducers({
     theme: Theme,
@@ -14,7 +15,8 @@ const reducers = combineReducers({
     rolesPermissions: RolesPermissions,
     usersList: Users,
     institutions: Institutions,
-    systemSettings: settings
+    systemSettings: settings,
+    payRollRegistration: payRollRegistration
 });
 
 export default reducers;

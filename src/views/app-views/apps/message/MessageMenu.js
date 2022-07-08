@@ -14,7 +14,7 @@ export class MailMenu extends Component {
     const { match, location } = this.props;
     return (
       <div className="w-100">
-        <div className="p-3">
+        <div className="p-4">
           <Link to={`${match.url}/compose`}>
             <Button type="primary" block>
               <EditOutlined />
@@ -32,7 +32,7 @@ export class MailMenu extends Component {
             <span>All Messages</span>
             <Link to={`${match.url}/all-messages`} />
           </Menu.Item>
-          <Menu.Item key={`${match.url}/system-messages`}>
+          {/* <Menu.Item key={`${match.url}/system-messages`}>
             <ProfileOutlined />
             <span>System Messages</span>
             <Link to={`${match.url}/system-messages`} />
@@ -41,6 +41,18 @@ export class MailMenu extends Component {
             <ScheduleOutlined />
             <span>Scheduled Messages</span>
             <Link to={`${match.url}/scheduled-messages`} />
+          </Menu.Item> */}
+
+          <Menu.Item key={`${match.url}/template-messages`}>
+            <ScheduleOutlined />
+            <span>Template Messages</span>
+            <Link to={`${match.url}/template-messages`} />
+          </Menu.Item>
+
+          <Menu.Item key={`${match.url}/reminder-messages`}>
+            <ScheduleOutlined />
+            <span>Reminder Messages</span>
+            <Link to={`${match.url}/reminder-messages`} />
           </Menu.Item>
 
           {/* <Menu.Item key={`${match.url}/starred`}>

@@ -99,7 +99,7 @@ class UpdateSettings extends Component {
                 onBack={() => {
                   this.back();
                 }}
-                title="Add New User"
+                title="Update Company Settings"
               />
               <Row>
                 <Col xs={24} sm={24} md={24} lg={24}>

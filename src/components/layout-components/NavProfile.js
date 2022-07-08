@@ -16,16 +16,16 @@ import TopBarAvatar from "components/shared-components/TopBarAvatar";
 
 const menuItem = [
   {
-    title: "Edit Profile",
+    title: "Profile",
     icon: EditOutlined,
-    path: `/app/apps/users/updateuser/${localStorage.getItem(USER_ID)}/${"updateprofile"}`,
+    path: `/app/apps/users/currentuser/${localStorage.getItem(USER_ID)}/${"viewprofile"}`,
   },
 
-  {
-    title: "Account Setting",
-    icon: SettingOutlined,
-    path: `/app/apps/users/viewuser/${localStorage.getItem(USER_ID)}/${"details"}`,
-  },
+  // {
+  //   title: "Account Setting",
+  //   icon: SettingOutlined,
+  //   path: `/app/apps/users/viewuser/${localStorage.getItem(USER_ID)}/${"details"}`,
+  // },
   //   {
   // 	title: "Billing",
   // 	icon: ShopOutlined ,

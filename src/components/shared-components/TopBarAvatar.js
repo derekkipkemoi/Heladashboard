@@ -4,11 +4,21 @@ import { Avatar } from "antd";
 
 const getHashOfString = (str) => {
   let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  if(str !== null){
+    for (let i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    hash = Math.abs(hash);
+    return hash;
+  }else{
+    str = "John Doe"
+    for (let i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    hash = Math.abs(hash);
+    return hash;
   }
-  hash = Math.abs(hash);
-  return hash;
+  
 };
 
 const normalizeHash = (hash, min, max) => {

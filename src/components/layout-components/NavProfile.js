@@ -43,7 +43,7 @@ const menuItem = [
 export const NavProfile = ({ signOut }) => {
   const profileImg = "/img/avatars/thumb-1.jpg";
   const id = localStorage.getItem(USER_ID);
-  const name = localStorage.getItem(USER_NAME);
+  let name = localStorage.getItem(USER_NAME);
   if (name === undefined || name === null) {
     name = "John Doe";
   }

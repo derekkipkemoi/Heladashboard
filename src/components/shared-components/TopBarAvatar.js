@@ -4,21 +4,11 @@ import { Avatar } from "antd";
 
 const getHashOfString = (str) => {
   let hash = 0;
-  if(str !== null){
-    for (let i = 0; i < str.length; i++) {
-      hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    hash = Math.abs(hash);
-    return hash;
-  }else{
-    str = "John Doe"
-    for (let i = 0; i < str.length; i++) {
-      hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    hash = Math.abs(hash);
-    return hash;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
   }
-  
+  hash = Math.abs(hash);
+  return hash;
 };
 
 const normalizeHash = (hash, min, max) => {
@@ -64,6 +54,9 @@ export const TopBarAvatar = (props) => {
   const {
     name
   } = props;
+  if (name === null) {
+    name = "John Doe"
+  }
   const color = generateHSL(name);
   const nameInitials = getInitials(name);
   return (

@@ -18,7 +18,9 @@ const menuItem = [
   {
     title: "Profile",
     icon: EditOutlined,
-    path: `/app/apps/users/currentuser/${localStorage.getItem(USER_ID)}/${"viewprofile"}`,
+    path: `/app/apps/users/currentuser/${localStorage.getItem(
+      USER_ID
+    )}/${"viewprofile"}`,
   },
 
   // {
@@ -42,17 +44,19 @@ export const NavProfile = ({ signOut }) => {
   const profileImg = "/img/avatars/thumb-1.jpg";
   const id = localStorage.getItem(USER_ID);
   const name = localStorage.getItem(USER_NAME);
-  console.log("User name", name, id);
+  if (name.length < 1 || name === null) {
+    name = "John Doe";
+  }
   const profileMenu = (
     <div className="nav-profile nav-dropdown">
       <div className="nav-profile-header">
         <div className="d-flex">
           {/* <Avatar size={45} src={profileImg} /> */}
           <UserAvatar
-              src={""}
-              name={name}
-              // subTitle={record.email}
-            />
+            src={""}
+            name={name}
+            // subTitle={record.email}
+          />
           {/* <div className="pl-3">
             <h4 className="mb-0 pb-0">{name}</h4>
           </div> */}
@@ -84,7 +88,7 @@ export const NavProfile = ({ signOut }) => {
     <Dropdown placement="bottomRight" overlay={profileMenu} trigger={["click"]}>
       <Menu className="d-flex align-item-center" mode="horizontal">
         <Menu.Item key="profile">
-          <TopBarAvatar name={localStorage.getItem(USER_NAME)}/>
+          <TopBarAvatar name={localStorage.getItem(USER_NAME)} />
         </Menu.Item>
       </Menu>
     </Dropdown>

@@ -54,9 +54,6 @@ export const TopBarAvatar = (props) => {
   const {
     name
   } = props;
-  if (name === null) {
-    name = "John Doe"
-  }
   const color = generateHSL(name);
   const nameInitials = getInitials(name);
   return (

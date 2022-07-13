@@ -277,7 +277,7 @@ export class Profile extends Component {
                     <Row className="mb-2 mt-2 mt-md-0 ">
                       <Col xs={24} sm={24} md={24}>
                         <Icon
-                          type={IdcardOutlined}
+                          type={DollarOutlined}
                           className="text-primary font-size-md"
                         />
                         <span className="text-muted ml-2">Credit Score: </span>

@@ -121,7 +121,6 @@ export class Payroll extends Component {
         item.email.includes(inputValue) ||
         item.phone.includes(inputValue) ||
         item.dob.includes(inputValue) ||
-        item.created_at.includes(inputValue) ||
         item.national_id.includes(inputValue)
     );
 

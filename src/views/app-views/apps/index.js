@@ -29,6 +29,11 @@ const Apps = ({ match }) => (
         path={`${match.url}/settings`}
         component={lazy(() => import(`./settings`))}
       />
+
+      <Route
+        path={`${match.url}/advance-requests`}
+        component={lazy(() => import(`./advaceRequests`))}
+      />
       <Redirect from={`${match.url}`} to={`${match.url}/message`} />
     </Switch>
   </Suspense>

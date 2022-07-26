@@ -41,7 +41,7 @@ class MainMenu extends Component {
         <Row gutter={16}>
           {MenuData.map((elm, i) => (
             
-            <Col xs={12} sm={12} md={6} lg={4} xl={3} key={i}>
+            <Col xs={24} sm={12} md={8} lg={4} xl={4} key={i}>
               <Link to={elm.path}>
               <Card type="flex" align="middle">
                 <p>
@@ -54,7 +54,9 @@ class MainMenu extends Component {
                     icon={<elm.icon style={{color: generateHSL(elm.title)}} />}
                   />
                 </p>
-                <Meta title={elm.value} description={elm.title} />
+                <Meta description={elm.title}/>
+                <Meta title={"Count " + "("+ elm.value + ")"} />
+                <Meta title={"Ksh " + elm.amount}/>
               </Card>
               </Link>
             </Col>

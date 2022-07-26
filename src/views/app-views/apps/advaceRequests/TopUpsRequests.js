@@ -39,7 +39,7 @@ class TopUpsRequests extends Component {
       <div>
         <Row gutter={16}>
           {TopUpsData.map((elm, i) => (
-            <Col xs={12} sm={12} md={6} lg={4} xl={3} key={i}>
+            <Col xs={12} sm={12} md={8} lg={4} xl={4} key={i}>
               <Card type="flex" align="middle">
                 <p>
                   <Avatar
@@ -51,7 +51,9 @@ class TopUpsRequests extends Component {
                     icon={<elm.icon style={{color: generateHSL(elm.title)}} />}
                   />
                 </p>
-                <Meta title={elm.value} description={elm.title} />
+                <Meta description={elm.title}/>
+                <Meta title={"Count " + "("+ elm.value + ")"} />
+                <Meta title={"Ksh " + elm.amount}/>
               </Card>
             </Col>
           ))}

@@ -45,7 +45,7 @@ class NormalRequests extends Component {
       <div>
         <Row gutter={16}>
           {AnnualStatisticData.map((elm, i) => (
-            <Col xs={12} sm={12} md={8} lg={4} xl={4} key={i}>
+           <Col xs={24} sm={12} md={12} lg={6} xl={6} key={i}>
               <Card type="flex" align="middle">
                 <p>
                   <Avatar

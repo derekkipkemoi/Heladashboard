@@ -14,7 +14,7 @@ export const MenuData = [
         path: "tsc-requests",
         value: 111,
         amount: 3000,
-        icon: StopOutlined,
+        icon: CheckOutlined,
     },
     {
         title: 'Stop Orders',

@@ -8,10 +8,6 @@ export function* getPayRollRegistration() {
   yield takeEvery(PAYROLL_REGISTRATION, function* ({ payload }) {
     try {
       const response = yield call(AppService.getPayRollRegistration);
-      console.log(
-        "Registration response",
-        response.allStaffs.staff_registrations
-      );
       if (response.message) {
         yield put(
           savePayRollRegistration(response.allStaffs.staff_registrations)

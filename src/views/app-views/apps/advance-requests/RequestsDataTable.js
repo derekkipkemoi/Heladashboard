@@ -8,26 +8,28 @@ import {
   Row,
   Menu,
   Typography,
+  Select,
+  Button,
+  DatePicker,
+  Breadcrumb,
 } from "antd";
-import {
-  EyeOutlined,
-  CheckOutlined,
-  EditOutlined,
-} from "@ant-design/icons";
+import { EyeOutlined, CheckOutlined, EditOutlined } from "@ant-design/icons";
 import moment from "moment";
-import UserView from "./UserView";
 import UserAvatar from "components/shared-components/UserAvatar";
 import Flex from "components/shared-components/Flex";
 import EllipsisDropdown from "components/shared-components/EllipsisDropdown";
 import { connect } from "react-redux";
-import { getUsers } from "redux/actions/Users";
-import { payRollRegistration } from "redux/actions/Payroll";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-import UsersMenu from "./UsersMenu";
-import DeclineUser from "./profile/DeclineUser";
+
+import RequestMenu from "./RequestMenu";
+import CompaniesData from "assets/data/companies.json";
+import { Link } from "react-router-dom";
+const { Option } = Select;
+const { RangePicker } = DatePicker;
 const { Text } = Typography;
-export class Payroll extends Component {
+const dateFormat = "YYYY/MM/DD";
+export class RequestsDataTables extends Component {
   state = {
     users: [],
     userProfileVisible: false,
@@ -56,7 +58,7 @@ export class Payroll extends Component {
     });
   };
 
-  printPdf = (value) => {
+  printPdf = () => {
     html2canvas(document.querySelector("#capture")).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF({
@@ -71,20 +73,9 @@ export class Payroll extends Component {
     message.success("Pdf file generated successfuly");
   };
 
-  // componentDidUpdate = (prevProps) => {
-  //   if (this.props !== prevProps) {
-  //     let data = [];
-  //     this.props.getUsers();
-  //     data = this.props.users;
-  //     this.setState({
-  //       users: data,
-  //     });
-  //   }
-  // };
   componentDidMount() {
     let data = [];
-    this.props.getUsers();
-    this.props.payRollRegistration();
+    // this.props.getUsers();
     data = this.props.users;
     this.setState({
       users: data,
@@ -111,6 +102,7 @@ export class Payroll extends Component {
         item.email.includes(inputValue) ||
         item.phone.includes(inputValue) ||
         item.dob.includes(inputValue) ||
+        item.created_at.includes(inputValue) ||
         item.national_id.includes(inputValue)
     );
 
@@ -130,57 +122,52 @@ export class Payroll extends Component {
     }
   };
 
+  viewDetails = () => {
+    const { match } = this.props;
+    // this.props.history.push(
+    //   `/app/apps/users/viewuser/${row.id}/${"details"}`
+    // );
+  };
+
+  updateUser = () => {
+    // this.props.history.push(
+    //   `/app/apps/users/updateuser/${row.id}/${"updateprofile"}`
+    // );
+  };
+
   render() {
-    const { id } = this.props.match.params;
-    let { users, userProfileVisible, selectedUser } = this.state;
-
-    if (id === "active") {
-      users = users.filter((item) => item.user_status === id);
-    }
-
-    const viewDetails = (row) => {
-      this.props.history.push(
-        `/app/apps/users/viewuser/${row.id}/${"details"}`
-      );
-    };
-
-    const updateUser = (row) => {
-      this.props.history.push(
-        `/app/apps/users/updateuser/${row.id}/${"updateprofile"}`
-      );
-    };
-
+    let { users } = this.state;
+    const { name, subname, path } = this.props.location.state;
     const dropdownMenu = (row) => (
       <Menu>
-        <Menu.Item onClick={(e) => viewDetails(row)}>
+        <Menu.Item onClick={() => this.viewDetails(row)}>
           <Flex alignItems="center">
             <EyeOutlined />
             <span className="ml-2">View User</span>
           </Flex>
         </Menu.Item>
-        {row.user_status === "active" ? null : (
-          <Menu.Item>
-            <Flex alignItems="center">
-              <CheckOutlined />
-              <span className="ml-2">Approve User</span>
-            </Flex>
-          </Menu.Item>
-        )}
-        <Menu.Item onClick={(e) => updateUser(row)}>
+        <Menu.Item onClick={() => this.updateUser(row)}>
           <Flex alignItems="center">
             <EditOutlined />
             <span className="ml-2">Edit User</span>
           </Flex>
         </Menu.Item>
-        <DeclineUser userDetails={row} />
       </Menu>
     );
 
     const tableColumns = [
       {
-        title: "User",
+        title: "#",
+        dataIndex: "#",
+      },
+      {
+        title: "Type",
+        dataIndex: "type",
+      },
+      {
+        title: "Borrower",
         dataIndex: "first_name",
-        width: 300,
+        width: 150,
         render: (_, record) => (
           <div className="d-flex">
             <UserAvatar
@@ -199,50 +186,100 @@ export class Payroll extends Component {
         },
       },
       {
-        title: "User Phone",
-        dataIndex: "phone",
-        // width: 140,
+        title: "Datasheet No",
+        dataIndex: "datasheet_no",
+        width: 150,
       },
       {
         title: "National ID",
         dataIndex: "national_id",
-        // width: 120,
+        width: 150,
         sorter: (a, b) => parseInt(a.national_id) - parseInt(b.national_id),
         sortDirections: ["descend", "ascend"],
       },
       {
-        title: "DOB",
-        dataIndex: "dob",
-        // width: 110,
-        render: (dob) => <span>{moment(dob).format("MM/DD/YYYY")} </span>,
-        sorter: (a, b) => moment(a.dob).unix() - moment(b.dob).unix(),
+        title: "Payroll No",
+        dataIndex: "payroll_no",
+        width: 150,
       },
-      {
-        title: "Registered Date",
-        dataIndex: "created_at",
-        // width: 150,
-        render: (date) => <span>{moment(date).format("MM/DD/YYYY")} </span>,
-        sorter: (a, b) =>
-          moment(a.created_at).unix() - moment(b.created_at).unix(),
-      },
-    
       {
         title: "Company",
-        dataIndex: "company_name",
-        key: "company_name"
+        dataIndex: "company",
+        width: 150,
+      },
+      {
+        title: "Phone",
+        dataIndex: "phone",
+        width: 150,
+        sorter: (a, b) => parseInt(a.phone) - parseInt(b.phone),
+        sortDirections: ["descend", "ascend"],
+      },
+      {
+        title: "Period",
+        dataIndex: "period",
+        width: 150,
+        sorter: (a, b) => parseInt(a.period) - parseInt(b.period),
+        sortDirections: ["descend", "ascend"],
+      },
+      {
+        title: "Principal",
+        dataIndex: "principal",
+        width: 150,
+        sorter: (a, b) => parseInt(a.principal) - parseInt(b.principal),
+        sortDirections: ["descend", "ascend"],
+      },
+      {
+        title: "Interest",
+        dataIndex: "interest",
+        width: 150,
+        sorter: (a, b) => parseInt(a.interest) - parseInt(b.interest),
+        sortDirections: ["descend", "ascend"],
+      },
+      {
+        title: "Fee",
+        dataIndex: "interest",
+        width: 150,
+        sorter: (a, b) => parseInt(a.interest) - parseInt(b.interest),
+        sortDirections: ["descend", "ascend"],
+      },
+      {
+        title: "Payable",
+        dataIndex: "interest",
+        width: 150,
+        sorter: (a, b) => parseInt(a.interest) - parseInt(b.interest),
+        sortDirections: ["descend", "ascend"],
       },
       {
         title: "Status",
         dataIndex: "user_status",
+        width: 150,
         render: (status) => (
-            status === "1" ?
-          <Tag className="text-capitalize" color="cyan">
-            Inactive
-          </Tag> : <Tag className="text-capitalize" color="cyan">
-            Active
+          <Tag
+            className="text-capitalize"
+            color={status === "active" ? "cyan" : "red"}
+          >
+            {status}
           </Tag>
         ),
       },
+      {
+        title: "Created At",
+        dataIndex: "created_at",
+        width: 150,
+        render: (date) => <span>{moment(date).format("MM/DD/YYYY")} </span>,
+        sorter: (a, b) =>
+          moment(a.created_at).unix() - moment(b.created_at).unix(),
+      },
+
+      {
+        title: "Updated At",
+        dataIndex: "created_at",
+        width: 150,
+        render: (date) => <span>{moment(date).format("MM/DD/YYYY")} </span>,
+        sorter: (a, b) =>
+          moment(a.created_at).unix() - moment(b.created_at).unix(),
+      },
+
       {
         title: "",
         dataIndex: "actions",
@@ -256,19 +293,54 @@ export class Payroll extends Component {
     ];
     return (
       <div>
-        {/* <UsersDashboard /> */}
-        <Card
-          bodyStyle={{ padding: "0" }}
-          //   style={{
-          //     margin: 0,
-          //     // borderTopLeftRadius: 50,
-          //     // borderTopRightRadius: 50,
-          //     // borderBottomLeftRadius: 10,
-          //     // borderBottomRightRadius: 10,
-          //   }}
-          //   bordered={true}
-        >
-          <UsersMenu {...this.props} printPdf={this.printPdf} />
+        <Breadcrumb>
+          <Breadcrumb.Item>
+            <Link to={{pathname:`/app/apps/advance-requests/advance-requests-menu`}}>Advance Requests</Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <Link
+              to={{
+                pathname: `/app/apps/advance-requests/${path}`,
+                state: { name: name, path: path },
+              }}
+            >
+              {name}
+            </Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>{subname}</Breadcrumb.Item>
+        </Breadcrumb>
+        <Card>
+          <Row>
+            <div>
+              <Select
+                className="mb-4"
+                placeholder="Select company to send message"
+                onChange={this.handleCompanyChange}
+              >
+                {CompaniesData.map((company) => (
+                  <Option key={company.value}>{company.label}</Option>
+                ))}
+              </Select>
+              <Button type="primary" style={{ marginLeft: "20px" }}>
+                Assume Client Role
+              </Button>
+            </div>
+
+            <div style={{ marginLeft: "20px" }}>
+              <RangePicker
+                defaultValue={[
+                  moment("2015/01/01", dateFormat),
+                  moment("2015/01/01", dateFormat),
+                ]}
+                format={dateFormat}
+              />
+              <Button type="primary" style={{ marginLeft: "20px" }}>
+                Smart Query
+              </Button>
+            </div>
+          </Row>
+
+          <RequestMenu {...this.props} printPdf={this.printPdf} />
           <Card
             id="capture"
             bodyStyle={{ padding: "0" }}
@@ -306,13 +378,6 @@ export class Payroll extends Component {
                 scroll={{ x: 1200 }}
               />
             </div>
-            <UserView
-              data={selectedUser}
-              visible={userProfileVisible}
-              close={() => {
-                this.closeUserProfile();
-              }}
-            />
           </Card>
         </Card>
       </div>
@@ -320,59 +385,15 @@ export class Payroll extends Component {
   }
 }
 
-const mapStateToProps = ({ usersList, payRollRegistration }) => {
-  //   const { users } = usersList;
-  function user(
-    first_name,
-    middle_name,
-    national_id,
-    phone,
-    surname,
-    email,
-    dob,
-    status,
-    id,
-    company_name
-  ) {
-    return {
-      first_name,
-      middle_name,
-      national_id,
-      phone,
-      surname,
-      email,
-      dob,
-      status,
-      id,
-      company_name,
-    };
-  }
-  let usersInPayroll = [];
-  usersInPayroll = payRollRegistration.payRollRegistration;
-  let users = [];
-
-  for (let x = 0; x < usersInPayroll.length; x++) {
-    users[x] = user(
-      usersInPayroll[x].user.first_name,
-      usersInPayroll[x].user.middle_name,
-      usersInPayroll[x].user.national_id,
-      usersInPayroll[x].user.phone,
-      usersInPayroll[x].user.surname,
-      usersInPayroll[x].user.email,
-      usersInPayroll[x].user.dob,
-      usersInPayroll[x].status,
-      usersInPayroll[x].user.id,
-      usersInPayroll[x].company.name
-    );
-  }
+const mapStateToProps = ({}) => {
+  const { users } = [];
   return {
     users,
   };
 };
 
-const mapDispatchToProps = {
-  getUsers,
-  payRollRegistration,
-};
+// const mapDispatchToProps = {
+//   getUsers,
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Payroll);
+export default connect(mapStateToProps, null)(RequestsDataTables);

@@ -17,10 +17,7 @@ const Apps = ({ match }) => (
         path={`${match.url}/calendar`}
         component={lazy(() => import(`./calendar`))}
       />
-      <Route
-        path={`${match.url}/users`}
-        component={lazy(() => import(`./users`))}
-      />
+
       <Route
         path={`${match.url}/institutions`}
         component={lazy(() => import(`./institutions`))}
@@ -31,8 +28,12 @@ const Apps = ({ match }) => (
       />
 
       <Route
+        path={`${match.url}/users`}
+        component={lazy(() => import(`./users`))}
+      />
+      <Route
         path={`${match.url}/advance-requests`}
-        component={lazy(() => import(`./advaceRequests`))}
+        component={lazy(() => import(`./advance-requests`))}
       />
       <Redirect from={`${match.url}`} to={`${match.url}/message`} />
     </Switch>

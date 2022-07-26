@@ -35,27 +35,40 @@ class MainMenu extends Component {
       <div>
         <Row gutter={16}>
           {MenuData.map((elm, i) => (
-            <Col xs={24} sm={12} md={12} lg={6} xl={6} key={i}>
-              <Link to={elm.path}>
-                <Card
-                  type="flex"
-                  align="middle"
-                >
+            <Col xs={24} sm={12} md={12} lg={6} xl={6} xxl={4} key={i}>
+              <Link
+                to={{
+                  pathname: elm.path,
+                  state: { name: elm.title, path: elm.path },
+                }}
+              >
+                <Card type="flex" align="middle">
                   <p>
                     <Avatar
                       size={54}
                       style={{
                         backgroundColor: "#fff",
-                        boxShadow: "1px 6px 5px 0px rgba(208, 216, 243, 0.6)",
+                        boxShadow: `0.5px 5px 5px 0px ${generateHSL(elm.title)}`,
                       }}
                       icon={
                         <elm.icon style={{ color: generateHSL(elm.title) }} />
                       }
                     />
                   </p>
-                  <Meta description={elm.title} />
-                  <Meta title={"Count " + "(" + elm.value + ")"} />
-                  <Meta title={"Ksh " + elm.amount} />
+                  <p style={{ margin: "0", marginBottom: "10px" }}>
+                    {elm.title}
+                  </p>
+                  <Meta title={"Count " + ": " + elm.value} />
+                  <p
+                    style={{
+                      fontWeight: "bold",
+                      margin: "0",
+                      marginTop: "10px",
+                      fontSize: "18px",
+                    }}
+                  >
+                    Ksh : {elm.amount}
+                  </p>
                 </Card>
               </Link>
             </Col>

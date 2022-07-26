@@ -133,6 +133,32 @@ class ReminderMessages extends Component {
       }
     }
   };
+
+  filterData(inputValue) {
+    const data = this.state.data;
+    const filtered = data.filter(
+      (item) =>
+        item.phone.includes(inputValue) ||
+        item.status.includes(inputValue) ||
+        item.text.includes(inputValue) ||
+        item.days.includes(inputValue)
+    );
+
+    this.setState({
+      data: filtered,
+    });
+  }
+
+  onSearch = (event) => {
+    const inputValue = event.target.value;
+    this.filterData(inputValue);
+
+    if (inputValue.length <= 0) {
+      this.setState({
+        data: this.props.reminderList,
+      });
+    }
+  };
   render() {
     const columns = [
       {
@@ -194,11 +220,11 @@ class ReminderMessages extends Component {
           </Col>
           <Col className="gutter-row" span={6}>
             <div>
-              <Input
+            <Input
                 size="small"
                 placeholder="Search"
                 onChange={(e) => {
-                  this.search(e);
+                  this.onSearch(e);
                 }}
               />
             </div>

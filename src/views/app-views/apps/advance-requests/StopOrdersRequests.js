@@ -3,14 +3,16 @@ import {
   Row,
   Col,
   Card,
-  Avatar,
+  Avatar, Breadcrumb
 } from "antd";
-import { TSCData } from "./TSCData";
+import { Link } from "react-router-dom";
+import { StopOrdersData } from "./StopOrdersData";
 const { Meta } = Card;
 
-class TSCRequests extends Component {
+class StopOrdersRequests extends Component {
   state = {};
   render() {
+    const { name, path } = this.props.location.state;
     const hRange = [150, 30];
     const sRange = [50, 200];
     const lRange = [0, 65];
@@ -37,24 +39,43 @@ class TSCRequests extends Component {
 
     return (
       <div>
+        <Breadcrumb>
+          <Breadcrumb.Item>
+            <Link
+              to={{
+                pathname: `/app/apps/advance-requests/advance-requests-menu`,
+              }}
+            >
+              Advance Requests
+            </Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>{name}</Breadcrumb.Item>
+        </Breadcrumb>
         <Row gutter={16}>
-          {TSCData.map((elm, i) => (
-            <Col xs={24} sm={12} md={12} lg={6} xl={6} key={i}>
+          {StopOrdersData.map((elm, i) => (
+           <Col xs={24} sm={12} md={12} lg={6} xl={6} xxl={4} key={i}>
+            <Link
+                to={{
+                  pathname: `/app/apps/advance-requests/view-data/${elm.path}`,
+                  state: { name: name, subname: elm.title, path: path },
+                }}
+              >
               <Card type="flex" align="middle">
                 <p>
                   <Avatar
                     size={54}
                     style={{
                       backgroundColor: "#fff",
-                      boxShadow: "1px 6px 5px 0px rgba(208, 216, 243, 0.6)",
+                      boxShadow: `0.5px 5px 5px 0px ${generateHSL(elm.title)}`,
                     }}
                     icon={<elm.icon style={{color: generateHSL(elm.title)}} />}
                   />
                 </p>
-                <Meta description={elm.title} style={{color: generateHSL(elm.title)}}/>
-                <Meta title={"Count " + "("+ elm.value + ")"} />
-                <Meta title={"Ksh " + elm.amount}/>
+                <p style={{ margin: "0", marginBottom: "10px" }}>{elm.title}</p>
+                  <Meta title={"Count " + ": "+ elm.value } />
+                  <p style={{fontWeight: "bold", margin: "0", marginTop: "10px", fontSize: "18px"}}>Ksh : {elm.amount}</p>
               </Card>
+              </Link>
             </Col>
           ))}
         </Row>
@@ -63,4 +84,4 @@ class TSCRequests extends Component {
   }
 }
 
-export default TSCRequests;
+export default StopOrdersRequests;

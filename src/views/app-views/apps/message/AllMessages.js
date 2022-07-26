@@ -66,6 +66,30 @@ class AllMessages extends Component {
       });
     }
   };
+  filterData(inputValue) {
+    const data = this.state.data;
+    const filtered = data.filter(
+      (item) =>
+        item.contacts.includes(inputValue) ||
+        item.target.includes(inputValue) ||
+        item.message.includes(inputValue)
+    );
+
+    this.setState({
+      data: filtered,
+    });
+  }
+
+  onSearch = (event) => {
+    const inputValue = event.target.value;
+    this.filterData(inputValue);
+
+    if (inputValue.length <= 0) {
+      this.setState({
+        data: this.props.messages,
+      });
+    }
+  };
   render() {
     return (
       <div>
@@ -75,7 +99,7 @@ class AllMessages extends Component {
               size="small"
               placeholder="Search"
               onChange={(e) => {
-                this.search(e);
+                this.onSearch(e);
               }}
             />
           </div>

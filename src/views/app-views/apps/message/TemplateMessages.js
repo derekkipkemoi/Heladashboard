@@ -1,10 +1,28 @@
-import { Table, Typography, Input, Row, Tooltip, Popconfirm, Menu, message, Col} from "antd";
+import {
+  Table,
+  Typography,
+  Input,
+  Row,
+  Tooltip,
+  Popconfirm,
+  Menu,
+  message,
+  Col,
+} from "antd";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { EyeOutlined, DeleteOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import {
+  EyeOutlined,
+  DeleteOutlined,
+  PlusCircleOutlined,
+} from "@ant-design/icons";
 import Flex from "components/shared-components/Flex";
 import EllipsisDropdown from "components/shared-components/EllipsisDropdown";
-import { getTemplateList, deleteTemplate, messageUpdate} from "redux/actions/Messaging";
+import {
+  getTemplateList,
+  deleteTemplate,
+  messageUpdate,
+} from "redux/actions/Messaging";
 import CreateTemplate from "./TemplateFunctions/CreateTemplate";
 const { Text, Link } = Typography;
 
@@ -26,7 +44,6 @@ class TemplateMessages extends Component {
     // // console.log("This props", this.props, id)
     //   history.push(`${match.url}/${id}`);
   };
-
 
   deleteTemplate = (row) => {
     console.log("Row id", row);
@@ -60,7 +77,7 @@ class TemplateMessages extends Component {
     });
     if (this.props.message === "Sample message deleted successful") {
       window.location.reload();
-      this.props.messageUpdate()
+      this.props.messageUpdate();
     }
   };
 
@@ -125,6 +142,32 @@ class TemplateMessages extends Component {
       }
     }
   };
+
+  filterData(inputValue) {
+    const data = this.state.data;
+    const filtered = data.filter(
+      (item) =>
+        item.main_category.includes(inputValue) ||
+        item.sub_category.includes(inputValue) ||
+        item.message.includes(inputValue) ||
+        item.created_at.includes(inputValue)
+    );
+
+    this.setState({
+      data: filtered,
+    });
+  }
+
+  onSearch = (event) => {
+    const inputValue = event.target.value;
+    this.filterData(inputValue);
+
+    if (inputValue.length <= 0) {
+      this.setState({
+        data: this.props.templateList,
+      });
+    }
+  };
   render() {
     const columns = [
       {
@@ -178,18 +221,14 @@ class TemplateMessages extends Component {
                 size="small"
                 placeholder="Search"
                 onChange={(e) => {
-                  this.search(e);
+                  this.onSearch(e);
                 }}
               />
             </div>
           </Col>
         </Row>
 
-        <Table
-          columns={columns}
-          dataSource={this.state.data}
-          rowKey="id"
-        />
+        <Table columns={columns} dataSource={this.state.data} rowKey="id" />
       </div>
     );
   }
@@ -201,7 +240,9 @@ const mapStateToProps = ({ messaging }) => {
 };
 
 const mapDispatchToProps = {
-  getTemplateList,deleteTemplate, messageUpdate
+  getTemplateList,
+  deleteTemplate,
+  messageUpdate,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TemplateMessages);

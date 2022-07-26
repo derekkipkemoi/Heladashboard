@@ -59,15 +59,6 @@ export class Users extends Component {
   };
 
   printPdf = (value) => {
-   
-
-    // html2canvas(document.querySelector("#capture")).then((canvas) => {
-    //   document.body.appendChild(canvas); // if you want see your screenshot in body.
-    //   const imgData = canvas.toDataURL("image/png");
-    //   const pdf =  new jsPDF('p', 'mm', 'a4', true);
-    //   pdf.addImage(imgData, "PNG", 0, 0);
-    //   pdf.save("download.pdf");
-    // });
     html2canvas(document.querySelector("#capture")).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF({
@@ -81,17 +72,6 @@ export class Users extends Component {
     });
     message.success("Pdf file generated successfuly");
   };
-
-  // componentDidUpdate = (prevProps) => {
-  //   if (this.props !== prevProps) {
-  //     let data = [];
-  //     this.props.getUsers();
-  //     data = this.props.users;
-  //     this.setState({
-  //       users: data,
-  //     });
-  //   }
-  // };
   componentDidMount() {
     let data = [];
     this.props.getUsers();
@@ -150,6 +130,7 @@ export class Users extends Component {
     }
 
     const viewDetails = (row) => {
+      const {match} = this.props
       this.props.history.push(
         `/app/apps/users/viewuser/${row.id}/${"details"}`
       );
@@ -236,74 +217,7 @@ export class Users extends Component {
         sorter: (a, b) =>
           moment(a.created_at).unix() - moment(b.created_at).unix(),
       },
-      // {
-      //   title: "Loan Bal.",
-      //   dataIndex: "loan_balance",
-      //   render: (loan_balance) => (
-      //     <div>
-      //       {loan_balance === null ? (
-      //         <Tag className="text-capitalize" color="yellow">
-      //           Not Set
-      //         </Tag>
-      //       ) : (
-      //         <Text>{loan_balance}</Text>
-      //       )}
-      //     </div>
-      //   ),
-      //   sorter: (a, b) => parseInt(a.loan_balance) - parseInt(b.loan_balance),
-      //   sortDirections: ["descend", "ascend"],
-      // },
-      // {
-      //   title: "Advance Bal.",
-      //   dataIndex: "advance_limit",
-      //   render: (advance_limit) => (
-      //     <div>
-      //       {advance_limit === null ? (
-      //         <Tag className="text-capitalize" color="yellow">
-      //           Not Set
-      //         </Tag>
-      //       ) : (
-      //         <Text>{advance_limit}</Text>
-      //       )}
-      //     </div>
-      //   ),
-      //   sorter: (a, b) => parseInt(a.advance_limit) - parseInt(b.advance_limit),
-      //   sortDirections: ["descend", "ascend"],
-      // },
-      // {
-      //   title: "Gross Sal.",
-      //   dataIndex: "gross_salary",
-      //   render: (gross_salary) => (
-      //     <div>
-      //       {gross_salary === null ? (
-      //         <Tag className="text-capitalize" color="yellow">
-      //           Not Set
-      //         </Tag>
-      //       ) : (
-      //         <Text>{gross_salary}</Text>
-      //       )}
-      //     </div>
-      //   ),
-      //   sorter: (a, b) => parseInt(a.gross_salary) - parseInt(b.gross_salary),
-      //   sortDirections: ["descend", "ascend"],
-      // },
-      // {
-      //   title: "Net Sal.",
-      //   dataIndex: "net_salary",
-      //   render: (net_salary) => (
-      //     <div>
-      //       {net_salary === null ? (
-      //         <Tag className="text-capitalize" color="yellow">
-      //           Not Set
-      //         </Tag>
-      //       ) : (
-      //         <Text>{net_salary}</Text>
-      //       )}
-      //     </div>
-      //   ),
-      //   sorter: (a, b) => parseInt(a.net_salary) - parseInt(b.net_salary),
-      //   sortDirections: ["descend", "ascend"],
-      // },
+     
       {
         title: "Status",
         dataIndex: "user_status",

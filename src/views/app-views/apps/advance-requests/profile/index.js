@@ -109,7 +109,7 @@ export class Profile extends Component {
           <Col sm={24} md={24}>
             <div className="d-md-flex">
               <div
-                className="rounded p-1 bg-white shadow-sm mx-auto"
+                className="rounded p-1 "
                 style={{
                   marginTop: "-0.5rem",
                   maxWidth: `${props.avatarSize}px`,

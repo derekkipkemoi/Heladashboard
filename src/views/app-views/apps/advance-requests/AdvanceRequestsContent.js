@@ -7,6 +7,7 @@ import StopOrdersRequests from './StopOrdersRequests';
 import RefundsRequests from './RefundsRequests';
 import MainMenu from './MainMenu';
 import RequestsDataTable from './RequestsDataTable';
+import profile from './profile';
 class AdvanceRequestsContent extends Component {
     render() { 
         const { match } = this.props;
@@ -19,6 +20,7 @@ class AdvanceRequestsContent extends Component {
                 <Route exact path={`${match.url}/stop-orders-requests`} component={StopOrdersRequests} />
                 <Route exact path={`${match.url}/refunds-requests`} component={RefundsRequests} />
                 <Route exact path={`${match.url}/view-data/:id`} component={RequestsDataTable} />
+                <Route exact path={`${match.url}/view-user-data/:id`} component={profile} />
 			</Switch>
         );
     }

@@ -21,6 +21,7 @@ import EllipsisDropdown from "components/shared-components/EllipsisDropdown";
 import { connect } from "react-redux";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import { getUsers } from "redux/actions/Users";
 
 import RequestMenu from "./RequestMenu";
 import CompaniesData from "assets/data/companies.json";
@@ -75,7 +76,7 @@ export class RequestsDataTables extends Component {
 
   componentDidMount() {
     let data = [];
-    // this.props.getUsers();
+    this.props.getUsers();
     data = this.props.users;
     this.setState({
       users: data,
@@ -122,11 +123,11 @@ export class RequestsDataTables extends Component {
     }
   };
 
-  viewDetails = () => {
+  viewDetails = (row) => {
     const { match } = this.props;
-    // this.props.history.push(
-    //   `/app/apps/users/viewuser/${row.id}/${"details"}`
-    // );
+    this.props.history.push(
+      `/app/apps/advance-requests/view-user-data/${row.id}`
+    );
   };
 
   updateUser = () => {
@@ -157,17 +158,14 @@ export class RequestsDataTables extends Component {
 
     const tableColumns = [
       {
-        title: "#",
-        dataIndex: "#",
-      },
-      {
-        title: "Type",
-        dataIndex: "type",
-      },
-      {
-        title: "Borrower",
-        dataIndex: "first_name",
+        title: "Ref No",
+        dataIndex: "refer_code",
         width: 150,
+      },
+      {
+        title: "User",
+        dataIndex: "first_name",
+        width: 300,
         render: (_, record) => (
           <div className="d-flex">
             <UserAvatar
@@ -185,25 +183,21 @@ export class RequestsDataTables extends Component {
           },
         },
       },
-      {
-        title: "Datasheet No",
-        dataIndex: "datasheet_no",
-        width: 150,
-      },
-      {
-        title: "National ID",
-        dataIndex: "national_id",
-        width: 150,
-        sorter: (a, b) => parseInt(a.national_id) - parseInt(b.national_id),
-        sortDirections: ["descend", "ascend"],
-      },
+      
       {
         title: "Payroll No",
         dataIndex: "payroll_no",
         width: 150,
+        sorter: (a, b) => parseInt(a.payroll_no) - parseInt(b.payroll_no),
+        sortDirections: ["descend", "ascend"],
       },
       {
-        title: "Company",
+        title: "Amount",
+        dataIndex: "net_salary",
+        width: 150,
+      },
+      {
+        title: "Period",
         dataIndex: "company",
         width: 150,
       },
@@ -214,45 +208,11 @@ export class RequestsDataTables extends Component {
         sorter: (a, b) => parseInt(a.phone) - parseInt(b.phone),
         sortDirections: ["descend", "ascend"],
       },
-      {
-        title: "Period",
-        dataIndex: "period",
-        width: 150,
-        sorter: (a, b) => parseInt(a.period) - parseInt(b.period),
-        sortDirections: ["descend", "ascend"],
-      },
-      {
-        title: "Principal",
-        dataIndex: "principal",
-        width: 150,
-        sorter: (a, b) => parseInt(a.principal) - parseInt(b.principal),
-        sortDirections: ["descend", "ascend"],
-      },
-      {
-        title: "Interest",
-        dataIndex: "interest",
-        width: 150,
-        sorter: (a, b) => parseInt(a.interest) - parseInt(b.interest),
-        sortDirections: ["descend", "ascend"],
-      },
-      {
-        title: "Fee",
-        dataIndex: "interest",
-        width: 150,
-        sorter: (a, b) => parseInt(a.interest) - parseInt(b.interest),
-        sortDirections: ["descend", "ascend"],
-      },
-      {
-        title: "Payable",
-        dataIndex: "interest",
-        width: 150,
-        sorter: (a, b) => parseInt(a.interest) - parseInt(b.interest),
-        sortDirections: ["descend", "ascend"],
-      },
+      
       {
         title: "Status",
         dataIndex: "user_status",
-        width: 150,
+        width: 100,
         render: (status) => (
           <Tag
             className="text-capitalize"
@@ -271,19 +231,20 @@ export class RequestsDataTables extends Component {
           moment(a.created_at).unix() - moment(b.created_at).unix(),
       },
 
-      {
-        title: "Updated At",
-        dataIndex: "created_at",
-        width: 150,
-        render: (date) => <span>{moment(date).format("MM/DD/YYYY")} </span>,
-        sorter: (a, b) =>
-          moment(a.created_at).unix() - moment(b.created_at).unix(),
-      },
+      // {
+      //   title: "Updated At",
+      //   dataIndex: "created_at",
+      //   width: 150,
+      //   render: (date) => <span>{moment(date).format("MM/DD/YYYY")} </span>,
+      //   sorter: (a, b) =>
+      //     moment(a.created_at).unix() - moment(b.created_at).unix(),
+      // },
 
       {
         title: "",
         dataIndex: "actions",
         fixed: "right",
+        width: 50,
         render: (_, elm) => (
           <div className="text-right">
             <EllipsisDropdown menu={dropdownMenu(elm)} />
@@ -385,15 +346,15 @@ export class RequestsDataTables extends Component {
   }
 }
 
-const mapStateToProps = ({}) => {
-  const { users } = [];
+const mapStateToProps = ({usersList}) => {
+  const { users } = usersList;
   return {
     users,
   };
 };
 
-// const mapDispatchToProps = {
-//   getUsers,
-// };
+const mapDispatchToProps = {
+  getUsers,
+};
 
-export default connect(mapStateToProps, null)(RequestsDataTables);
+export default connect(mapStateToProps, mapDispatchToProps)(RequestsDataTables);

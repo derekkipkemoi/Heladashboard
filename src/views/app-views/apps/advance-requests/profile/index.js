@@ -134,7 +134,7 @@ export class Profile extends Component {
                       " " +
                       userObject.surname}
                   </h2>
-                  <div className="ml-md-1 mt-md-0">
+                  <div className="ml-4 mt-md-0">
                     <Space>
                       <ChangeUserRole />
                       <ChangeUserType />
@@ -414,7 +414,7 @@ export class Profile extends Component {
             </div>
           </Col>
           <Card bodyStyle={{ padding: 0, marginTop: 20 }} bordered={false}>
-            <Row className="mb-2 mt-2 mt-md-0 ">
+            <Row className="mb-2 mt-2 mt-md-0 " style={{marginLeft:"80px"}}>
               <Col xs={24} sm={24} md={24}>
                 <Space>
                   <Tooltip title="Decline Request">

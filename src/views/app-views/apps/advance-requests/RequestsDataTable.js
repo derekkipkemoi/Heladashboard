@@ -163,7 +163,7 @@ export class RequestsDataTables extends Component {
         width: 150,
       },
       {
-        title: "User",
+        title: "Borrower",
         dataIndex: "first_name",
         width: 300,
         render: (_, record) => (
@@ -183,6 +183,12 @@ export class RequestsDataTables extends Component {
           },
         },
       },
+
+      {
+        title: "Institution",
+        dataIndex: "company",
+        width: 200,
+      },
       
       {
         title: "Payroll No",
@@ -201,13 +207,6 @@ export class RequestsDataTables extends Component {
         dataIndex: "company",
         width: 150,
       },
-      {
-        title: "Phone",
-        dataIndex: "phone",
-        width: 150,
-        sorter: (a, b) => parseInt(a.phone) - parseInt(b.phone),
-        sortDirections: ["descend", "ascend"],
-      },
       
       {
         title: "Status",
@@ -223,7 +222,7 @@ export class RequestsDataTables extends Component {
         ),
       },
       {
-        title: "Created At",
+        title: "Date Created",
         dataIndex: "created_at",
         width: 150,
         render: (date) => <span>{moment(date).format("MM/DD/YYYY")} </span>,

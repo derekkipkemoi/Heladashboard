@@ -35,14 +35,14 @@ class Institutions extends Component {
       (item) =>
         item.name.toLowerCase().includes(inputValue) ||
         item.company_code.toLowerCase().includes(inputValue)
-        // item.approved.includes(inputValue) ||
-        // item.email.includes(inputValue) ||
-        // item.phone.includes(inputValue) ||
-        // item.postal_address.includes(inputValue) ||
-        // item.created_at.includes(inputValue)
+      // item.approved.includes(inputValue) ||
+      // item.email.includes(inputValue) ||
+      // item.phone.includes(inputValue) ||
+      // item.postal_address.includes(inputValue) ||
+      // item.created_at.includes(inputValue)
     );
 
-    console.log("Filtered", filtered)
+    console.log("Filtered", filtered);
 
     this.setState({
       data: filtered,
@@ -51,7 +51,7 @@ class Institutions extends Component {
 
   onSearch = (event) => {
     const inputValue = event.target.value;
-    console.log("Search", inputValue)
+    console.log("Search", inputValue);
     this.filterData(inputValue);
     if (inputValue.length <= 0) {
       this.setState({
@@ -76,9 +76,7 @@ class Institutions extends Component {
     };
 
     const addInstitute = () => {
-      this.props.history.push(
-        `/app/apps/institutions/addinstitution`
-      );
+      this.props.history.push(`/app/apps/institutions/addinstitution`);
     };
 
     const dropdownMenu = (row) => (
@@ -293,7 +291,6 @@ class Institutions extends Component {
 
 const mapStateToProps = ({ institutions }) => {
   let { institutionsList } = institutions;
-  console.log("Institutions", institutionsList);
   return {
     institutionsList,
   };

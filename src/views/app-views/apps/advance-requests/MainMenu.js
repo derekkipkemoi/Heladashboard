@@ -2,10 +2,22 @@ import React, { Component } from "react";
 import { Row, Col, Card, Avatar } from "antd";
 import { MenuData } from "./MenuData";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { getAdvanceRequestMainMenu } from "redux/actions/AdvanceRequests";
+import {
+  ArrowUpOutlined,
+  CheckOutlined,
+  StopOutlined,
+  ArrowDownOutlined,
+} from "@ant-design/icons";
 const { Meta } = Card;
 
 class MainMenu extends Component {
   state = {};
+
+  componentDidMount = () => {
+    this.props.getAdvanceRequestMainMenu();
+  };
   render() {
     const hRange = [150, 30];
     const sRange = [50, 200];
@@ -34,7 +46,7 @@ class MainMenu extends Component {
     return (
       <div>
         <Row gutter={16}>
-          {MenuData.map((elm, i) => (
+          {this.props.menuDataList.map((elm, i) => (
             <Col xs={24} sm={12} md={12} lg={6} xl={6} xxl={4} key={i}>
               <Link
                 to={{
@@ -48,7 +60,9 @@ class MainMenu extends Component {
                       size={54}
                       style={{
                         backgroundColor: "#fff",
-                        boxShadow: `0.5px 5px 5px 0px ${generateHSL(elm.title)}`,
+                        boxShadow: `0.5px 5px 5px 0px ${generateHSL(
+                          elm.title
+                        )}`,
                       }}
                       icon={
                         <elm.icon style={{ color: generateHSL(elm.title) }} />
@@ -79,4 +93,68 @@ class MainMenu extends Component {
   }
 }
 
-export default MainMenu;
+const mapStateToProps = ({ advanceRequest }) => {
+  let { advanceRequestMainMenu } = advanceRequest;
+  let listedMenuList = Object.entries(advanceRequestMainMenu);
+  let menuDataList = []
+  function createData(title, path, value, amount, icon) {
+    return {
+      title,
+      path,
+      value,
+      amount,
+      icon,
+    };
+  }
+
+  const menuData = [
+    {
+      title: "Normal Requests",
+      path: "normal-requests",
+      icon: CheckOutlined,
+    },
+    {
+      title: "Stop Orders",
+      path: "stop-orders-requests",
+      icon: StopOutlined,
+    },
+    {
+      title: "TSC Requests",
+      path: "tsc-requests",
+      icon: CheckOutlined,
+    },
+    {
+      title: "Top Ups",
+      path: "topups-requests",
+      icon: ArrowUpOutlined,
+    },
+    {
+      title: "Refunds",
+      path: "refunds-requests",
+      icon: ArrowDownOutlined,
+    },
+  ];
+
+  for (let index = 0; index < listedMenuList.length; index++) {
+    const element = listedMenuList[index];
+    let firstList = createData(
+      element[0],
+      menuData[index].path,
+      element[1].count,
+      element[1].total,
+      menuData[index].icon
+    );
+
+    menuDataList.push(firstList)
+    
+  }
+  return {
+    menuDataList,
+  };
+};
+
+const mapDispatchToProps = {
+  getAdvanceRequestMainMenu,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainMenu);

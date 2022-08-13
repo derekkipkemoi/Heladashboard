@@ -1,98 +1,104 @@
 
 import {  DislikeOutlined, CheckOutlined,
-    PlusOutlined, ClockCircleOutlined,ScheduleOutlined, OrderedListOutlined, ShareAltOutlined, BookOutlined} from "@ant-design/icons";
+    PlusOutlined, ClockCircleOutlined, ReloadOutlined, ShareAltOutlined, BookOutlined, StopOutlined} from "@ant-design/icons";
     
-    export const TSCData = [
+    export const menuData = [
         {
-            title: 'All TSC Requests', 
-            value: 11,
-            amount: 2000,
-            path: "tsc-all",
-            icon: OrderedListOutlined,
-        },
-        {
-            title: 'Pending Requests',
-            value: 7,
-            amount: 2000,
+            title: 'Pending',
             path: "tsc-pending-requests",
             icon: ClockCircleOutlined,
         },
         {
-            title: 'Payslip Required Requests',
-            value: 17,
-            amount: 2000,
-            path: "tsc-payslip-required-requests",
-            icon: PlusOutlined,
+            title: 'Disbursed',
+            path: "tsc-disbursed-requests",
+            icon: CheckOutlined,
         },
         {
-            title: 'Payslip Shared Requests',
-            value: 17,
-            amount: 2000,
-            path: "tsc-shared-requests",
-            icon: ShareAltOutlined,
+            title: 'Declined',
+            path: "tsc-declined-requests",
+            icon: StopOutlined,
         },
         {
-            title: 'Top Ups',
-            value: 17,
-            amount: 2000,
-            path: "tsc-top-ups",
-            icon: PlusOutlined,
-        },
-        {
-            title: 'Booked Requests',
-            value: 3,
-            amount: 2000,
+            title: 'Booked', 
             path: "tsc-booked-requests",
             icon: BookOutlined,
         },
+
         {
-            title: 'Due Deligence Requests',
-            value: 20,
-            amount: 2000,
-            path: "tsc-due-deligence-requests",
-            icon: ScheduleOutlined,
+            title: 'Pending Disbursed',
+            path: "tsc-pending-disbursment",
+            icon: ClockCircleOutlined
+        },
+
+        {
+            title: 'TSC Approved Requests',
+            path: "tsc-approved-requests",
+            icon: CheckOutlined,
+        },
+
+        {
+            title: 'Payslip Shared Requests',
+            path: "tsc-shared-requests",
+            icon: ShareAltOutlined,
+        },
+        
+        {
+            title: 'Revise Ability',
+            path: "tsc-revised-ability-requests",
+            icon: ReloadOutlined,
+        },
+        {
+            title: 'Not on Payroll',
+            path: "tsc-not-on-payroll-requests",
+            icon: StopOutlined,
+        },
+        {
+            title: 'Payroll DD Done',
+            path: "tsc-payroll-dd-done-requests",
+            icon: CheckOutlined,
+        },
+        {
+            title: 'TSC Booked', 
+            path: "tsc-tsc-booked-requests",
+            icon: BookOutlined,
+        },
+        {
+            title: 'Pending DD Booked', 
+            path: "tsc-pending-dd-booked-requests",
+            icon: ClockCircleOutlined,
+        },
+
+        {
+            title: 'Pending Payslip Share', 
+            path: "tsc-pending-payslip-share-requests",
+            icon: ClockCircleOutlined,
+        },
+
+        {
+            title: 'Payroll DD Pending', 
+            path: "tsc-pending-dd-booked-requests",
+            icon: ClockCircleOutlined,
+        },
+        {
+            title: '@Payroll - Repeat Clients',
+            path: "tsc-payroll-repeat-clients-requests",
+            icon: ReloadOutlined,
         },
         {
             title: 'Declined By Clients',
-            value: 5,
-            amount: 2000,
             path: "tsc-declined-clients",
             icon: DislikeOutlined
         },
         {
+            title: 'Pending Decline',
+            path: "tsc-pending-decline-requests",
+            icon: ClockCircleOutlined
+        },
+        {
             title: 'Compliance',
-            value: 37,
-            amount: 2000,
             path: "tsc-compliance",
             icon: CheckOutlined
         },
-        {
-            title: 'Pending Disbursment',
-            value: 7,
-            amount: 2000,
-            path: "tsc-pending-disbursment",
-            icon: ClockCircleOutlined
-        },
-        {
-            title: 'Approved Requests',
-            value: 30,
-            amount: 2000,
-            path: "tsc-approved-requests",
-            icon: CheckOutlined,
-        },
-        {
-            title: 'Pending Declined Requests',
-            value: 15,
-            amount: 2000,
-            path: "tsc-pending-declined-requests",
-            icon: ClockCircleOutlined
-        },
-        {
-            title: 'Declined Requests',
-            value: 15,
-            amount: 2000,
-            path: "tsc-declined-requests",
-            icon: DislikeOutlined
-        }
+        
     ]
     

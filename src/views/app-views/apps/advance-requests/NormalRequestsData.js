@@ -1,155 +1,90 @@
 
 import {  AreaChartOutlined, StopOutlined, DatabaseOutlined, DislikeOutlined, WarningOutlined, MinusOutlined, CheckOutlined,
-PlusOutlined, ClockCircleOutlined} from "@ant-design/icons";
+	PlusOutlined, ClockCircleOutlined, BookOutlined, ShareAltOutlined} from "@ant-design/icons";
 
-
-
-export const AnnualStatisticData = [
+export const menuData = [
+    {
+      path: "pending",
+      icon: ClockCircleOutlined,
+    },
 	{
-		title: 'All Advance Requests', 
-		value: 11,
-		amount: 2000,
-        path: "all-advance-requests",
-		icon: AreaChartOutlined,
-	},
+      title: 'Disbursed Requests',
+      path: "all-advance-requests-disbursed",
+      icon: CheckOutlined
+    },
 	{
-		title: 'Pending Requests',
-		value: 7,
-		amount: 2000,
-        path: "all-advance-requests-pending",
-		icon: ClockCircleOutlined,
-	},
+      title: 'Declined',
+      path: "all-advance-requests-declined-by-clients",
+      icon: DislikeOutlined
+    },
+    {
+      title: 'Booked',
+      path: "all-advance-booked",
+      icon: BookOutlined,
+    },
+	  {
+      title: 'Pending Disbursment',
+      path: "all-advance-requests-pending-disbursment",
+      icon: ClockCircleOutlined
+    },
+	 {
+      title: 'Approved',
+      path: "all-advance-requests-approved",
+      icon: CheckOutlined
+    },
+	  {
+      title: 'Payslip Share',
+      path: "all-advance-requests-payslip-shared",
+      icon: ShareAltOutlined,
+    },
 	{
-		title: 'Pending DD',
-		value: 17,
-		amount: 2000,
-        path: "all-advance-requests-pending-dd",
-		icon: ClockCircleOutlined,
-	},
+      title: 'Revised Ability',
+      path: "all-advance-requests-revised-ability",
+      icon: CheckOutlined,
+    },
+	  {
+      title: 'Not On Payroll',
+      path: "all-advance-requests-not-payroll",
+      icon: StopOutlined
+    },
+	   {
+      title: 'Payroll DD Done',
+      path: "all-advance-requests-payroll-dd-done",
+      icon: CheckOutlined
+    },
+	   {
+      title: 'Pending DD Booked',
+      path: "all-advance-requests-pending-dd-booked",
+      icon: ClockCircleOutlined
+    },
+	 {
+      title: 'Pending Payslip Share',
+      path: "all-advance-requests-pending-payslip",
+      icon: ClockCircleOutlined,
+    },
 	{
-		title: 'Pending Payslip Share',
-		value: 3,
-		amount: 2000,
-        path: "all-advance-requests-pending-payslip",
-		icon: ClockCircleOutlined,
-	},
+      title: 'DD Pending',
+      path: "all-advance-requests-payroll-dd-pending",
+      icon: ClockCircleOutlined
+    },
 	{
-		title: 'Generate Datasheet',
-		value: 20,
-		amount: 2000,
-        path: "all-advance-requests-generated-datasheet",
-		icon: DatabaseOutlined,
-	},
+      title: '@Payroll - Repeat Clients',
+      path: "all-advance-requests-payroll-repeat-clients",
+      icon: ClockCircleOutlined
+    },
 	{
-		title: 'Payroll DD Pending',
-		value: 5,
-		amount: 2000,
-        path: "all-advance-requests-payroll-dd-pending",
-		icon: ClockCircleOutlined
-	},
+      title: 'Declined By Clients',
+      path: "all-advance-requests-decline-by-clients",
+      icon: DislikeOutlined
+    },
 	{
-		title: 'Payroll DD Done',
-		value: 37,
-		amount: 2000,
-        path: "all-advance-requests-payroll-dd-done",
-		icon: CheckOutlined
-	},
+      title: 'Pending Decline',
+      path: "all-advance-requests-pending-decline",
+      icon: ClockCircleOutlined
+    },
 	{
-		title: 'Received from Payroll',
-		value: 7,
-		amount: 2000,
-        path: "all-advance-requests-received-from-payroll",
-		icon: PlusOutlined
-	},
-	{
-		title: 'Revised Ability',
-		value: 30,
-		amount: 2000,
-        path: "all-advance-requests-revised-ability",
-		icon: CheckOutlined,
-	},
-	{
-		title: 'Not On Payroll',
-		value: 15,
-		amount: 2000,
-        path: "all-advance-requests-not-payroll",
-		icon: StopOutlined
-	},
-	{
-		title: 'Pending DD Booked',
-		value: 15,
-		amount: 2000,
-        path: "all-advance-requests-pending-dd-booked",
-		icon: ClockCircleOutlined
-	},
-	{
-		title: 'Declined By Clients',
-		value: 15,
-		amount: 2000,
-        path: "all-advance-requests-declined-by-clients",
-		icon: DislikeOutlined
-	},
-	{
-		title: 'Stop Orders',
-		value: 15,
-		amount: 2000,
-        path: "all-advance-requests-stop-orders",
-		icon: DislikeOutlined
-	},
-	{
-		title: 'Compliance',
-		value: 15,
-		amount: 2000,
-        path: "all-advance-requests-compliance",
-		icon: CheckOutlined
-	},
-	{
-		title: 'Pending Disbursment',
-		value: 15,
-		amount: 2000,
-        path: "all-advance-requests-pending-disbursment",
-		icon: ClockCircleOutlined
-	},
-	{
-		title: 'Approved Requets',
-		value: 15,
-		amount: 2000,
-        path: "all-advance-requests-approved",
-		icon: CheckOutlined
-	},
-	{
-		title: 'Disbursed Requests',
-		value: 15,
-		amount: 2000,
-        path: "all-advance-requests-disbursed",
-		icon: CheckOutlined
-	},
-	{
-		title: 'Pending Decline Requests',
-		value: 15,
-		amount: 2000,
-        path: "all-advance-requests-pending-decline",
-		icon: ClockCircleOutlined
-	},
-	{
-		title: 'Declined Requests',
-		value: 15,
-		amount: 2000,
-        path: "all-advance-requests-decline-request",
-		icon: DislikeOutlined
-	},
-	{
-		title: 'Disbursment Error',
-		value: 15,
-		amount: 2000,
-        path: "all-advance-requests-disbursment-error",
-		icon: WarningOutlined
-	},
-	{
-		title: 'Uncaptured Disbursment',
-		value: 15,
-		amount: 2000,
-        path: "all-advance-requests-uncaptured-disbursment",
-		icon: MinusOutlined
-	}
-]
+      title: 'Compliance',
+      path: "all-advance-requests-compliance",
+      icon: CheckOutlined
+    }
+  ]

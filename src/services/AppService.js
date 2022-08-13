@@ -233,11 +233,54 @@ appService.deleteReminder = function (payload) {
 
 appService.updateReminder = function (payload) {
   const { id, reminder } = payload;
-  console.log("Payload", id, reminder);
   return fetch({
     url: "/update-reminder?id=" + id,
     method: "patch",
     data: reminder,
+  });
+};
+
+appService.getAdvanceRequestMainMenu = function () {
+  return fetch({
+    url: "/advance-request-dashboard",
+    method: "get"
+  });
+};
+
+
+appService.getNormalRequestMainMenu = function () {
+  return fetch({
+    url: "/normal-request-dashboard",
+    method: "get"
+  });
+};
+
+appService.getTSCMainMenu = function () {
+  return fetch({
+    url: "/tsc-dashboard",
+    method: "get"
+  });
+};
+
+
+appService.getStopOrdersMainMenu = function (payload) {
+  return fetch({
+    // url: "/advance-request-dashboard",
+    method: "get"
+  });
+};
+
+appService.getTopUpsMainMenu = function (payload) {
+  return fetch({
+    // url: "/advance-request-dashboard",
+    method: "get"
+  });
+};
+
+appService.getRefundsMainMenu = function (payload) {
+  return fetch({
+    // url: "/advance-request-dashboard",
+    method: "get"
   });
 };
 export default appService;

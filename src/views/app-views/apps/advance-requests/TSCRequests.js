@@ -6,11 +6,19 @@ import {
   Avatar, Breadcrumb
 } from "antd";
 import { Link } from "react-router-dom";
-import { TSCData } from "./TSCData";
+import { menuData } from "./TSCData";
+import { connect } from "react-redux";
+import { getTscMainMenu } from "redux/actions/AdvanceRequests";
 const { Meta } = Card;
 
 class TSCRequests extends Component {
   state = {};
+
+  componentDidMount =()=> {
+    this.props.getTscMainMenu()
+  }
+
+
   render() {
     const { name, path } = this.props.location.state;
     const hRange = [150, 30];
@@ -52,7 +60,7 @@ class TSCRequests extends Component {
           <Breadcrumb.Item>{name}</Breadcrumb.Item>
         </Breadcrumb>
         <Row gutter={16}>
-          {TSCData.map((elm, i) => (
+          {this.props.menuDataList.map((elm, i) => (
             <Col xs={24} sm={12} md={12} lg={6} xl={6} xxl={4} key={i}>
               <Link
                 to={{
@@ -84,4 +92,42 @@ class TSCRequests extends Component {
   }
 }
 
-export default TSCRequests;
+const mapStateToProps=({advanceRequest})=> {
+let {tscRequestMainMenu} = advanceRequest
+let listedMenuList = Object.entries(tscRequestMainMenu)
+let menuDataList = []
+  function createData(title, path, value, amount, icon) {
+    return {
+      title,
+      path,
+      value,
+      amount,
+      icon,
+    };
+  }
+
+
+
+  for (let index = 0; index < listedMenuList.length; index++) {
+    const element = listedMenuList[index];
+    let firstList = createData(
+      element[0],
+      menuData[index].path,
+      element[1].count,
+      element[1].total,
+      menuData[index].icon
+    );
+
+    menuDataList.push(firstList)
+  }
+
+  return{
+    menuDataList
+  }
+}
+
+const mapDispatchToProps= {
+  getTscMainMenu
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (TSCRequests);

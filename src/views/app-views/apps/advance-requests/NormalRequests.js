@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import { Row, Col, Card, Avatar, Breadcrumb } from "antd";
-import { AnnualStatisticData } from "./NormalRequestsData";
+import { menuData } from "./NormalRequestsData";
+import { getNormalRequestsMainMenu } from "redux/actions/AdvanceRequests";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+
 const { Meta } = Card;
 
 class NormalRequests extends Component {
   state = {};
+
+  componentDidMount =()=> {
+    this.props.getNormalRequestsMainMenu()
+  }
 
   render() {
     const { name, path } = this.props.location.state;
@@ -49,7 +56,7 @@ class NormalRequests extends Component {
         </Breadcrumb>
 
         <Row gutter={16}>
-          {AnnualStatisticData.map((elm, i) => (
+          {this.props.menuDataList.map((elm, i) => (
             <Col xs={24} sm={12} md={12} lg={6} xl={6} xxl={4} key={i}>
               <Link
                 to={{
@@ -94,4 +101,42 @@ class NormalRequests extends Component {
   }
 }
 
-export default NormalRequests;
+const mapStateToProps=({advanceRequest})=> {
+  let {normalRequestMainMenu} = advanceRequest
+  let listedMenuList = Object.entries(normalRequestMainMenu)
+  let menuDataList = []
+  function createData(title, path, value, amount, icon) {
+    return {
+      title,
+      path,
+      value,
+      amount,
+      icon,
+    };
+  }
+
+
+
+  for (let index = 0; index < listedMenuList.length; index++) {
+    const element = listedMenuList[index];
+    let firstList = createData(
+      element[0],
+      menuData[index].path,
+      element[1].count,
+      element[1].total,
+      menuData[index].icon
+    );
+
+    menuDataList.push(firstList)
+    
+  }
+  return{
+    menuDataList
+  }
+}
+
+const mapDispatchToProps= {
+  getNormalRequestsMainMenu
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (NormalRequests);

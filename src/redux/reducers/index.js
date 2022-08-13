@@ -7,6 +7,7 @@ import Users from './Users';
 import Institutions from './Institutions';
 import settings from './Settings';
 import payRollRegistration from './Payroll';
+import AdvanceRequest from './AdvanceRequests';
 
 const reducers = combineReducers({
     theme: Theme,
@@ -16,7 +17,8 @@ const reducers = combineReducers({
     usersList: Users,
     institutions: Institutions,
     systemSettings: settings,
-    payRollRegistration: payRollRegistration
+    payRollRegistration: payRollRegistration,
+    advanceRequest: AdvanceRequest
 });
 
 export default reducers;

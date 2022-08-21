@@ -309,6 +309,7 @@ export class Users extends Component {
 
 const mapStateToProps = ({ usersList }) => {
   const { users } = usersList;
+  console.log('Users in component', users)
   return {
     users,
   };

@@ -37,9 +37,10 @@ class RequestMenu extends React.Component {
         selectedKeys={[current]}
         mode="horizontal"
         className="pb-3 pl-3 pt-3"
+        style={{borderBottom: "none", lineHeight:"0px"}}
       >
         
-        <SubMenu key="SubMenu" icon={<FileOutlined />} title="Generate File">
+        <SubMenu key="SubMenu" icon={<FileOutlined />} title="Generate File" style={{borderBottom:'none'}}>
           <Menu.ItemGroup title="Generate By File Type">
             <Menu.Item key="excel">
               <FileExcelOutlined

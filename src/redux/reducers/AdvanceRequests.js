@@ -1,6 +1,7 @@
 import {
   SAVEMAINMENUDATA,
   SAVENORMALREQUESTSMENU,
+  SAVEREQUESTSDATA,
   SAVETSCREQUESTSMENU,
 } from "../constants/AdvanceRequests";
 
@@ -8,6 +9,7 @@ const initState = {
   advanceRequestMainMenu: {},
   normalRequestMainMenu: {},
   tscRequestMainMenu: {},
+  requestsData: []
 };
 
 const advanceRequest = (state = initState, action) => {
@@ -28,6 +30,12 @@ const advanceRequest = (state = initState, action) => {
       return {
         ...state,
         tscRequestMainMenu: action.tscRequestMainMenu,
+      };
+
+      case SAVEREQUESTSDATA:
+      return {
+        ...state,
+        requestsData: action.requestsData,
       };
 
     default:

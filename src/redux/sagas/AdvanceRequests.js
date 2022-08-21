@@ -1,6 +1,12 @@
 import { all, takeEvery, put, fork, call } from "redux-saga/effects";
-import { saveAdvanceRequestMainMenu, saveNormalRequestsMainMenu, saveTSCMainMenu } from "redux/actions/AdvanceRequests";
 import {
+  saveAdvanceRequestMainMenu,
+  saveNormalRequestsMainMenu,
+  saveRequestsData,
+  saveTSCMainMenu,
+} from "redux/actions/AdvanceRequests";
+import {
+  GETREQUESTSDATA,
   MAINMENUDATA,
   NORMALREQUESTSMENU,
   TSCREQUESTSMENU,
@@ -34,7 +40,6 @@ export function* getNormalRequestsMainMenu() {
   });
 }
 
-
 export function* getTSCMainMenu() {
   yield takeEvery(TSCREQUESTSMENU, function* () {
     try {
@@ -48,6 +53,24 @@ export function* getTSCMainMenu() {
   });
 }
 
+export function* getRequestsData() {
+  yield takeEvery(GETREQUESTSDATA, function* ({ payload }) {
+    try {
+      const response = yield call(AppService.getRequestsData, payload);
+      if (response.message) {
+        yield put(saveRequestsData(response.allRequests.advance_requests));
+      }
+    } catch (err) {
+      console.log("Messages listing error in sagas", err);
+    }
+  });
+}
+
 export default function* rootSaga() {
-  yield all([fork(getAdvanceRequestsMainMenu), fork(getNormalRequestsMainMenu), fork(getTSCMainMenu)]);
+  yield all([
+    fork(getAdvanceRequestsMainMenu),
+    fork(getNormalRequestsMainMenu),
+    fork(getTSCMainMenu),
+    fork(getRequestsData),
+  ]);
 }

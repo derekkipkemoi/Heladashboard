@@ -166,7 +166,7 @@ appService.getTemplateList = function () {
 };
 
 appService.getTemplate = function (payload) {
-  const  id  = payload;
+  const id = payload;
   return fetch({
     url: "/view-template-message?id=" + id,
     method: "get",
@@ -174,17 +174,17 @@ appService.getTemplate = function (payload) {
 };
 
 appService.createTemplate = function (payload) {
-  console.log("create template", payload)
+  console.log("create template", payload);
   return fetch({
     url: "/create-template-message",
     method: "post",
-    data: payload
+    data: payload,
   });
 };
 
 appService.deleteTemplate = function (payload) {
-  const  id  = payload;
-  console.log("Id", id)
+  const id = payload;
+  console.log("Id", id);
   return fetch({
     url: "/delete-template-message?id=" + id,
     method: "delete",
@@ -196,7 +196,7 @@ appService.updateTemplate = function (payload) {
   return fetch({
     url: "/update-template-message?id=" + id,
     method: "patch",
-    data: template
+    data: template,
   });
 };
 
@@ -243,44 +243,51 @@ appService.updateReminder = function (payload) {
 appService.getAdvanceRequestMainMenu = function () {
   return fetch({
     url: "/advance-request-dashboard",
-    method: "get"
+    method: "get",
   });
 };
-
 
 appService.getNormalRequestMainMenu = function () {
   return fetch({
     url: "/normal-request-dashboard",
-    method: "get"
+    method: "get",
   });
 };
+
+
 
 appService.getTSCMainMenu = function () {
   return fetch({
     url: "/tsc-dashboard",
-    method: "get"
+    method: "get",
   });
 };
 
-
-appService.getStopOrdersMainMenu = function (payload) {
+appService.getRequestsData = function (payload) {
   return fetch({
-    // url: "/advance-request-dashboard",
-    method: "get"
+    url: "/" + payload,
+    method: "get",
   });
 };
 
-appService.getTopUpsMainMenu = function (payload) {
-  return fetch({
-    // url: "/advance-request-dashboard",
-    method: "get"
-  });
-};
+// appService.getStopOrdersMainMenu = function (payload) {
+//   return fetch({
+//     // url: "/advance-request-dashboard",
+//     method: "get",
+//   });
+// };
 
-appService.getRefundsMainMenu = function (payload) {
-  return fetch({
-    // url: "/advance-request-dashboard",
-    method: "get"
-  });
-};
+// appService.getTopUpsMainMenu = function (payload) {
+//   return fetch({
+//     // url: "/advance-request-dashboard",
+//     method: "get",
+//   });
+// };
+
+// appService.getRefundsMainMenu = function (payload) {
+//   return fetch({
+//     // url: "/advance-request-dashboard",
+//     method: "get",
+//   });
+// };
 export default appService;

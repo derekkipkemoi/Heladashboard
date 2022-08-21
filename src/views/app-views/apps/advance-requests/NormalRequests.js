@@ -61,7 +61,7 @@ class NormalRequests extends Component {
               <Link
                 to={{
                   pathname: `/app/apps/advance-requests/view-data/${elm.path}`,
-                  state: { name: name, subname: elm.title, path: path },
+                  state: { name: name, subname: elm.title, path: path, dataPath: elm.path },
                 }}
               >
                 <Card type="flex" align="middle" role="button">
@@ -115,6 +115,8 @@ const mapStateToProps=({advanceRequest})=> {
     };
   }
 
+  
+
 
 
   for (let index = 0; index < listedMenuList.length; index++) {
@@ -126,9 +128,7 @@ const mapStateToProps=({advanceRequest})=> {
       element[1].total,
       menuData[index].icon
     );
-
     menuDataList.push(firstList)
-    
   }
   return{
     menuDataList

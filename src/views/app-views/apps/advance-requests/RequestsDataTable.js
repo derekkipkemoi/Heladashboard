@@ -26,6 +26,7 @@ import { getUsers } from "redux/actions/Users";
 import RequestMenu from "./RequestMenu";
 import CompaniesData from "assets/data/companies.json";
 import { Link } from "react-router-dom";
+import { getRequestsData } from "redux/actions/AdvanceRequests";
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { Text } = Typography;
@@ -36,6 +37,7 @@ export class RequestsDataTables extends Component {
     userProfileVisible: false,
     selectedUser: null,
     printPdf: this.props.printPdf,
+    dataPath: "",
   };
 
   deleteUser = (userId) => {
@@ -75,65 +77,64 @@ export class RequestsDataTables extends Component {
   };
 
   componentDidMount() {
+    const { dataPath } = this.props.location.state;
     let data = [];
-    this.props.getUsers();
+    this.props.getRequestsData(dataPath);
     data = this.props.users;
     this.setState({
       users: data,
+      dataPath: dataPath,
     });
   }
 
   componentDidUpdate = (prevProps) => {
     if (this.props !== prevProps) {
       let data = [];
+      const { dataPath } = this.props.location.state;
+      this.props.getRequestsData(dataPath);
       data = this.props.users;
       this.setState({
         users: data,
+        dataPath: dataPath,
       });
     }
   };
 
-  filterData(inputValue) {
-    const data = this.state.users;
-    const filtered = data.filter(
-      (item) =>
-        item.first_name.includes(inputValue) ||
-        item.middle_name.includes(inputValue) ||
-        item.surname.includes(inputValue) ||
-        item.email.includes(inputValue) ||
-        item.phone.includes(inputValue) ||
-        item.dob.includes(inputValue) ||
-        item.created_at.includes(inputValue) ||
-        item.national_id.includes(inputValue)
-    );
+  // filterData(inputValue) {
+  //   const data = this.state.users;
+  //   const filtered = data.filter(
+  //     (item) =>
+  //       item.first_name.includes(inputValue)
+  //       // item.middle_name.includes(inputValue) ||
+  //       // item.surname.includes(inputValue) ||
+  //       // item.email.includes(inputValue) ||
+  //       // item.phone.includes(inputValue) ||
+  //       // item.dob.includes(inputValue) ||
+  //       // item.created_at.includes(inputValue) ||
+  //       // item.national_id.includes(inputValue)
+  //   );
 
-    this.setState({
-      users: filtered,
-    });
-  }
+  //   this.setState({
+  //     users: filtered,
+  //   });
+  // }
 
-  onSearch = (event) => {
-    const inputValue = event.target.value;
-    this.filterData(inputValue);
+  // onSearch = (event) => {
+  //   const inputValue = event.target.value;
+  //   this.filterData(inputValue);
 
-    if (inputValue.length <= 0) {
-      this.setState({
-        users: this.props.users,
-      });
-    }
-  };
+  //   if (inputValue.length <= 0) {
+  //     this.setState({
+  //       users: this.props.users,
+  //     });
+  //   }
+  // };
 
   viewDetails = (row) => {
     const { match } = this.props;
     this.props.history.push(
       `/app/apps/advance-requests/view-user-data/${row.id}`
     );
-  };
-
-  updateUser = () => {
-    // this.props.history.push(
-    //   `/app/apps/users/updateuser/${row.id}/${"updateprofile"}`
-    // );
   };
 
   render() {
@@ -159,7 +160,7 @@ export class RequestsDataTables extends Component {
     const tableColumns = [
       {
         title: "Ref No",
-        dataIndex: "refer_code",
+        dataIndex: "loan_no",
         width: 150,
       },
       {
@@ -171,7 +172,6 @@ export class RequestsDataTables extends Component {
             <UserAvatar
               src={""}
               name={record.first_name + " " + record.surname}
-              subTitle={record.email}
             />
           </div>
         ),
@@ -189,7 +189,7 @@ export class RequestsDataTables extends Component {
         dataIndex: "company",
         width: 200,
       },
-      
+
       {
         title: "Payroll No",
         dataIndex: "payroll_no",
@@ -199,23 +199,23 @@ export class RequestsDataTables extends Component {
       },
       {
         title: "Amount",
-        dataIndex: "net_salary",
+        dataIndex: "amount",
         width: 150,
       },
       {
         title: "Period",
-        dataIndex: "company",
+        dataIndex: "period",
         width: 150,
       },
-      
+
       {
         title: "Status",
-        dataIndex: "user_status",
+        dataIndex: "status",
         width: 100,
         render: (status) => (
           <Tag
             className="text-capitalize"
-            color={status === "active" ? "cyan" : "red"}
+            color={status !== "0" ? "cyan" : "red"}
           >
             {status}
           </Tag>
@@ -255,7 +255,13 @@ export class RequestsDataTables extends Component {
       <div>
         <Breadcrumb>
           <Breadcrumb.Item>
-            <Link to={{pathname:`/app/apps/advance-requests/advance-requests-menu`}}>Advance Requests</Link>
+            <Link
+              to={{
+                pathname: `/app/apps/advance-requests/advance-requests-menu`,
+              }}
+            >
+              Advance Requests
+            </Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
             <Link
@@ -271,7 +277,7 @@ export class RequestsDataTables extends Component {
         </Breadcrumb>
         <Card>
           <Row>
-            <div>
+            {/* <div>
               <Select
                 className="mb-4"
                 placeholder="Select company to send message"
@@ -284,7 +290,7 @@ export class RequestsDataTables extends Component {
               <Button type="primary" style={{ marginLeft: "20px" }}>
                 Assume Client Role
               </Button>
-            </div>
+            </div> */}
 
             <div style={{ marginLeft: "20px" }}>
               <RangePicker
@@ -300,7 +306,6 @@ export class RequestsDataTables extends Component {
             </div>
           </Row>
 
-          <RequestMenu {...this.props} printPdf={this.printPdf} />
           <Card
             id="capture"
             bodyStyle={{ padding: "0" }}
@@ -329,6 +334,7 @@ export class RequestsDataTables extends Component {
                   }}
                 />
               </div>
+              <RequestMenu {...this.props} printPdf={this.printPdf} />
             </Row>
             <div className="table-responsive">
               <Table
@@ -345,15 +351,15 @@ export class RequestsDataTables extends Component {
   }
 }
 
-const mapStateToProps = ({usersList}) => {
-  const { users } = usersList;
+const mapStateToProps = ({ advanceRequest }) => {
+  const { requestsData } = advanceRequest;
   return {
-    users,
+    users: requestsData,
   };
 };
 
 const mapDispatchToProps = {
-  getUsers,
+  getRequestsData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestsDataTables);

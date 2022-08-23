@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Modal, Form, Input, Space, Spin, Alert } from "antd";
+import { FileAddOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { changeUserType } from "redux/actions/Users";
@@ -31,7 +32,7 @@ function ChangeUserType(props) {
 
   return (
     <div>
-      <Button size="small" type="primary" style={{ background: "gold", borderColor: "white" }} >
+      <Button size="small" style={{ background: "#00ab6f", borderColor: "white", color:"white" }}  icon={<FileAddOutlined/>}>
         Add Datasheet Number
       </Button>
       <Modal title="Change User Type" visible={visible} onOk={form.submit} onCancel={handleCancel}>

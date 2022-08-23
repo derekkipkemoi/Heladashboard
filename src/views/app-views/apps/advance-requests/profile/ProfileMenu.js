@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Menu, Button } from "antd";
+import { Menu, Button, Card } from "antd";
 import {
   FileSyncOutlined,
   DollarOutlined,
@@ -28,6 +28,7 @@ class ProfileMenu extends Component {
   render() {
     const { content } = this.props.match.params;
     return (
+      <Card type="inner" title="Comments and Files">
       <Menu selectedKeys={[content]} mode="horizontal">
         <Menu.Item key="details" icon={<CommentOutlined />}>
           <Link
@@ -43,7 +44,7 @@ class ProfileMenu extends Component {
               pathname: `registration-files`,
             }}
           ></Link>
-          User Registration Files
+          Registration Files
         </Menu.Item>
         <Menu.Item key="request-files" icon={<FileSyncOutlined />}>
           <Link
@@ -51,18 +52,19 @@ class ProfileMenu extends Component {
               pathname: `request-files`,
             }}
           ></Link>
-          User Request Files
+          Request Files
         </Menu.Item>
         <Menu.Item key="add-comment">
           <Button type="primary" style={{ background: "#00ab6f", borderColor: "white" }} icon={<PlusOutlined />}>Comment</Button>
         </Menu.Item>
         <Menu.Item key="add-request-files">
-        <Button type="primary" style={{ background: "#00ab6f", borderColor: "white" }} icon={<UploadOutlined />}>Request File</Button>
+        <Button type="primary" style={{ background: "#00ab6f", borderColor: "white" }} icon={<PlusOutlined />}>Request File</Button>
         </Menu.Item>
         <Menu.Item key="add-registration-files">
-        <Button type="primary" style={{ background: "#00ab6f", borderColor: "white" }} icon={<UploadOutlined />}>Registration File</Button>
+        <Button type="primary" style={{ background: "#00ab6f", borderColor: "white" }} icon={<PlusOutlined />}>Registration File</Button>
         </Menu.Item>
       </Menu>
+      </Card>
     );
   }
 }

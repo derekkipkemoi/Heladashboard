@@ -5,7 +5,7 @@ import {  DislikeOutlined, CheckOutlined,
     export const menuData = [
         {
             title: 'Pending',
-            path: "tsc-pending-requests",
+            path: "pending-tsc-requests",
             icon: ClockCircleOutlined,
         },
         {
@@ -20,7 +20,7 @@ import {  DislikeOutlined, CheckOutlined,
         },
         {
             title: 'Booked', 
-            path: "tsc-booked-requests",
+            path: "booked-tsc-requests",
             icon: BookOutlined,
         },
 
@@ -70,7 +70,7 @@ import {  DislikeOutlined, CheckOutlined,
 
         {
             title: 'Pending Payslip Share', 
-            path: "tsc-pending-payslip-share-requests",
+            path: "pending-payslip-share-tsc-requests",
             icon: ClockCircleOutlined,
         },
 

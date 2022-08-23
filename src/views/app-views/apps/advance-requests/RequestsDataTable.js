@@ -334,7 +334,12 @@ export class RequestsDataTables extends Component {
                   }}
                 />
               </div>
-              <RequestMenu {...this.props} printPdf={this.printPdf} />
+              <Button
+                type="primary"
+                style={{ marginLeft: "20px", height: "35px", padding: "0", backgroundColor: '#fff', borderColor:"#e6ebf1", width:"180px" }}
+              >
+                <RequestMenu {...this.props} printPdf={this.printPdf} />
+              </Button>
             </Row>
             <div className="table-responsive">
               <Table

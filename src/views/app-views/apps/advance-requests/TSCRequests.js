@@ -16,11 +16,14 @@ class TSCRequests extends Component {
 
   componentDidMount =()=> {
     this.props.getTscMainMenu()
+    const { name, path } = this.props.location.state;
+    console.log("Path tsc", path)
   }
 
 
   render() {
     const { name, path } = this.props.location.state;
+    console.log("Path tsc", path)
     const hRange = [150, 30];
     const sRange = [50, 200];
     const lRange = [0, 65];
@@ -65,7 +68,7 @@ class TSCRequests extends Component {
               <Link
                 to={{
                   pathname: `/app/apps/advance-requests/view-data/${elm.path}`,
-                  state: { name: name, subname: elm.title, path: path },
+                  state: { name: name, subname: elm.title, path: path, dataPath: elm.path },
                 }}
               >
               <Card type="flex" align="middle">

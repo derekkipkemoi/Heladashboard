@@ -36,25 +36,28 @@ class RequestMenu extends React.Component {
         onClick={this.handleClick}
         selectedKeys={[current]}
         mode="horizontal"
-        className="pb-3 pl-3 pt-3"
-        style={{borderBottom: "none", lineHeight:"0px"}}
+        style={{ borderBottom: "none", lineHeight: "0px" }}
       >
-        
-        <SubMenu key="SubMenu" icon={<FileOutlined />} title="Generate File" style={{borderBottom:'none'}}>
+        <SubMenu
+          key="SubMenu"
+          icon={<FileOutlined />}
+          title="Generate Report"
+          style={{ borderBottom: "none" }}
+        >
           <Menu.ItemGroup title="Generate By File Type">
             <Menu.Item key="excel">
               <FileExcelOutlined
                 style={{ paddingRight: "10px", color: "#389e0d" }}
               />{" "}
-              <CSVLink
+              {/* <CSVLink
                 filename={"data.csv"}
                 data={data}
                 onClick={() => {
                   message.success("Excel file generated successfuly");
                 }}
-              >
-                Generate Excel File
-              </CSVLink>
+              > */}
+              Generate Excel File
+              {/* </CSVLink> */}
             </Menu.Item>
             <Menu.Item
               key="pdf"
@@ -74,7 +77,7 @@ class RequestMenu extends React.Component {
   }
 }
 
-const mapStateToProps = ({  }) => {
+const mapStateToProps = ({}) => {
   const { data } = [];
   return {
     data,

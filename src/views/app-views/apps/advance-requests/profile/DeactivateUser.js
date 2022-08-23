@@ -32,7 +32,7 @@ function DeactivateUser(props) {
 
   return (
     <div>
-      <Button size="small" type="primary"  style={{ background: "#00ab6f", borderColor: "white" }} icon={<DownloadOutlined/>} >
+      <Button size="small" type="primary"  icon={<DownloadOutlined/>} >
         Download Application
       </Button>
       <Modal

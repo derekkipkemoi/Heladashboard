@@ -60,7 +60,7 @@ service.interceptors.response.use(
       notificationParam.description = "Please login again";
       localStorage.removeItem(AUTH_TOKEN);
       history.push(ENTRY_ROUTE);
-      // window.location.reload();
+      window.location.reload();
     }
 
     if (error.response.status === 404) {

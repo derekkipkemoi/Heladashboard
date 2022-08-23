@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Modal, Form, Input, Space, Spin, Alert } from "antd";
+import { EditOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { changeUserRole } from "redux/actions/Users";
@@ -31,7 +32,7 @@ function ChangeUserRole(props) {
 
   return (
     <div>
-      <Button size="small" type="primary" >
+      <Button size="small" style={{ background: "#00ab6f", borderColor: "white", color:"white" }}  icon={<EditOutlined/>}>
         Update Advance Request
       </Button>
       <Modal

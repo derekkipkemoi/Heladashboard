@@ -1,99 +1,109 @@
-import { Button, Card, Col, Row, Tooltip } from "antd";
+import { Button, Card, Col, Row, Modal } from "antd";
 import React, { Component } from "react";
 
-import {
-  DislikeOutlined,
-  VerticalAlignTopOutlined,
-  FileOutlined,
-  ClockCircleOutlined,
-  CommentOutlined,
-  StopOutlined,
-  BookOutlined,
-} from "@ant-design/icons";
+import { actionButtonsData } from "./ActionButtonsData";
+import { connect } from "react-redux";
+import { postAdvanceRequestsAction } from "redux/actions/AdvanceRequests";
 
 class ActionButton extends Component {
-  state = {};
+  state = {
+    ModalText: "Content of the modal",
+    visible: false,
+    confirmLoading: false,
+    actionPath: "",
+  };
+  showModal = (textTitle, actionPath) => {
+    this.setState({
+      ModalText: textTitle,
+      visible: true,
+      actionPath,
+    });
+  };
+
+  componentDidUpdate = (prevProps) => {
+    if (this.props.actionResponseMessage !== prevProps.actionResponseMessage) {
+      console.log("Message updated", this.props.actionResponseMessage);
+    }
+  };
+
+  handleOk = (userId) => {
+    console.log("User Id on ok", userId, this.state.actionPath);
+    this.props.postAdvanceRequestsAction(userId, this.state.actionPath);
+    this.setState({
+      ModalText: "Doing update for" + this.state.ModalText,
+      confirmLoading: true,
+    });
+    setTimeout(() => {
+      this.setState({
+        ModalText: this.props.actionResponseMessage,
+        visible: false,
+        confirmLoading: false,
+      });
+    }, 2000);
+  };
+
+  handleCancel = () => {
+    console.log("Clicked cancel button");
+    this.setState({
+      visible: false,
+    });
+  };
   render() {
+    const { visible, confirmLoading, ModalText } = this.state;
+    const { userId } = this.props;
     return (
-      <Card type="inner" title="Action Buttons">
-        <Row>
-        <Col xs={4} sm={4} md={2} xl={2} xxl={2} style={{padding:"2px"}}>
-            <Tooltip title="Decline Request">
-              <Button type="danger" shape="circle" icon={<DislikeOutlined />} />
-            </Tooltip>
-          </Col>
-          <Col xs={4} sm={4} md={2} xl={2} xxl={2} style={{padding:"2px"}}>
-            <Tooltip title="Update Status to Pending @Payroll">
-              <Button
-                type="primary"
-                style={{ backgroundColor: "gold", borderColor: "gold" }}
-                shape="circle"
-                icon={<ClockCircleOutlined />}
-              />
-            </Tooltip>
-          </Col>
-          <Col xs={4} sm={4} md={2} xl={2} xxl={2} style={{padding:"2px"}}>
-            <Tooltip title="Comment">
-              <Button
-                type="primary"
-                shape="circle"
-                icon={<CommentOutlined />}
-              />
-            </Tooltip>
-          </Col>
-          <Col xs={4} sm={4} md={2} xl={2} xxl={2} style={{padding:"2px"}}>
-            <Tooltip title="Request has file">
-              <Button type="primary" shape="circle" icon={<FileOutlined />} />
-            </Tooltip>
-          </Col>
-          <Col xs={4} sm={4} md={2} xl={2} xxl={2} style={{padding:"2px"}}>
-            <Tooltip title="Update Status to @Payroll - DD Pending">
-              <Button
-                type="primary"
-                style={{ backgroundColor: "gold", borderColor: "gold" }}
-                shape="circle"
-                icon={<ClockCircleOutlined />}
-              />
-            </Tooltip>
-          </Col>
-          <Col xs={4} sm={4} md={2} xl={2} xxl={2} style={{padding:"2px"}}>
-            <Tooltip title="Update Status to - DD Pending">
-              <Button
-                type="primary"
-                style={{ backgroundColor: "gold", borderColor: "gold" }}
-                shape="circle"
-                icon={<ClockCircleOutlined />}
-              />
-            </Tooltip>
-          </Col>
-          <Col xs={4} sm={4} md={2} xl={2} xxl={2} style={{padding:"2px"}}>
-            <Tooltip title="Update Status to Pending Payslip Share">
-              <Button
-                type="primary"
-                style={{ backgroundColor: "gold", borderColor: "gold" }}
-                shape="circle"
-                icon={<BookOutlined />}
-              />
-            </Tooltip>
-          </Col>
-          <Col xs={4} sm={4} md={2} xl={2} xxl={2} style={{padding:"2px"}}>
-            <Tooltip title="Confirm Decline">
-              <Button type="danger" shape="circle" icon={<StopOutlined />} />
-            </Tooltip>
-          </Col>
-          <Col xs={4} sm={4} md={2} xl={2} xxl={2} style={{padding:"2px"}}>
-            <Tooltip title="Update Status to Top Ups">
-              <Button
-                type="primary"
-                shape="circle"
-                icon={<VerticalAlignTopOutlined />}
-              />
-            </Tooltip>
-          </Col>
+      <Card type="inner" title="Actions">
+        <Row justify="space-between">
+          {actionButtonsData.map((dataItem, index) => {
+            return (
+              <Col
+                xs={24}
+                sm={12}
+                md={8}
+                xl={6}
+                xxl={6}
+                style={{ padding: "10px" }}
+              >
+                <Button
+                  type="danger"
+                  style={{
+                    backgroundColor: `${dataItem.color}`,
+                    borderColor: `${dataItem.color}`,
+                    color: "#fff",
+                  }}
+                  block
+                  onClick={(e) => this.showModal(dataItem.title, dataItem.path)}
+                >
+                  {dataItem.title}
+                </Button>
+              </Col>
+            );
+          })}
         </Row>
+        <Modal
+          title={ModalText}
+          visible={visible}
+          onOk={(e) => this.handleOk(userId)}
+          confirmLoading={confirmLoading}
+          onCancel={this.handleCancel}
+        >
+          <p>{ModalText}</p>
+        </Modal>
       </Card>
     );
   }
 }
 
-export default ActionButton;
+const mapStateToProps = ({ advanceRequest }) => {
+  const { actionResponseMessage } = advanceRequest;
+  console.log("Message in action button component", actionResponseMessage);
+  return {
+    actionResponseMessage,
+  };
+};
+
+const mapDispatchToProps = {
+  postAdvanceRequestsAction,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ActionButton);

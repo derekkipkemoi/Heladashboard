@@ -254,8 +254,6 @@ appService.getNormalRequestMainMenu = function () {
   });
 };
 
-
-
 appService.getTSCMainMenu = function () {
   return fetch({
     url: "/tsc-dashboard",
@@ -267,6 +265,22 @@ appService.getRequestsData = function (payload) {
   return fetch({
     url: "/" + payload,
     method: "get",
+  });
+};
+
+appService.getUserRequestsData = function (payload) {
+  return fetch({
+    url: "view-advance-salary-request?id=" + payload,
+    method: "get",
+  });
+};
+
+appService.postAdvanceRequestsAction = function (payload) {
+  const { id, actionPath } = payload;
+  console.log("Id and path in service", actionPath + id);
+  return fetch({
+    url: actionPath + 6794,
+    method: "post",
   });
 };
 

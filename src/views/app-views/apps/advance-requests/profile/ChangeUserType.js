@@ -32,7 +32,7 @@ function ChangeUserType(props) {
 
   return (
     <div>
-      <Button size="small" style={{ background: "#00ab6f", borderColor: "white", color:"white" }}  icon={<FileAddOutlined/>}>
+      <Button block  style={{ backgroundColor: "#7c992c", borderColor: "white", color:"white" }}  icon={<FileAddOutlined/>}>
         Add Datasheet Number
       </Button>
       <Modal title="Change User Type" visible={visible} onOk={form.submit} onCancel={handleCancel}>

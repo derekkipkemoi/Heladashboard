@@ -148,12 +148,6 @@ export class RequestsDataTables extends Component {
             <span className="ml-2">View User</span>
           </Flex>
         </Menu.Item>
-        <Menu.Item onClick={() => this.updateUser(row)}>
-          <Flex alignItems="center">
-            <EditOutlined />
-            <span className="ml-2">Edit User</span>
-          </Flex>
-        </Menu.Item>
       </Menu>
     );
 
@@ -336,7 +330,14 @@ export class RequestsDataTables extends Component {
               </div>
               <Button
                 type="primary"
-                style={{ marginLeft: "20px", height: "35px", padding: "0", backgroundColor: '#fff', borderColor:"#e6ebf1", width:"180px" }}
+                style={{
+                  marginLeft: "20px",
+                  height: "35px",
+                  padding: "0",
+                  backgroundColor: "#fff",
+                  borderColor: "#e6ebf1",
+                  width: "180px",
+                }}
               >
                 <RequestMenu {...this.props} printPdf={this.printPdf} />
               </Button>

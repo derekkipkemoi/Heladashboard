@@ -32,7 +32,7 @@ function ChangeUserRole(props) {
 
   return (
     <div>
-      <Button size="small" style={{ background: "#00ab6f", borderColor: "white", color:"white" }}  icon={<EditOutlined/>}>
+      <Button  block style={{ background: "#3e79f7", borderColor: "white", color:"white" }}  icon={<EditOutlined/>}>
         Update Advance Request
       </Button>
       <Modal

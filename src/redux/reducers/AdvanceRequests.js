@@ -1,15 +1,20 @@
 import {
+  GET_ADVANCE_REQUEST_ACTION_MESSAGE,
   SAVEMAINMENUDATA,
   SAVENORMALREQUESTSMENU,
   SAVEREQUESTSDATA,
   SAVETSCREQUESTSMENU,
+  SAVE_USER_REQUESTS_DATA,
 } from "../constants/AdvanceRequests";
 
 const initState = {
   advanceRequestMainMenu: {},
   normalRequestMainMenu: {},
   tscRequestMainMenu: {},
-  requestsData: []
+  requestsData: [],
+  userRequestData: {},
+  actionResponseMessage: ""
+
 };
 
 const advanceRequest = (state = initState, action) => {
@@ -36,6 +41,18 @@ const advanceRequest = (state = initState, action) => {
       return {
         ...state,
         requestsData: action.requestsData,
+      };
+
+      case SAVE_USER_REQUESTS_DATA:
+      return {
+        ...state,
+        userRequestData: action.userRequestData,
+      };
+
+      case GET_ADVANCE_REQUEST_ACTION_MESSAGE:
+      return {
+        ...state,
+        actionResponseMessage: action.message,
       };
 
     default:

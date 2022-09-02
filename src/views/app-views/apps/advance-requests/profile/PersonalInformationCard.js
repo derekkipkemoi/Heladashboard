@@ -1,78 +1,77 @@
 import React from "react";
-import { Col, Row, Card } from "antd";
+import { Col, Row, Card, Table, Typography } from "antd";
 import { Icon } from "components/util-components/Icon";
-import {
-  AuditOutlined,
-  PhoneOutlined,
-  IdcardOutlined,
-  BankOutlined,
-  EnvironmentOutlined,
-  ClockCircleOutlined,
-  FieldNumberOutlined,
-  UserAddOutlined,
-  MailOutlined
-} from "@ant-design/icons";
 
-export default function PersonalInformationCard() {
+const { Text } = Typography;
+
+export default function PersonalInformationCard(props) {
+  
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+    },
+    {
+      title: "Detail",
+      dataIndex: "detail",
+    },
+  ];
+  let data = [];
+
+  if (props.personalDetails !== undefined) {
+    data = [
+      {
+        key: "1",
+        name: "Name",
+        detail: props.personalDetails.borrower,
+      },
+      {
+        key: "3",
+        name: "Phone",
+        detail: props.personalDetails.phone,
+      },
+      {
+        key: "4",
+        name: "Company",
+        detail: props.personalDetails.institution,
+      },
+      {
+        key: "5",
+        name: "Age",
+        detail: props.personalDetails.age,
+      },
+      {
+        key: "6",
+        name: "ID Number",
+        detail: props.personalDetails.national_id,
+      },
+      {
+        key: "7",
+        name: "Payroll Number",
+        detail: props.personalDetails.payroll,
+      },
+      {
+        key: "8",
+        name: "Status",
+        detail: props.personalDetails.status,
+      },
+      {
+        key: "9",
+        name: "Location",
+        detail: props.personalDetails.location,
+      },
+    ];
+  }
+
   return (
     <div>
-      <Card type="inner" title="Personal Details">
-        <Row>
-          <Col xs={24} sm={24} md={12} xl={12} xxl={12}>
-            <Row type="flex" align="middle">
-              <Col span={24} style={{ padding: "5px" }}>
-                <Icon type={UserAddOutlined} className="text-primary" />
-                <span className="text-muted ml-2">Name: </span>
-                <span style={{ marginLeft: "10px" }}>Mary Sarah</span>
-              </Col>
-              <Col span={24} style={{ padding: "5px" }}>
-                <Icon type={MailOutlined} className="text-primary" />
-                <span className="text-muted ml-2">Email: </span>
-                <span style={{ marginLeft: "10px" }}>test@loremipsum.com</span>
-              </Col>
-              <Col span={24} style={{ padding: "5px" }}>
-                <Icon type={PhoneOutlined} className="text-primary" />
-                <span className="text-muted ml-2">Phone: </span>
-                <span style={{ marginLeft: "10px" }}>0710123456</span>
-              </Col>
-              <Col span={24} style={{ padding: "5px" }}>
-                <Icon type={BankOutlined} className="text-primary" />
-                <span className="text-muted ml-2">Company: </span>
-                <span style={{ marginLeft: "10px" }}>HELA CAPITAL</span>
-              </Col>
-              <Col span={24} style={{ padding: "5px" }}>
-                <Icon type={AuditOutlined} className="text-primary" />
-                <span className="text-muted ml-2">Age: </span>
-                <span style={{ marginLeft: "10px" }}>26</span>
-              </Col>
-              <Col span={24} style={{ padding: "5px" }}>
-                <Icon type={IdcardOutlined} className="text-primary" />
-                <span className="text-muted ml-2">ID Number: </span>
-                <span style={{ marginLeft: "10px" }}>123456</span>
-              </Col>
-            </Row>
-          </Col>
-          <Col xs={24} sm={24} md={12} xl={12} xxl={12}>
-            <Row type="flex" align="middle">
-              <Col span={24} style={{ padding: "5px" }}>
-                <Icon type={FieldNumberOutlined} className="text-primary" />
-                <span className="text-muted ml-2">Payroll Number: </span>
-                <span style={{ marginLeft: "10px" }}>Y12345</span>
-              </Col>
-              <Col span={24} style={{ padding: "5px" }}>
-                <Icon type={ClockCircleOutlined} className="text-primary" />
-                <span className="text-muted ml-2">Status: </span>
-                <span style={{ marginLeft: "10px" }}>Pending</span>
-              </Col>
-              <Col span={24} style={{ padding: "5px" }}>
-                <Icon type={EnvironmentOutlined} className="text-primary" />
-                <span className="text-muted ml-2">Location: </span>
-                <span style={{ marginLeft: "10px" }}>Nairobi</span>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Card>
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={false}
+        bordered
+        title={() => <Text strong>Personal Details</Text>}
+      />
     </div>
   );
 }

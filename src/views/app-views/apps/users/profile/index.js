@@ -675,7 +675,6 @@ export class Profile extends Component {
 
 const mapStateToProps = ({ usersList }) => {
   const { user } = usersList;
-  console.log("user", user)
   return {
     user,
   };

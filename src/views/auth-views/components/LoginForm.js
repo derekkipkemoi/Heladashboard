@@ -158,7 +158,7 @@ export const LoginForm = (props) => {
         <div className="text-center">
           {showForgetPassword && (
             <span className="cursor-pointer font-weight-normal text-muted ">
-              <a href="/auth/forgot-password">Forget Password?</a>
+              <a href="/auth/forgot-password">Forgot Password?</a>
             </span>
           )}
         </div>

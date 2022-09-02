@@ -100,40 +100,10 @@ export class RequestsDataTables extends Component {
     }
   };
 
-  // filterData(inputValue) {
-  //   const data = this.state.users;
-  //   const filtered = data.filter(
-  //     (item) =>
-  //       item.first_name.includes(inputValue)
-  //       // item.middle_name.includes(inputValue) ||
-  //       // item.surname.includes(inputValue) ||
-  //       // item.email.includes(inputValue) ||
-  //       // item.phone.includes(inputValue) ||
-  //       // item.dob.includes(inputValue) ||
-  //       // item.created_at.includes(inputValue) ||
-  //       // item.national_id.includes(inputValue)
-  //   );
-
-  //   this.setState({
-  //     users: filtered,
-  //   });
-  // }
-
-  // onSearch = (event) => {
-  //   const inputValue = event.target.value;
-  //   this.filterData(inputValue);
-
-  //   if (inputValue.length <= 0) {
-  //     this.setState({
-  //       users: this.props.users,
-  //     });
-  //   }
-  // };
-
   viewDetails = (row) => {
     const { match } = this.props;
     this.props.history.push(
-      `/app/apps/advance-requests/view-user-data/${row.id}`
+      `/app/apps/advance-requests/view-user-data/${row.id}/comments`
     );
   };
 

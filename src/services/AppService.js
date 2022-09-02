@@ -277,9 +277,8 @@ appService.getUserRequestsData = function (payload) {
 
 appService.postAdvanceRequestsAction = function (payload) {
   const { id, actionPath } = payload;
-  console.log("Id and path in service", actionPath + id);
   return fetch({
-    url: actionPath + 6794,
+    url: actionPath + id,
     method: "post",
   });
 };

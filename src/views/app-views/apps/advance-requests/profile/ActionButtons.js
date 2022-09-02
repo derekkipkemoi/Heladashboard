@@ -11,12 +11,14 @@ class ActionButton extends Component {
     visible: false,
     confirmLoading: false,
     actionPath: "",
+    headerColor: "#000"
   };
-  showModal = (textTitle, actionPath) => {
+  showModal = (textTitle, actionPath, headerColor) => {
     this.setState({
       ModalText: textTitle,
       visible: true,
       actionPath,
+      headerColor
     });
   };
 
@@ -72,7 +74,7 @@ class ActionButton extends Component {
                     color: "#fff",
                   }}
                   block
-                  onClick={(e) => this.showModal(dataItem.title, dataItem.path)}
+                  onClick={(e) => this.showModal(dataItem.title, dataItem.path, dataItem.color)}
                 >
                   {dataItem.title}
                 </Button>
@@ -81,7 +83,7 @@ class ActionButton extends Component {
           })}
         </Row>
         <Modal
-          title={ModalText}
+          title={<span style={{color:`${this.state.headerColor}`}}>{ModalText}</span>}
           visible={visible}
           onOk={(e) => this.handleOk(userId)}
           confirmLoading={confirmLoading}
@@ -96,7 +98,6 @@ class ActionButton extends Component {
 
 const mapStateToProps = ({ advanceRequest }) => {
   const { actionResponseMessage } = advanceRequest;
-  console.log("Message in action button component", actionResponseMessage);
   return {
     actionResponseMessage,
   };

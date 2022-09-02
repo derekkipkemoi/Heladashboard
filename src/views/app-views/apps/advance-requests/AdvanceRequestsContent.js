@@ -21,7 +21,7 @@ class AdvanceRequestsContent extends Component {
                 <Route exact path={`${match.url}/stop-orders-requests`} component={StopOrdersRequests} />
                 <Route exact path={`${match.url}/refunds-requests`} component={RefundsRequests} />
                 <Route exact path={`${match.url}/view-data/:id`} component={RequestsDataTable} />
-                <Route exact path={`${match.url}/view-user-data/:id`} component={ViewProfile} />
+                <Route path={`${match.url}/view-user-data/:id/:content`} component={ViewProfile} />
 			</Switch>
         );
     }

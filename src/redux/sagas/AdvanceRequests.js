@@ -85,13 +85,11 @@ export function* getUserRequestsData() {
 
 export function* postAdvanceRequestsAction() {
   yield takeEvery(POST_ADVANCE_REQUEST_ACTION, function* ({ payload }) {
-    console.log("Sagas actons payload", payload);
     try {
       const response = yield call(
         AppService.postAdvanceRequestsAction,
         payload
       );
-      console.log("Response", response.message);
       if (response.message) {
         yield put(getAdvanceRequestActionMessage(response.message));
       }

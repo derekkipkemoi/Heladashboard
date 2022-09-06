@@ -1,5 +1,6 @@
 import { all, takeEvery, put, fork, call } from "redux-saga/effects";
 import {
+  calculatorResponseData,
   getAdvanceRequestActionMessage,
   saveAdvanceRequestMainMenu,
   saveNormalRequestsMainMenu,
@@ -8,6 +9,7 @@ import {
   saveUserRequestsData,
 } from "redux/actions/AdvanceRequests";
 import {
+  CALCULATOR,
   GETREQUESTSDATA,
   GET_USER_REQUESTS_DATA,
   MAINMENUDATA,
@@ -99,6 +101,19 @@ export function* postAdvanceRequestsAction() {
   });
 }
 
+export function* calculator() {
+  yield takeEvery(CALCULATOR, function* ({ payload }) {
+    try {
+      const response = yield call(AppService.calculator, payload);
+      if (response.message) {
+        yield put(calculatorResponseData(response));
+      }
+    } catch (err) {
+      console.log("Messages listing error in sagas", err);
+    }
+  });
+}
+
 export default function* rootSaga() {
   yield all([
     fork(getAdvanceRequestsMainMenu),
@@ -107,5 +122,6 @@ export default function* rootSaga() {
     fork(getRequestsData),
     fork(getUserRequestsData),
     fork(postAdvanceRequestsAction),
+    fork(calculator),
   ]);
 }

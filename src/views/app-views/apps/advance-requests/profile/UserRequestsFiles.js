@@ -1,6 +1,9 @@
 import React from "react";
 
-import { Table } from "antd";
+import { Table, Space } from "antd";
+import {
+  DownloadOutlined, DeleteOutlined
+} from "@ant-design/icons";
 
 const columns = [
   {
@@ -17,6 +20,21 @@ const columns = [
     title: "Uploader ID",
     dataIndex: "uploader_id",
     key: "3",
+  },
+  {
+    title: "Download",
+    dataIndex: "file_location",
+    key: "file_location",
+    render: (text, record) => (
+      <Space>
+        <a>
+          <DownloadOutlined />
+        </a>
+        <a>
+          <DeleteOutlined style={{ color: "#ff0000" }} />
+        </a>
+      </Space>
+    ),
   },
 ];
 

@@ -283,6 +283,14 @@ appService.postAdvanceRequestsAction = function (payload) {
   });
 };
 
+appService.calculator = function (payload) {
+  return fetch({
+    url: "advance-calculator",
+    method: "post",
+    data: payload
+  });
+};
+
 // appService.getStopOrdersMainMenu = function (payload) {
 //   return fetch({
 //     // url: "/advance-request-dashboard",

@@ -1,8 +1,8 @@
 import { Card, Col, Row } from "antd";
 import React, { Component } from "react";
-import ChangeUserRole from "./ChangeUserRole";
-import ChangeUserType from "./ChangeUserType";
-import DeactivateUser from "./DeactivateUser";
+import ChangeUserRole from "./UpdateAdvanceRequest";
+import ChangeUserType from "./AddDatasheetNumber";
+import DeactivateUser from "./DownloadApplication";
 
 class GeneralButtons extends Component {
   state = {};

@@ -69,6 +69,7 @@ service.interceptors.response.use(
 
     if (error.response.status === 500) {
       notificationParam.message = "Internal Server Error";
+      console.log(error.response.data);
     }
 
     if (error.response.status === 508) {

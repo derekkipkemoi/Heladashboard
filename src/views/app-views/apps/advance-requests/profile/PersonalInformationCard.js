@@ -5,7 +5,6 @@ import { Icon } from "components/util-components/Icon";
 const { Text } = Typography;
 
 export default function PersonalInformationCard(props) {
-  
   const columns = [
     {
       title: "Name",
@@ -64,14 +63,8 @@ export default function PersonalInformationCard(props) {
   }
 
   return (
-    <div>
-      <Table
-        columns={columns}
-        dataSource={data}
-        pagination={false}
-        bordered
-        title={() => <Text strong>Personal Details</Text>}
-      />
-    </div>
+    <Card type="inner" title="Personal Details" bodyStyle={{ padding: "0"}}>
+      <Table columns={columns} dataSource={data} pagination={false} bordered />
+    </Card>
   );
 }

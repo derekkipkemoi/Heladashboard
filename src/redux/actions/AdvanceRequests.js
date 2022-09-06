@@ -1,4 +1,6 @@
 import {
+  CALCULATOR,
+  CALCULATOR_RESPONSE_DATA,
   GETREQUESTSDATA,
   GET_ADVANCE_REQUEST_ACTION_MESSAGE,
   GET_USER_REQUESTS_DATA,
@@ -91,5 +93,19 @@ export const getAdvanceRequestActionMessage = (message) => {
   return {
     type: GET_ADVANCE_REQUEST_ACTION_MESSAGE,
     message,
+  };
+};
+
+export const calculator = (inputValues) => {
+  return {
+    type: CALCULATOR,
+    payload: inputValues,
+  };
+};
+
+export const calculatorResponseData = (responseValues) => {
+  return {
+    type: CALCULATOR_RESPONSE_DATA,
+    responseValues,
   };
 };

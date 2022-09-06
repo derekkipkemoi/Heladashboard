@@ -1,4 +1,5 @@
 import {
+  CALCULATOR_RESPONSE_DATA,
   GET_ADVANCE_REQUEST_ACTION_MESSAGE,
   SAVEMAINMENUDATA,
   SAVENORMALREQUESTSMENU,
@@ -13,8 +14,8 @@ const initState = {
   tscRequestMainMenu: {},
   requestsData: [],
   userRequestData: {},
-  actionResponseMessage: ""
-
+  actionResponseMessage: "",
+  responseValues: {},
 };
 
 const advanceRequest = (state = initState, action) => {
@@ -31,28 +32,34 @@ const advanceRequest = (state = initState, action) => {
         normalRequestMainMenu: action.normalRequestMainMenu,
       };
 
-      case SAVETSCREQUESTSMENU:
+    case SAVETSCREQUESTSMENU:
       return {
         ...state,
         tscRequestMainMenu: action.tscRequestMainMenu,
       };
 
-      case SAVEREQUESTSDATA:
+    case SAVEREQUESTSDATA:
       return {
         ...state,
         requestsData: action.requestsData,
       };
 
-      case SAVE_USER_REQUESTS_DATA:
+    case SAVE_USER_REQUESTS_DATA:
       return {
         ...state,
         userRequestData: action.userRequestData,
       };
 
-      case GET_ADVANCE_REQUEST_ACTION_MESSAGE:
+    case GET_ADVANCE_REQUEST_ACTION_MESSAGE:
       return {
         ...state,
         actionResponseMessage: action.message,
+      };
+
+    case CALCULATOR_RESPONSE_DATA:
+      return {
+        ...state,
+        responseValues: action.responseValues,
       };
 
     default:

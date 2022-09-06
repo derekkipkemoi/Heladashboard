@@ -4,13 +4,13 @@ import { Col, Row, Card, Typography } from "antd";
 import PersonalInformationCard from "./PersonalInformationCard";
 import LoanInformationCard from "./LoanInformationCard";
 import ActionButtons from "./ActionButtons";
-import ProfileMenu from "./ProfileMenu";
 import { connect } from "react-redux";
 import { getUserRequestsData } from "redux/actions/AdvanceRequests";
 import HeaderCard from "./HeaderCard";
 import CommentsTable from "./CommentsTable";
 import RegistrationFilesTables from "./RegistrationFilesTables";
 import UserRequestsFiles from "./UserRequestsFiles";
+import CommentsAndFilesMenu from "./CommentsAndFiles/CommentsAndFilesMenu";
 
 class ViewProfile extends Component {
   state = {
@@ -78,7 +78,7 @@ class ViewProfile extends Component {
         </Row>
 
         <Card type="inner" title="Comments and Files">
-          <ProfileMenu {...this.props} />
+          <CommentsAndFilesMenu {...this.props} />
           {this.state.content === "comments" ? (
             <CommentsTable data={this.props.userComments} />
           ) : null}

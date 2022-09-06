@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Typography } from "antd";
+import { Table, Typography, Card } from "antd";
 const { Text } = Typography;
 
 export default function LoanInformationCard(props) {
@@ -67,14 +67,8 @@ export default function LoanInformationCard(props) {
   }
 
   return (
-    <div>
-      <Table
-        columns={columns}
-        dataSource={data}
-        pagination={false}
-        bordered
-        title={() => <Text strong>Loan Details</Text>}
-      />
-    </div>
+    <Card type="inner" title="Loan Details" bodyStyle={{ padding: "0" }}>
+      <Table columns={columns} dataSource={data} pagination={false} bordered />
+    </Card>
   );
 }

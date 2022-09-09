@@ -38,7 +38,7 @@ class ViewProfile extends Component {
       <Card>
         <Row gutter={16} style={{ marginTop: "50px" }}>
           <Col xs={24} sm={24} md={24} xl={24} xxl={24}>
-            <HeaderCard personalDetails={this.props.personalDetails} />
+            <HeaderCard personalDetails={this.props.personalDetails} companyDatasheets={this.props.companyDatasheets} />
           </Col>
         </Row>
         <Row gutter={16} style={{ marginTop: "10px" }}>
@@ -64,7 +64,7 @@ class ViewProfile extends Component {
             xl={12}
             xxl={12}
           >
-            <LoanInformationCard loanDetails={this.props.personalDetails} />
+            <LoanInformationCard personalDetails={this.props.personalDetails}/>
           </Col>
         </Row>
 
@@ -97,15 +97,18 @@ class ViewProfile extends Component {
 
 const mapStateToProps = ({ advanceRequest }) => {
   const { userRequestData } = advanceRequest;
+ 
   const user = userRequestData;
   const personalDetails = userRequestData.request;
   const userComments = userRequestData.comments;
+  const companyDatasheets =  userRequestData.companyDatasheets;
   const userRegistrationFiles = userRequestData.userRegistrationFiles;
   return {
     user,
     personalDetails,
     userComments,
     userRegistrationFiles,
+    companyDatasheets
   };
 };
 

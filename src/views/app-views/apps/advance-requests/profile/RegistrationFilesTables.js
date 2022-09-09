@@ -21,7 +21,7 @@ const columns = [
       key: '3',
     },
     {
-      title: "Download",
+      title: "Action",
       dataIndex: "file_location",
       key: "file_location",
       render: (text, record) => (

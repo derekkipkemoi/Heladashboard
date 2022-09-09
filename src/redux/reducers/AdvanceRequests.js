@@ -1,5 +1,6 @@
 import {
   CALCULATOR_RESPONSE_DATA,
+  DOWNLOADED_APPLICATION,
   GET_ADVANCE_REQUEST_ACTION_MESSAGE,
   SAVEMAINMENUDATA,
   SAVENORMALREQUESTSMENU,
@@ -16,6 +17,7 @@ const initState = {
   userRequestData: {},
   actionResponseMessage: "",
   responseValues: {},
+  downloadedApplication: {}
 };
 
 const advanceRequest = (state = initState, action) => {
@@ -61,6 +63,13 @@ const advanceRequest = (state = initState, action) => {
         ...state,
         responseValues: action.responseValues,
       };
+
+      case DOWNLOADED_APPLICATION:
+      return {
+        ...state,
+        downloadedApplication: action.data,
+      };
+
 
     default:
       return state;

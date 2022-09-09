@@ -287,7 +287,49 @@ appService.calculator = function (payload) {
   return fetch({
     url: "advance-calculator",
     method: "post",
-    data: payload
+    data: payload,
+  });
+};
+
+appService.updateAdvanceRequest = function (payload) {
+  return fetch({
+    url: "update-advance-request",
+    method: "post",
+    data: payload,
+  });
+};
+
+appService.addDatasheetNumber = function (payload) {
+  return fetch({
+    url: "create-datasheet",
+    method: "post",
+    data: payload,
+  });
+};
+
+appService.downloadApplication = function (payload) {
+  const { id } = payload;
+  return fetch({
+    url: "download-application?id=" + id,
+    method: "post",
+  });
+};
+
+appService.addComment = function (payload) {
+  console.log("Payload", payload)
+  return fetch({
+    url: "add-request-comment",
+    method: "post",
+    data: payload,
+  });
+};
+
+appService.addFile = function (payload) {
+  const {url, values, id} = payload
+  return fetch({
+    url: url + "?id=" + id,
+    method: "post",
+    data: values,
   });
 };
 

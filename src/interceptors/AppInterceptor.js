@@ -51,11 +51,7 @@ service.interceptors.response.use(
     };
 
     // Remove token and redirect
-    if (
-      error.response.status === 401 ||
-      error.response.status === 400 ||
-      error.response.status === 403
-    ) {
+    if (error.response.status === 401 || error.response.status === 403) {
       notificationParam.message = "Authentication Fail";
       notificationParam.description = "Please login again";
       localStorage.removeItem(AUTH_TOKEN);
@@ -65,6 +61,10 @@ service.interceptors.response.use(
 
     if (error.response.status === 404) {
       notificationParam.message = "Not Found";
+    }
+
+    if (error.response.status === 400) {
+      notificationParam.message = "Check provided data";
     }
 
     if (error.response.status === 500) {

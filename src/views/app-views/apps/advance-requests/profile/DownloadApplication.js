@@ -1,36 +1,54 @@
-import { useState, useEffect } from "react";
-import { Button, Modal, Form, Input, Space, Typography } from "antd";
-import { CheckCircleOutlined, DownloadOutlined } from "@ant-design/icons";
+import { Button, message } from "antd";
 import { connect } from "react-redux";
-import { useParams } from "react-router-dom";
-import { deactivateUser } from "redux/actions/Users";
+import { downloadApplication } from "redux/actions/AdvanceRequests";
+import React, { Component } from "react";
+import { CSVLink } from "react-csv";
 
-function DeactivateUser() {
-  return (
-    <div>
-      <Button
-        block
-        style={{
-          backgroundColor: "#fba615",
-          color: "white",
-        }}
-      >
-        Download Application
-      </Button>
-    </div>
-  );
+class DowmloadApplication extends Component {
+  state = {
+    data: [],
+  };
+
+  applicationDownload = () => {
+    const { personalDetails } = this.props;
+    this.props.downloadApplication(personalDetails.id);
+    <CSVLink
+      filename={"Weeklyreport.csv"}
+      data={Object.entries(this.props.downloadedApplication)}
+    />;
+    message.success("Application downloaded successfuly");
+  };
+  render() {
+    const { data } = this.state;
+    return (
+      <div>
+        <Button
+          block
+          style={{
+            backgroundColor: "#fba615",
+            color: "white",
+          }}
+          onClick={this.applicationDownload}
+        >
+          Download Application
+        </Button>
+      </div>
+    );
+  }
 }
 
-const mapStateToProps = ({ usersList }) => {
-  const { loadingUser, message } = usersList;
+const mapStateToProps = ({ advanceRequest }) => {
+  const { downloadedApplication } = advanceRequest;
   return {
-    loadingUser,
-    message,
+    downloadedApplication,
   };
 };
 
 const mapDispatchToProps = {
-  deactivateUser,
+  downloadApplication,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DeactivateUser);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DowmloadApplication);

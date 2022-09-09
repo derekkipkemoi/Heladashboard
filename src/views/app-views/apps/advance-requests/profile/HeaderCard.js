@@ -1,12 +1,13 @@
 import React from "react";
 import { Card, Avatar, Typography } from "antd";
 import GeneralButtons from "./GeneralButtons";
+import AdvanceRequestAvatar from "components/shared-components/AdvanceRequestAvatar";
 const { Text } = Typography;
 
 const avatarStyle = {
   top: "-55px",
   left: "0%",
-  backgroundColor: "#7c992c"
+  backgroundColor: "#7c992c",
 };
 const detailsStyle = {
   display: "flex",
@@ -29,19 +30,20 @@ export default function HeaderCard(props) {
     <div>
       <Card>
         <div style={detailsStyle}>
-          <Avatar style={avatarStyle} shape="square" size={120}>
-            <span style={{ fontSize: "30px" }}>{nameLetter}</span>
-          </Avatar>
+          <AdvanceRequestAvatar name={nameLetter} size={120} />
+
           <div style={{ marginLeft: "10px" }}>
             <Text style={{ fontSize: "20px" }} strong>
-              {name}
+              {name.toUpperCase()}
             </Text>
             <br />
-            <Text strong>Company: {company}</Text>
+            <Text>
+              <Text strong>COMPANY</Text>: {company}
+            </Text>
           </div>
         </div>
 
-        <GeneralButtons />
+        <GeneralButtons {...props}/>
       </Card>
     </div>
   );

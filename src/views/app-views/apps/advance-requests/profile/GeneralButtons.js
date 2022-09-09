@@ -1,8 +1,8 @@
-import { Card, Col, Row } from "antd";
+import { Col, Row } from "antd";
 import React, { Component } from "react";
-import ChangeUserRole from "./UpdateAdvanceRequest";
-import ChangeUserType from "./AddDatasheetNumber";
-import DeactivateUser from "./DownloadApplication";
+import UpdateAdvanceRequest from "./UpdateAdvanceRequest";
+import AddDatasheetNumber from "./AddDatasheetNumber";
+import DownloadApplication from "./DownloadApplication";
 
 class GeneralButtons extends Component {
   state = {};
@@ -10,13 +10,13 @@ class GeneralButtons extends Component {
     return (
       <Row>
         <Col xs={24} sm={12} md={8} xl={8} xxl={8} style={{ paddingRight: "25px" }}>
-          <ChangeUserType />
+          <UpdateAdvanceRequest {...this.props} />
         </Col>
         <Col xs={24} sm={12} md={8} xl={8} xxl={8} style={{ paddingRight: "25px" }}>
-          <ChangeUserRole />
+          <AddDatasheetNumber {...this.props}/>
         </Col>
         <Col xs={24} sm={12} md={8} xl={8} xxl={8} style={{ paddingRight: "25px" }}>
-          <DeactivateUser />
+          <DownloadApplication {...this.props}/>
         </Col>
       </Row>
     );

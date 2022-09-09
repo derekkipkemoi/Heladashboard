@@ -43,7 +43,7 @@ export const actionButtonsData = [
     {
         title: "Book Request at payroll",
         path: "book-request?id=",
-        color: "#fba615"
+        color: "#3e79f7"
     },
     {
         title: "Update to compliance",
@@ -78,6 +78,6 @@ export const actionButtonsData = [
     {
         title: "Roll back to compliance",
         path: "roll-back-to-compliance?id=",
-        color: "#fba615"
+        color: "#3e79f7"
     },
 ]

@@ -64,7 +64,7 @@ class ActionButton extends Component {
                 md={8}
                 xl={6}
                 xxl={6}
-                style={{ padding: "10px" }}
+                style={{ paddingTop: "20px", paddingRight: "20px" }}
               >
                 <Button
                   type="danger"
@@ -83,7 +83,7 @@ class ActionButton extends Component {
           })}
         </Row>
         <Modal
-          title={<span style={{color:`${this.state.headerColor}`}}>{ModalText}</span>}
+          title={<span style={{color:`${this.state.headerColor}`}}>{ModalText.toUpperCase()}</span>}
           visible={visible}
           onOk={(e) => this.handleOk(userId)}
           confirmLoading={confirmLoading}

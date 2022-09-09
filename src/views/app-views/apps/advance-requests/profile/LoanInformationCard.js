@@ -1,6 +1,5 @@
 import React from "react";
-import { Table, Typography, Card } from "antd";
-const { Text } = Typography;
+import { Table, Card } from "antd";
 
 export default function LoanInformationCard(props) {
   const columns = [
@@ -16,59 +15,67 @@ export default function LoanInformationCard(props) {
 
   let data = [];
 
-  if (props.loanDetails !== undefined) {
+  if (props.personalDetails !== undefined) {
     data = [
       {
         key: "2",
         name: "Principal",
-        detail: props.loanDetails.amount,
+        detail: props.personalDetails.amount,
       },
       {
         key: "3",
         name: "Installments",
-        detail: props.loanDetails.ability,
+        detail: props.personalDetails.ability,
       },
       {
         key: "4",
         name: "Period",
-        detail: props.loanDetails.period,
+        detail: props.personalDetails.period,
       },
       {
         key: "5",
         name: "Interest",
-        detail: props.loanDetails.interest,
+        detail: props.personalDetails.interest,
       },
       {
         key: "6",
         name: "Type",
-        detail: props.loanDetails.type,
+        detail: props.personalDetails.type,
       },
       {
         key: "7",
         name: "Fee",
-        detail: props.loanDetails.fee,
+        detail: props.personalDetails.fee,
       },
       {
         key: "8",
         name: "Status",
-        detail: props.loanDetails.advance_status,
+        detail: props.personalDetails.advance_status,
       },
-      {
-        key: "9",
-        name: "Booked By",
-        detail: props.loanDetails.booked_by,
-      },
+      // {
+      //   key: "9",
+      //   name: "Booked By",
+      //   detail: props.personalDetails.booked_by,
+      // },
       {
         key: "10",
         name: "Booking Date",
-        detail: props.loanDetails.booking_date,
+        detail: props.personalDetails.booking_date,
       },
     ];
   }
 
+
   return (
-    <Card type="inner" title="Loan Details" bodyStyle={{ padding: "0" }}>
-      <Table columns={columns} dataSource={data} pagination={false} bordered />
+    <Card type="inner" title="Loan Details" bodyStyle={{ padding:"0px"}} >
+      <Table
+        showHeader={false}
+        columns={columns}
+        dataSource={data}
+        pagination={false}
+        bordered
+        size="small"
+      />
     </Card>
   );
 }

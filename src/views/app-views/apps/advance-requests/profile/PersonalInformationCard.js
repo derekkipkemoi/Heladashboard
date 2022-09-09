@@ -63,8 +63,8 @@ export default function PersonalInformationCard(props) {
   }
 
   return (
-    <Card type="inner" title="Personal Details" bodyStyle={{ padding: "0"}}>
-      <Table columns={columns} dataSource={data} pagination={false} bordered />
+    <Card type="inner" title="Personal Details" bodyStyle={{ padding: "0", borderRadius: "0px 0"}}>
+      <Table showHeader={false} columns={columns} dataSource={data} pagination={false} bordered size="small"/>
     </Card>
   );
 }

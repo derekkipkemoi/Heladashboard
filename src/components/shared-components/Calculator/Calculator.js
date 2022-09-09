@@ -9,9 +9,7 @@ import {
   Space,
   Typography,
   Table,
-  Tooltip,
 } from "antd";
-import { ReloadOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";
 import { calculator } from "redux/actions/AdvanceRequests";
 const { Text } = Typography;
@@ -156,22 +154,24 @@ class Calculator extends Component {
                 </Form.Item>
               </Space>
             </div>
-
-            {Object.keys(responseValues).length > 0 ? (
-              <Table
-                columns={columns}
-                dataSource={data}
-                pagination={false}
-                bordered
-                style={{ marginBottom: "10px" }}
-              />
-            ) : null}
-
             <Form.Item>
               <Button type="primary" htmlType="submit" loading={loading}>
                 Calculate
               </Button>
             </Form.Item>
+
+            {Object.keys(responseValues).length > 0 ? (
+              <Table
+              showHeader={false}
+                columns={columns}
+                dataSource={data}
+                pagination={false}
+                bordered
+                style={{ marginBottom: "10px", borderRadius:"0px"}}
+              />
+            ) : null}
+
+            
           </Card>
         </Form>
       </div>
@@ -181,7 +181,6 @@ class Calculator extends Component {
 
 const mapStateToProps = ({ advanceRequest }) => {
   const { responseValues } = advanceRequest;
-  console.log("Calculator Response", responseValues);
   return {
     responseValues,
   };

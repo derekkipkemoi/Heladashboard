@@ -25,19 +25,19 @@ export const data = [
   },
   {
     key: 4,
-    name: "Comment",
+    name: "Add Comment",
     pathname: "add-comment",
     icon: <PlusOutlined />,
   },
   {
     key: 5,
-    name: "Registration File",
+    name: "Add Registration File",
     pathname: "add-registration-file",
     icon: <PlusOutlined />,
   },
   {
     key: 6,
-    name: "Request File",
+    name: "Add Request File",
     pathname: "add-request-file",
     icon: <PlusOutlined />,
   },

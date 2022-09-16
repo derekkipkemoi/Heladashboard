@@ -17,14 +17,16 @@ class CommentsAndFilesMenu extends Component {
     message: "",
     loading: false,
     file: null,
-    fileName: ""
+    fileName: "",
+    postPath: "",
   };
 
-  showModal = (modalKey, modalName) => {
+  showModal = (modalKey, modalName, postPath) => {
     if (modalKey === 4) {
       this.setState({
         addComment: true,
         modalName,
+        postPath,
       });
     }
 
@@ -32,6 +34,7 @@ class CommentsAndFilesMenu extends Component {
       this.setState({
         addFile: true,
         modalName,
+        postPath,
       });
     }
   };
@@ -55,12 +58,12 @@ class CommentsAndFilesMenu extends Component {
     });
   };
 
-  onFileNameChange =(e)=> {
+  onFileNameChange = (e) => {
     console.log("Filename", e.target.value);
     this.setState({
       fileName: e.target.value,
     });
-  }
+  };
 
   submitComment = () => {
     this.setState({ loading: true });
@@ -76,7 +79,7 @@ class CommentsAndFilesMenu extends Component {
 
     setTimeout(() => {
       const { actionResponseMessage } = this.props;
-      if (actionResponseMessage) {
+      if (actionResponseMessage.message === "File was uploaded successfully") {
         this.openNotification(actionResponseMessage.message);
       }
     }, 1500);
@@ -94,38 +97,33 @@ class CommentsAndFilesMenu extends Component {
     const { personalDetails } = this.props;
 
     const values = {
-      request_id: personalDetails.id,
+      user_id: personalDetails.id,
       file_name: this.state.fileName,
       file_location: this.state.file,
+      postPath: this.state.postPath,
     };
 
-    console.log("Upload file", values);
+    this.props.addFile(values);
+    setTimeout(() => {
+      const { actionResponseMessage } = this.props;
+      if (actionResponseMessage.message === "File was uploaded successfully") {
+        this.openNotification(actionResponseMessage.message);
+      }
+    }, 2000);
   };
 
   normFile = (e) => {
-    console.log("Upload event:", e.file);
     this.setState({
       file: e.file,
     });
-    // if (Array.isArray(e)) {
-    //   return e;
-    // }
-    // return e && e.fileList;
   };
 
   render() {
     const { content } = this.props.match.params;
     const { modalName, loading } = this.state;
-    const layout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 },
-    };
+
     const tailLayout = {
       wrapperCol: { offset: 4, span: 16 },
-    };
-
-    const tailLayout1 = {
-      wrapperCol: { offset: 20, span: 2 },
     };
 
     return (
@@ -151,7 +149,11 @@ class CommentsAndFilesMenu extends Component {
                       style={{ background: "#00ab6f", borderColor: "white" }}
                       icon={dataItem.icon}
                       onClick={(e) =>
-                        this.showModal(dataItem.key, dataItem.name)
+                        this.showModal(
+                          dataItem.key,
+                          dataItem.name,
+                          dataItem.postPath
+                        )
                       }
                     >
                       {dataItem.name}

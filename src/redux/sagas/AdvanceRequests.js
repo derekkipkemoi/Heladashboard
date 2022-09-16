@@ -165,9 +165,7 @@ export function* downloadApplication() {
 export function* addComment() {
   yield takeEvery(ADD_COMMENT, function* ({ payload }) {
     try {
-    
       const response = yield call(AppService.addComment, payload);
-      console.log("Response", response);
       if (response.message) {
         yield put(getAdvanceRequestActionMessage(response));
       }
@@ -180,9 +178,8 @@ export function* addComment() {
 export function* addFile() {
   yield takeEvery(ADD_FILE, function* ({ payload }) {
     try {
-     
       const response = yield call(AppService.addFile, payload);
-      console.log("Response", response);
+      console.log("Response", response.message);
       if (response.message) {
         yield put(getAdvanceRequestActionMessage(response));
       }

@@ -316,7 +316,6 @@ appService.downloadApplication = function (payload) {
 };
 
 appService.addComment = function (payload) {
-  console.log("Payload", payload)
   return fetch({
     url: "add-request-comment",
     method: "post",
@@ -325,11 +324,11 @@ appService.addComment = function (payload) {
 };
 
 appService.addFile = function (payload) {
-  const {url, values, id} = payload
+  const { postPath, user_id } = payload;
   return fetch({
-    url: url + "?id=" + id,
+    url: postPath + user_id,
     method: "post",
-    data: values,
+    data: payload,
   });
 };
 

@@ -8,6 +8,9 @@ import RefundsRequests from "./RefundsRequests";
 import MainMenu from "./MainMenu";
 import RequestsDataTable from "./RequestsDataTable";
 import ViewProfile from "./profile/ViewProfile";
+import StopOrdersDataTables from "./StopOrdersDataTables";
+import ViewStopOrdersProfile from "./profile/ViewStopOrdersProfile";
+import GenerateStopOrder from "./GenerateStopOrder";
 class AdvanceRequestsContent extends Component {
   render() {
     const { match } = this.props;
@@ -50,8 +53,23 @@ class AdvanceRequestsContent extends Component {
         />
         <Route
           exact
-          path={`${match.url}/view-user-data/:id/:content`}
+          path={`${match.url}/view-stop-orders/:id`}
+          component={StopOrdersDataTables}
+        />
+        <Route
+          exact
+          path={`${match.url}/view-user-data/:id`}
           component={ViewProfile}
+        />
+        <Route
+          exact
+          path={`${match.url}/view-stop-order-user-data/:id`}
+          component={ViewStopOrdersProfile}
+        />
+        <Route
+          exact
+          path={`${match.url}/generate-stop-order`}
+          component={GenerateStopOrder}
         />
       </Switch>
     );

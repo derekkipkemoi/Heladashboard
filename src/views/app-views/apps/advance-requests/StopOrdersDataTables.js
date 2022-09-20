@@ -21,10 +21,11 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import RequestMenu from "./RequestMenu";
 import { Link } from "react-router-dom";
-import { getRequestsData } from "redux/actions/AdvanceRequests";
+import { getStopOrdersData } from "redux/actions/AdvanceRequests";
 const { RangePicker } = DatePicker;
 const dateFormat = "YYYY/MM/DD";
-export class RequestsDataTables extends Component {
+const { Column, ColumnGroup } = Table;
+export class StopOrdersDataTables extends Component {
   state = {
     users: [],
     userProfileVisible: false,
@@ -70,33 +71,33 @@ export class RequestsDataTables extends Component {
   };
 
   componentDidMount() {
-    const { dataPath } = this.props.location.state;
+    const { path, name } = this.props.location.state;
     let data = [];
-    this.props.getRequestsData(dataPath);
+    this.props.getStopOrdersData(path);
     data = this.props.users;
     this.setState({
       users: data,
-      dataPath: dataPath,
+      dataPath: path,
     });
   }
 
   componentDidUpdate = (prevProps) => {
-    if (this.props !== prevProps) {
+    if (this.props.users !== prevProps.users) {
       let data = [];
-      const { dataPath } = this.props.location.state;
-      this.props.getRequestsData(dataPath);
-      data = this.props.users;
-      this.setState({
-        users: data,
-        dataPath: dataPath,
-      });
+      const { path } = this.props.location.state;
+      this.props.getStopOrdersData(path);
+    data = this.props.users;
+    this.setState({
+      users: data,
+      dataPath: path,
+    });
     }
   };
 
   viewDetails = (row) => {
     const { match } = this.props;
     this.props.history.push(
-      `/app/apps/advance-requests/view-user-data/${row.id}`
+      `/app/apps/advance-requests/view-stop-order-user-data/${row.id}`
     );
   };
 
@@ -143,7 +144,18 @@ export class RequestsDataTables extends Component {
 
       {
         title: "Institution",
-        dataIndex: "company",
+        dataIndex: "name",
+        width: 200,
+      },
+
+      {
+        title: "Amount On",
+        dataIndex: "amount_on",
+        width: 200,
+      },
+      {
+        title: "Amount Off",
+        dataIndex: "amount_off",
         width: 200,
       },
 
@@ -153,16 +165,6 @@ export class RequestsDataTables extends Component {
         width: 150,
         sorter: (a, b) => parseInt(a.payroll_no) - parseInt(b.payroll_no),
         sortDirections: ["descend", "ascend"],
-      },
-      {
-        title: "Amount",
-        dataIndex: "amount",
-        width: 150,
-      },
-      {
-        title: "Period",
-        dataIndex: "period",
-        width: 150,
       },
 
       {
@@ -186,15 +188,6 @@ export class RequestsDataTables extends Component {
         sorter: (a, b) =>
           moment(a.created_at).unix() - moment(b.created_at).unix(),
       },
-
-      // {
-      //   title: "Updated At",
-      //   dataIndex: "created_at",
-      //   width: 150,
-      //   render: (date) => <span>{moment(date).format("MM/DD/YYYY")} </span>,
-      //   sorter: (a, b) =>
-      //     moment(a.created_at).unix() - moment(b.created_at).unix(),
-      // },
 
       {
         title: "",
@@ -223,7 +216,7 @@ export class RequestsDataTables extends Component {
           <Breadcrumb.Item>
             <Link
               to={{
-                pathname: `/app/apps/advance-requests/${path}`,
+                pathname: `/app/apps/advance-requests/stop-orders-requests`,
                 state: { name: name, path: path },
               }}
             >
@@ -234,21 +227,6 @@ export class RequestsDataTables extends Component {
         </Breadcrumb>
         <Card>
           <Row>
-            {/* <div>
-              <Select
-                className="mb-4"
-                placeholder="Select company to send message"
-                onChange={this.handleCompanyChange}
-              >
-                {CompaniesData.map((company) => (
-                  <Option key={company.value}>{company.label}</Option>
-                ))}
-              </Select>
-              <Button type="primary" style={{ marginLeft: "20px" }}>
-                Assume Client Role
-              </Button>
-            </div> */}
-
             <div style={{ marginLeft: "20px" }}>
               <RangePicker
                 defaultValue={[
@@ -311,7 +289,20 @@ export class RequestsDataTables extends Component {
                 dataSource={users}
                 rowKey="id"
                 scroll={{ x: 1200 }}
-              />
+              >
+                <ColumnGroup title="Amount">
+                  <Column
+                    title="Amount On"
+                    dataIndex="amount_on"
+                    key="amount_on"
+                  />
+                  <Column
+                    title="Amount Off"
+                    dataIndex="amount_off"
+                    key="amount_off"
+                  />
+                </ColumnGroup>
+              </Table>
             </div>
           </Card>
         </Card>
@@ -321,14 +312,19 @@ export class RequestsDataTables extends Component {
 }
 
 const mapStateToProps = ({ advanceRequest }) => {
-  const { requestsData } = advanceRequest;
+  const { stopOrders } = advanceRequest;
+
+  
   return {
-    users: requestsData,
+    users: stopOrders,
   };
 };
 
 const mapDispatchToProps = {
-  getRequestsData,
+  getStopOrdersData,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestsDataTables);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StopOrdersDataTables);

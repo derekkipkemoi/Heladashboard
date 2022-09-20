@@ -8,6 +8,8 @@ import {
   DOWNLOAD_APPLICATION,
   GETREQUESTSDATA,
   GET_ADVANCE_REQUEST_ACTION_MESSAGE,
+  GET_STOP_ORDERS_DATA,
+  GET_STOP_ORDERS_USER_DATA,
   GET_USER_REQUESTS_DATA,
   MAINMENUDATA,
   MESSAGE_ADVANCE_REQUEST,
@@ -18,8 +20,17 @@ import {
   SAVEREQUESTSDATA,
   SAVETSCREQUESTSMENU,
   SAVE_USER_REQUESTS_DATA,
+  SEARCH_LOAN_BY_REFNO,
+  SEARCH_LOAN_BY_REFNO_RESPONSE,
+  STOP_ORDERS_DATA,
+  STOP_ORDERS_MENU,
+  STOP_ORDERS_MENU_DATA,
+  STOP_ORDERS_USER_DATA,
+  STOP_ORDER_DATASHEET_NUMBER,
+  STOP_ORDER_GENERATE_DATASHEET,
   TSCREQUESTSMENU,
   UPDATE_ADVANCE_REQUEST,
+  UPDATE_STOP_ORDER,
 } from "../constants/AdvanceRequests";
 
 export const getAdvanceRequestMainMenu = () => {
@@ -159,3 +170,79 @@ export const addFile = (values) => {
     payload: values
   };
 };
+
+export const stopOrdersMenu = () => {
+  return {
+    type: STOP_ORDERS_MENU
+  };
+};
+
+export const stopOrdersMenuData = (stopOrdersMenuData) => {
+  return {
+    type: STOP_ORDERS_MENU_DATA,
+    stopOrdersMenuData
+  };
+};
+
+export const getStopOrdersData = (path) => {
+  return {
+    type: GET_STOP_ORDERS_DATA,
+    payload: path,
+  };
+};
+
+export const stopOrdersData = (stopOrders) => {
+  return {
+    type: STOP_ORDERS_DATA,
+    stopOrders,
+  };
+};
+
+export const getStopOrdersUserData = (id) => {
+  return {
+    type: GET_STOP_ORDERS_USER_DATA,
+    payload: id,
+  };
+};
+
+export const stopOrdersUserData = (stopOrdersUserData) => {
+  return {
+    type: STOP_ORDERS_USER_DATA,
+    stopOrdersUserData,
+  };
+};
+
+export const UpdateStopOrder = (payload) => {
+  return {
+    type: UPDATE_STOP_ORDER,
+    payload
+  };
+};
+
+export const stopOrderGenerateDatasheet = () => {
+  return {
+    type: STOP_ORDER_GENERATE_DATASHEET,
+  };
+};
+
+export const stopOrderDatasheetNumber = (datasheet) => {
+  return {
+    type: STOP_ORDER_DATASHEET_NUMBER,
+    datasheet
+  };
+};
+
+export const searchLoanByRefNo = (ref_no) => {
+  return {
+    type: SEARCH_LOAN_BY_REFNO,
+    payload: ref_no
+  };
+};
+
+export const searchLoanByRefNoResponse = (loanSearchData) => {
+  return {
+    type: SEARCH_LOAN_BY_REFNO_RESPONSE,
+    loanSearchData
+  };
+};
+

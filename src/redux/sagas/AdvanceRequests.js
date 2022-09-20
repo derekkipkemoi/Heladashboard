@@ -8,6 +8,11 @@ import {
   saveRequestsData,
   saveTSCMainMenu,
   saveUserRequestsData,
+  searchLoanByRefNoResponse,
+  stopOrderDatasheetNumber,
+  stopOrdersData,
+  stopOrdersMenuData,
+  stopOrdersUserData,
 } from "redux/actions/AdvanceRequests";
 import {
   ADD_COMMENT,
@@ -17,12 +22,18 @@ import {
   DOWNLOADED_APPLICATION,
   DOWNLOAD_APPLICATION,
   GETREQUESTSDATA,
+  GET_STOP_ORDERS_DATA,
+  GET_STOP_ORDERS_USER_DATA,
   GET_USER_REQUESTS_DATA,
   MAINMENUDATA,
   NORMALREQUESTSMENU,
   POST_ADVANCE_REQUEST_ACTION,
+  SEARCH_LOAN_BY_REFNO,
+  STOP_ORDERS_MENU,
+  STOP_ORDER_GENERATE_DATASHEET,
   TSCREQUESTSMENU,
   UPDATE_ADVANCE_REQUEST,
+  UPDATE_STOP_ORDER,
 } from "redux/constants/AdvanceRequests";
 
 import AppService from "services/AppService";
@@ -179,9 +190,86 @@ export function* addFile() {
   yield takeEvery(ADD_FILE, function* ({ payload }) {
     try {
       const response = yield call(AppService.addFile, payload);
-      console.log("Response", response.message);
       if (response.message) {
         yield put(getAdvanceRequestActionMessage(response));
+      }
+    } catch (err) {
+      console.log("Messages listing error in sagas", err);
+    }
+  });
+}
+
+export function* stopOrdersMenu() {
+  yield takeEvery(STOP_ORDERS_MENU, function* ({ payload }) {
+    try {
+      const response = yield call(AppService.getStopOrdersMainMenu);
+      if (response) {
+        yield put(stopOrdersMenuData(response));
+      }
+    } catch (err) {
+      console.log("Messages listing error in sagas", err);
+    }
+  });
+}
+
+export function* getStopOrdersData() {
+  yield takeEvery(GET_STOP_ORDERS_DATA, function* ({ payload }) {
+    try {
+      const response = yield call(AppService.getStopOrdersData, payload);
+      if (response.message) {
+        yield put(stopOrdersData(response.requests));
+      }
+    } catch (err) {
+      console.log("Messages listing error in sagas", err);
+    }
+  });
+}
+
+export function* getStopOrdersUserData() {
+  yield takeEvery(GET_STOP_ORDERS_USER_DATA, function* ({ payload }) {
+    try {
+      const response = yield call(AppService.getStopOrdersUserData, payload);
+      if (response) {
+        yield put(stopOrdersUserData(response.result));
+      }
+    } catch (err) {
+      console.log("Messages listing error in sagas", err);
+    }
+  });
+}
+
+export function* UpdateStopOrder() {
+  yield takeEvery(UPDATE_STOP_ORDER, function* ({ payload }) {
+    try {
+      const response = yield call(AppService.updateStopOrder, payload);
+      if (response.message) {
+        yield put(getAdvanceRequestActionMessage(response));
+      }
+    } catch (err) {
+      console.log("Messages listing error in sagas", err);
+    }
+  });
+}
+
+export function* stopOrderGenerateDataSheet() {
+  yield takeEvery(STOP_ORDER_GENERATE_DATASHEET, function* ({ payload }) {
+    try {
+      const response = yield call(AppService.stopOrderGenerateDataSheet);
+      if (response) {
+        yield put(stopOrderDatasheetNumber(response));
+      }
+    } catch (err) {
+      console.log("Messages listing error in sagas", err);
+    }
+  });
+}
+
+export function* loanSearchByRefNo() {
+  yield takeEvery(SEARCH_LOAN_BY_REFNO, function* ({ payload }) {
+    try {
+      const response = yield call(AppService.loanSearchByRefNo, payload);
+      if (response) {
+        yield put(searchLoanByRefNoResponse(response.result));
       }
     } catch (err) {
       console.log("Messages listing error in sagas", err);
@@ -203,5 +291,11 @@ export default function* rootSaga() {
     fork(downloadApplication),
     fork(addComment),
     fork(addFile),
+    fork(stopOrdersMenu),
+    fork(getStopOrdersData),
+    fork(getStopOrdersUserData),
+    fork(UpdateStopOrder),
+    fork(stopOrderGenerateDataSheet),
+    fork(loanSearchByRefNo)
   ]);
 }

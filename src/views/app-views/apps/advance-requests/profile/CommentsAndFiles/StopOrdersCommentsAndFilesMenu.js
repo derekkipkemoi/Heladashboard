@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Menu } from "antd";
 
-import { data } from "./ComentsAndFileData";
+import { data } from "./StopOrdersCommentsAndFilesData";
 
-class CommentsAndFilesMenu extends Component {
+class StopOrdersCommentsAndFilesMenu extends Component {
   changeMenu = (path) => {
     this.setState({
       path,
@@ -37,4 +37,4 @@ class CommentsAndFilesMenu extends Component {
   }
 }
 
-export default CommentsAndFilesMenu;
+export default StopOrdersCommentsAndFilesMenu;

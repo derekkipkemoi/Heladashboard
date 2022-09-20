@@ -332,12 +332,48 @@ appService.addFile = function (payload) {
   });
 };
 
-// appService.getStopOrdersMainMenu = function (payload) {
-//   return fetch({
-//     // url: "/advance-request-dashboard",
-//     method: "get",
-//   });
-// };
+appService.getStopOrdersMainMenu = function () {
+  return fetch({
+    url: "stop-order-summary",
+    method: "get",
+  });
+};
+
+appService.getStopOrdersData = function (payload) {
+  return fetch({
+    url: "/" + payload,
+    method: "get",
+  });
+};
+
+appService.getStopOrdersUserData = function (payload) {
+  return fetch({
+    url: "stop-order-view?id=" + payload,
+    method: "get",
+  });
+};
+
+appService.updateStopOrder = function (payload) {
+  return fetch({
+    url: "stop-order-update",
+    method: "post",
+    data: payload
+  });
+};
+
+appService.stopOrderGenerateDataSheet = function () {
+  return fetch({
+    url: "stop-order-fetch-new-sheet-no",
+    method: "post",
+  });
+};
+
+appService.loanSearchByRefNo = function (payload) {
+  return fetch({
+    url: "stop-order-search-loan?ref_no=" + payload,
+    method: "get",
+  });
+};
 
 // appService.getTopUpsMainMenu = function (payload) {
 //   return fetch({

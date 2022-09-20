@@ -7,6 +7,11 @@ import {
   SAVEREQUESTSDATA,
   SAVETSCREQUESTSMENU,
   SAVE_USER_REQUESTS_DATA,
+  SEARCH_LOAN_BY_REFNO_RESPONSE,
+  STOP_ORDERS_DATA,
+  STOP_ORDERS_MENU_DATA,
+  STOP_ORDERS_USER_DATA,
+  STOP_ORDER_DATASHEET_NUMBER,
 } from "../constants/AdvanceRequests";
 
 const initState = {
@@ -17,7 +22,12 @@ const initState = {
   userRequestData: {},
   actionResponseMessage: "",
   responseValues: {},
-  downloadedApplication: {}
+  downloadedApplication: {},
+  stopOrdersMenuData: {},
+  stopOrders: [],
+  stopOrdersUserData: {},
+  datasheet: "",
+  loanSearchData: {}
 };
 
 const advanceRequest = (state = initState, action) => {
@@ -69,6 +79,38 @@ const advanceRequest = (state = initState, action) => {
         ...state,
         downloadedApplication: action.data,
       };
+
+      case STOP_ORDERS_MENU_DATA:
+        return {
+          ...state,
+          stopOrdersMenuData: action.stopOrdersMenuData,
+        };
+
+        case STOP_ORDERS_DATA:
+        return {
+          ...state,
+          stopOrders: action.stopOrders,
+        };
+
+        case STOP_ORDERS_USER_DATA:
+          return {
+            ...state,
+            stopOrdersUserData: action.stopOrdersUserData,
+          };
+
+          case STOP_ORDER_DATASHEET_NUMBER:
+          return {
+            ...state,
+            datasheet: action.datasheet,
+          };
+
+          case SEARCH_LOAN_BY_REFNO_RESPONSE:
+          return {
+            ...state,
+            loanSearchData: action.loanSearchData,
+          };
+
+
 
 
     default:

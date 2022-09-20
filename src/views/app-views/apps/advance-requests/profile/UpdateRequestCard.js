@@ -71,8 +71,8 @@ class UpdateRequestCard extends Component {
     };
     const textStyle = {
       border: "1px solid",
-      padding: "2px",
-      borderRadius: "4px",
+      padding: "10px",
+      borderRadius: "10px",
     };
     return (
       <Card type="inner" title="Changes">

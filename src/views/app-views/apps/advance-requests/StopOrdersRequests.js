@@ -1,17 +1,19 @@
 import React, { Component } from "react";
-import {
-  Row,
-  Col,
-  Card,
-  Avatar, Breadcrumb
-} from "antd";
+import { Row, Col, Card, Avatar, Breadcrumb } from "antd";
 import { Link } from "react-router-dom";
 import { StopOrdersData } from "./StopOrdersData";
+import { connect } from "react-redux";
+import { stopOrdersMenu } from "redux/actions/AdvanceRequests";
+import { FileOutlined } from "@ant-design/icons";
 const { Meta } = Card;
 
 class StopOrdersRequests extends Component {
   state = {};
+  componentDidMount = () => {
+    this.props.stopOrdersMenu();
+  };
   render() {
+  
     const { name, path } = this.props.location.state;
     const hRange = [150, 30];
     const sRange = [50, 200];
@@ -52,36 +54,125 @@ class StopOrdersRequests extends Component {
           <Breadcrumb.Item>{name}</Breadcrumb.Item>
         </Breadcrumb>
         <Row gutter={16}>
-          {StopOrdersData.map((elm, i) => (
-           <Col xs={24} sm={12} md={12} lg={6} xl={6} xxl={4} key={i}>
-            <Link
+          {this.props.menuDataList.map((elm, i) => (
+            <Col xs={24} sm={12} md={12} lg={6} xl={6} xxl={4} key={i}>
+              <Link
                 to={{
-                  pathname: `/app/apps/advance-requests/view-data/${elm.path}`,
-                  state: { name: name, subname: elm.title, path: path },
+                  pathname: `/app/apps/advance-requests/view-stop-orders/${elm.path}`,
+                  state: { name: name, subname: elm.title, path: elm.path },
                 }}
               >
+                <Card type="flex" align="middle">
+                  <p>
+                    <Avatar
+                      size={54}
+                      style={{
+                        backgroundColor: "#fff",
+                        boxShadow: `0.5px 5px 5px 0px ${generateHSL(
+                          elm.title
+                        )}`,
+                      }}
+                      icon={
+                        <elm.icon style={{ color: generateHSL(elm.title) }} />
+                      }
+                    />
+                  </p>
+                  <p style={{ margin: "0", marginBottom: "10px" }}>
+                    {elm.title}
+                  </p>
+                  <Meta title={"Count " + ": " + elm.value} />
+                  <p
+                    style={{
+                      fontWeight: "bold",
+                      margin: "0",
+                      marginTop: "10px",
+                      fontSize: "18px",
+                    }}
+                  >
+                    Ksh : {elm.amount}
+                  </p>
+                </Card>
+              </Link>
+            </Col>
+          ))}
+          <Col xs={24} sm={12} md={12} lg={6} xl={6} xxl={4}>
+            <Link
+              to={{
+                pathname: `/app/apps/advance-requests/generate-stop-order`
+              }}
+            >
               <Card type="flex" align="middle">
                 <p>
                   <Avatar
                     size={54}
                     style={{
                       backgroundColor: "#fff",
-                      boxShadow: `0.5px 5px 5px 0px ${generateHSL(elm.title)}`,
+                      boxShadow: `0.5px 5px 5px 0px ${generateHSL("Generate")}`,
                     }}
-                    icon={<elm.icon style={{color: generateHSL(elm.title)}} />}
+                    icon={
+                      <FileOutlined
+                        style={{ color: generateHSL("Generate") }}
+                      />
+                    }
                   />
                 </p>
-                <p style={{ margin: "0", marginBottom: "10px" }}>{elm.title}</p>
-                  <Meta title={"Count " + ": "+ elm.value } />
-                  <p style={{fontWeight: "bold", margin: "0", marginTop: "10px", fontSize: "18px"}}>Ksh : {elm.amount}</p>
+                <p style={{ margin: "0", marginBottom: "10px" }}>
+                  {"Generate"}
+                </p>
+                <Meta title={<span></span>} />
+                <p
+                  style={{
+                    fontWeight: "bold",
+                    margin: "0",
+                    marginTop: "10px",
+                    fontSize: "18px",
+                  }}
+                >
+                  <span></span>
+                </p>
               </Card>
-              </Link>
-            </Col>
-          ))}
+            </Link>
+          </Col>
         </Row>
       </div>
     );
   }
 }
 
-export default StopOrdersRequests;
+const mapStateToProps = ({ advanceRequest }) => {
+  let { stopOrdersMenuData } = advanceRequest;
+  let listedMenuList = Object.entries(stopOrdersMenuData);
+  let menuDataList = [];
+
+  function createData(title, path, value, amount, icon) {
+    return {
+      title,
+      path,
+      value,
+      amount,
+      icon,
+    };
+  }
+
+  for (let index = 0; index < listedMenuList.length; index++) {
+    const element = listedMenuList[index];
+    let firstList = createData(
+      element[0],
+      StopOrdersData[index + 1].path,
+      element[1].count,
+      element[1].totals,
+      StopOrdersData[index + 1].icon
+    );
+    menuDataList.push(firstList);
+  }
+  console.log("Data", menuDataList);
+  return {
+    menuDataList,
+  };
+};
+
+const mapDispatchToProps = {
+  stopOrdersMenu,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(StopOrdersRequests);

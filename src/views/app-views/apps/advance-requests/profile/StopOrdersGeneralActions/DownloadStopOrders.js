@@ -1,4 +1,4 @@
-import { Modal, Button, Form, Typography } from "antd";
+import { Modal, Button, Form, Typography, Input } from "antd";
 
 import React, { Component } from "react";
 const { Text } = Typography;
@@ -37,6 +37,7 @@ class DownloadStopOrders extends Component {
       padding: "10px",
       borderRadius: "10px",
     };
+    console.log("Data", this.props.details)
     return (
       <div>
         <Button
@@ -52,7 +53,7 @@ class DownloadStopOrders extends Component {
         </Button>
         <Modal
           visible={visible}
-          title={<span style={{color:"#fba615"}}>DOWNLOAD</span>}
+          title={<span style={{ color: "#fba615" }}>DOWNLOAD</span>}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           footer={[
@@ -69,15 +70,17 @@ class DownloadStopOrders extends Component {
             </Button>,
           ]}
         >
-          <Form.Item label="Datasheet Number" name="dataSheetNumber">
-            <Text style={textStyle}>{this.props.account}</Text>
-          </Form.Item>
-          <Form.Item label="Status" name="status">
-            <Text style={textStyle}>{this.props.status}</Text>
-          </Form.Item>
-          <Form.Item label="Date Modified" name="Date Modified">
-            <Text style={textStyle}>{this.props.created_at}</Text>
-          </Form.Item>
+          <Form name="basic" initialValues={this.props.details}>
+            <Form.Item label="Datasheet Number" name="account" >
+              <Input disabled={true}/>
+            </Form.Item>
+            <Form.Item label="Status" name="status">
+              <Input disabled={true}/>
+            </Form.Item>
+            <Form.Item label="Date Modified" name="created_at">
+              <Input disabled={true}/>
+            </Form.Item>
+          </Form>
         </Modal>
       </div>
     );

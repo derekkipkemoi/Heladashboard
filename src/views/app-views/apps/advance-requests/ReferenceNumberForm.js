@@ -4,10 +4,20 @@ import { searchLoanByRefNo } from "redux/actions/AdvanceRequests";
 import {connect} from "react-redux"
 
 class ReferenceNumberForm extends Component {
-  state = {};
+  state = {
+    loading: false
+  };
   onFinish = (values) => {
-    console.log("Success:", values.ref_no);
+    this.setState({
+      loading: true
+    })
     this.props.searchLoanByRefNo(values.ref_no)
+    setTimeout(()=>{
+      this.setState({
+        loading: false
+      })
+
+    }, 1500)
   };
 
   onFinishFailed = (errorInfo) => {
@@ -15,13 +25,6 @@ class ReferenceNumberForm extends Component {
     
   };
   render() {
-    const layout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 },
-    };
-    const tailLayout = {
-      wrapperCol: { offset: 8, span: 16 },
-    };
     return (
       <Form
         name="basic"
@@ -39,7 +42,7 @@ class ReferenceNumberForm extends Component {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={this.state.loading}>
             Search Loan Request
           </Button>
         </Form.Item>
@@ -50,7 +53,6 @@ class ReferenceNumberForm extends Component {
 
 const mapStateToProps = ({ advanceRequest }) => {
   const { loanSearchData } = advanceRequest;
-  console.log("Response", loanSearchData)
   return {
     loanSearchData,
   };

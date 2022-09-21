@@ -20,15 +20,14 @@ class GenerateDataSheetStopOrders extends Component {
 
   onFinish = (values) => {
     this.setState({
-      loading: true
-    })
+      loading: true,
+    });
     const formInput = {
       datasheet_type: values.datasheet_type,
       id: parseInt(this.props.details.company_id),
       advance_request_id: this.props.advance_request_id,
       custom_sheet_no: values.custom_sheet_no,
-      datasheet: this.props.datasheet
-
+      datasheet: this.props.datasheet,
     };
 
     console.log("Success:", formInput);
@@ -76,9 +75,10 @@ class GenerateDataSheetStopOrders extends Component {
     }
 
     const textStyle = {
-      border: "1px solid #D3D3D3",
+      border: "1px solid #e6ebf1",
       padding: "10px",
       borderRadius: "10px",
+      width: "100%",
     };
     return (
       <div>
@@ -96,7 +96,11 @@ class GenerateDataSheetStopOrders extends Component {
         </Button>
         <Modal
           visible={visible}
-          title={<span style={{color:"#3e79f7"}}>GENERATE E DATASHEET NUMBER</span>}
+          title={
+            <span style={{ color: "#3e79f7" }}>
+              GENERATE E DATASHEET NUMBER
+            </span>
+          }
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           footer={[
@@ -139,12 +143,16 @@ class GenerateDataSheetStopOrders extends Component {
               </Checkbox>
             </Form.Item>
 
-            <Form.Item label="Datasheet Number">
-              <Text style={textStyle}>{datasheet}</Text>
+            <Form.Item label="Datasheet Number" name="datasheet">
+              {datasheet}
             </Form.Item>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit" loading={this.state.loading}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                loading={this.state.loading}
+              >
                 Generate
               </Button>
             </Form.Item>

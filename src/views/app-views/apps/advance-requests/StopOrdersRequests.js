@@ -95,7 +95,7 @@ class StopOrdersRequests extends Component {
               </Link>
             </Col>
           ))}
-          <Col xs={24} sm={12} md={12} lg={6} xl={6} xxl={4}>
+          {/* <Col xs={24} sm={12} md={12} lg={6} xl={6} xxl={4}>
             <Link
               to={{
                 pathname: `/app/apps/advance-requests/generate-stop-order`
@@ -132,7 +132,7 @@ class StopOrdersRequests extends Component {
                 </p>
               </Card>
             </Link>
-          </Col>
+          </Col> */}
         </Row>
       </div>
     );
@@ -158,10 +158,10 @@ const mapStateToProps = ({ advanceRequest }) => {
     const element = listedMenuList[index];
     let firstList = createData(
       element[0],
-      StopOrdersData[index + 1].path,
+      StopOrdersData[index].path,
       element[1].count,
       element[1].totals,
-      StopOrdersData[index + 1].icon
+      StopOrdersData[index].icon
     );
     menuDataList.push(firstList);
   }

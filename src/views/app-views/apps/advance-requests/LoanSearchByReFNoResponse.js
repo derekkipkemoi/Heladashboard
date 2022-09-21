@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 import { Table, Card } from "antd";
 
 class LoanSearchByRefNoResponse extends Component {
-  state = {};
+  state = {
+    
+  };
   render() {
     const columns = [
       {
@@ -37,7 +39,7 @@ class LoanSearchByRefNoResponse extends Component {
         {
           key: "6",
           name: "Name",
-          detail: this.props.loanSearchData.first_name,
+          detail: this.props.name,
         },
         {
           key: "7",
@@ -78,9 +80,15 @@ class LoanSearchByRefNoResponse extends Component {
 
 const mapStateToProps = ({ advanceRequest }) => {
   const { loanSearchData } = advanceRequest;
-  console.log("Response", loanSearchData);
+  const name =
+    loanSearchData.first_name +
+    " " +
+    loanSearchData.middle_name +
+    " " +
+    loanSearchData.surname;
   return {
     loanSearchData,
+    name,
   };
 };
 

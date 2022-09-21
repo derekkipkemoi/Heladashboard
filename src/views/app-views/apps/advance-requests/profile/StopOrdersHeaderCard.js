@@ -75,7 +75,7 @@ export default function StopOrdersHeaderCard(props) {
             xxl={8}
             style={{ paddingRight: "25px" }}
           >
-            <DownloadStopOrders {...props.personalDetails} />
+            <DownloadStopOrders details={props.personalDetails} />
           </Col>
         </Row>
       </Card>

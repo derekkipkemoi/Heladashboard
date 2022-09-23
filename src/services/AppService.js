@@ -361,16 +361,39 @@ appService.updateStopOrder = function (payload) {
   });
 };
 
-appService.stopOrderGenerateDataSheet = function () {
+appService.stopOrderGenerateDatasheetNumber = function () {
   return fetch({
     url: "stop-order-fetch-new-sheet-no",
     method: "post",
   });
 };
 
+appService.stopOrderGenerateDatasheet = function (payload) {
+  return fetch({
+    url: "stop-order-generate-datasheet",
+    method: "post",
+    data: payload
+  });
+};
+
 appService.loanSearchByRefNo = function (payload) {
   return fetch({
     url: "stop-order-search-loan?ref_no=" + payload,
+    method: "get",
+  });
+};
+
+appService.sendMessage = function (payload) {
+  return fetch({
+    url: "send-message",
+    method: "post",
+    data: payload
+  });
+};
+
+appService.getTopUpsDashboard = function () {
+  return fetch({
+    url: "top-up-dashboard",
     method: "get",
   });
 };

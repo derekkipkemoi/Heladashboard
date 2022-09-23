@@ -1,20 +1,14 @@
 
-import {  ArrowUpOutlined, CheckOutlined, StopOutlined, ArrowDownOutlined} from "@ant-design/icons";
+import {  ArrowUpOutlined, CheckOutlined, StopOutlined, ArrowDownOutlined, TeamOutlined} from "@ant-design/icons";
     
-export const MenuData = [
+export const menuData = [
     {
         title: 'Normal Requests',
         path: "normal-requests",
         value: 17,
         amount: 2000,
-        icon: CheckOutlined,
-    },
-    {
-        title: 'TSC Requests',
-        path: "tsc-requests",
-        value: 111,
-        amount: 3000,
-        icon: CheckOutlined,
+        icon: TeamOutlined,
+        color: "#7b8f2c"
     },
     {
         title: 'Stop Orders',
@@ -22,6 +16,15 @@ export const MenuData = [
         value: 111,
         amount: 3000,
         icon: StopOutlined,
+        color: "#ff6b72"
+    },
+    {
+        title: 'TSC Requests',
+        path: "tsc-requests",
+        value: 111,
+        amount: 3000,
+        icon: TeamOutlined,
+        color: "#7b8f2c"
     },
     {
         title: 'Top Ups',
@@ -29,6 +32,7 @@ export const MenuData = [
         value: 111,
         amount: 4000,
         icon: ArrowUpOutlined,
+        color: "#3e79f7"
     },
     {
         title: 'Refunds',
@@ -36,5 +40,6 @@ export const MenuData = [
         value: 111,
         amount: 5000,
         icon: ArrowDownOutlined,
+        color: "#3e79f7"
     }
 ]

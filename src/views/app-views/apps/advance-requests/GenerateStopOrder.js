@@ -68,13 +68,7 @@ class GenerateStopOrder extends Component {
               xl={12}
               xxl={12}
             >
-              <Card
-                style={{ marginTop: 0 }}
-                type="inner"
-                title="Generate Stop Order Transaction For loan"
-              >
-                <GenerateStopOrderTransactionForLaon />
-              </Card>
+              <GenerateStopOrderTransactionForLaon />
             </Col>
           </Row>
         </Card>

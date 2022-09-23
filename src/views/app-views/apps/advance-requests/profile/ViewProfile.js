@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Col, Row, Card, Typography } from "antd";
+import { Col, Row, Card, Spin, Alert } from "antd";
 import PersonalInformationCard from "./PersonalInformationCard";
 import LoanInformationCard from "./LoanInformationCard";
 import ActionButtons from "./ActionButtons";
@@ -33,83 +33,97 @@ class ViewProfile extends Component {
 
   menuChange = (path) => {
     this.setState({
-      content: path
-    })
+      content: path,
+    });
   };
   render() {
     const { id } = this.state;
 
     return (
       <Card>
-        <Row gutter={16} style={{ marginTop: "50px" }}>
-          <Col xs={24} sm={24} md={24} xl={24} xxl={24}>
-            <HeaderCard
-              personalDetails={this.props.personalDetails}
-              companyDatasheets={this.props.companyDatasheets}
+        {this.props.personalDetails === undefined ? (
+          <Spin tip="Loading...">
+            <Alert
+              message="Loading Data"
+              description="Please wait..."
+              type="info"
             />
-          </Col>
-        </Row>
-        <Row gutter={16} style={{ marginTop: "10px" }}>
-          <Col
-            className="gutter-row"
-            xs={24}
-            sm={24}
-            md={12}
-            lg={12}
-            xl={12}
-            xxl={12}
-          >
-            <PersonalInformationCard
-              personalDetails={this.props.personalDetails}
-            />
-          </Col>
-          <Col
-            className="gutter-row"
-            xs={24}
-            sm={24}
-            md={12}
-            lg={12}
-            xl={12}
-            xxl={12}
-          >
-            <LoanInformationCard personalDetails={this.props.personalDetails} />
-          </Col>
-        </Row>
+          </Spin>
+        ) : (
+          <div>
+            <Row gutter={16} style={{ marginTop: "50px" }}>
+              <Col xs={24} sm={24} md={24} xl={24} xxl={24}>
+                <HeaderCard
+                  personalDetails={this.props.personalDetails}
+                  companyDatasheets={this.props.companyDatasheets}
+                />
+              </Col>
+            </Row>
+            <Row gutter={16} style={{ marginTop: "10px" }}>
+              <Col
+                className="gutter-row"
+                xs={24}
+                sm={24}
+                md={12}
+                lg={12}
+                xl={12}
+                xxl={12}
+              >
+                <PersonalInformationCard
+                  personalDetails={this.props.personalDetails}
+                />
+              </Col>
+              <Col
+                className="gutter-row"
+                xs={24}
+                sm={24}
+                md={12}
+                lg={12}
+                xl={12}
+                xxl={12}
+              >
+                <LoanInformationCard
+                  personalDetails={this.props.personalDetails}
+                />
+              </Col>
+            </Row>
 
-        <Row gutter={16} style={{ marginTop: "20px" }}>
-          {/* <Col xs={24} sm={24} md={24} xl={12} xxl={12}>
+            <Row gutter={16} style={{ marginTop: "20px" }}>
+              {/* <Col xs={24} sm={24} md={24} xl={12} xxl={12}>
             <GeneralButtons />
           </Col> */}
-          <Col xs={24} sm={24} md={24} xl={24} xxl={24}>
-            <ActionButtons userId={id} />
-          </Col>
-        </Row>
+              <Col xs={24} sm={24} md={24} xl={24} xxl={24}>
+                <ActionButtons userId={id} />
+              </Col>
+            </Row>
 
-        <Card type="inner" title="Comments and Files">
-          <CommentsAndFilesMenu
-            {...this.props}
-            menuChange={(value) => this.menuChange(value)}
-          />
-          {this.state.content === "comments" ? (
-            <CommentsTable
-              data={this.props.userComments}
-              personalDetails={this.props.personalDetails}
-            />
-          ) : null}
-          {this.state.content === "registration-files" ? (
-            <RegistrationFilesTables
-              data={this.props.userRegistrationFiles}
-              personalDetails={this.props.personalDetails}
-            />
-          ) : null}
+            <Card type="inner" title="Comments and Files">
+              <CommentsAndFilesMenu
+                {...this.props}
+                menuChange={(value) => this.menuChange(value)}
+              />
+              {this.state.content === "comments" ? (
+                <CommentsTable
+                  data={this.props.userComments}
+                  personalDetails={this.props.personalDetails}
+                />
+              ) : null}
+              {this.state.content === "registration-files" ? (
+                <RegistrationFilesTables
+                  data={this.props.userRegistrationFiles}
+                  personalDetails={this.props.personalDetails}
+                />
+              ) : null}
 
-          {this.state.content === "request-files" ? (
-            <UserRequestsFiles
-              data={this.props.userRequestFiles}
-              personalDetails={this.props.personalDetails}
-            />
-          ) : null}
-        </Card>
+              {this.state.content === "request-files" ? (
+                <UserRequestsFiles
+                  data={this.props.userRequestFiles}
+                  personalDetails={this.props.personalDetails}
+                />
+              ) : null}
+            </Card>
+          </div>
+        )}
       </Card>
     );
   }

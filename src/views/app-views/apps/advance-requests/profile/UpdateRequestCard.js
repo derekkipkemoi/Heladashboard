@@ -70,7 +70,7 @@ class UpdateRequestCard extends Component {
       margin: "15px 0",
     };
     const textStyle = {
-      border: "1px solid",
+      border: "1px solid #e6ebf1",
       padding: "10px",
       borderRadius: "10px",
     };

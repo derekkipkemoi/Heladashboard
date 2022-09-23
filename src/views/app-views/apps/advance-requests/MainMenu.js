@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Row, Col, Card, Avatar } from "antd";
-import { MenuData } from "./MenuData";
+import { Row, Col, Card, Avatar, Spin, Alert } from "antd";
+import { menuData } from "./MenuData";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getAdvanceRequestMainMenu } from "redux/actions/AdvanceRequests";
@@ -45,49 +45,55 @@ class MainMenu extends Component {
 
     return (
       <div>
-        <Row gutter={16}>
-          {this.props.menuDataList.map((elm, i) => (
-            <Col xs={24} sm={12} md={12} lg={6} xl={6} xxl={4} key={i}>
-              <Link
-                to={{
-                  pathname: elm.path,
-                  state: { name: elm.title, path: elm.path },
-                }}
-              >
-                <Card type="flex" align="middle">
-                  <p>
-                    <Avatar
-                      size={54}
+        {this.props.menuDataList.length < 1 ? (
+          <Spin tip="Loading...">
+            <Alert
+              message="Loading Data"
+              description="Please wait..."
+              type="info"
+            />
+          </Spin>
+        ) : (
+          <Row gutter={16}>
+            {this.props.menuDataList.map((elm, i) => (
+              <Col xs={24} sm={12} md={12} lg={6} xl={6} xxl={4} key={i}>
+                <Link
+                  to={{
+                    pathname: elm.path,
+                    state: { name: elm.title, path: elm.path },
+                  }}
+                >
+                  <Card type="flex" align="middle">
+                    <p>
+                      <Avatar
+                        size={54}
+                        style={{
+                          backgroundColor: "#fff",
+                          boxShadow: `0.5px 5px 5px 0px ${elm.color}`,
+                        }}
+                        icon={<elm.icon style={{ color: elm.color }} />}
+                      />
+                    </p>
+                    <p style={{ margin: "0", marginBottom: "10px" }}>
+                      {elm.title}
+                    </p>
+                    <Meta title={"Count " + ": " + elm.value} />
+                    <p
                       style={{
-                        backgroundColor: "#fff",
-                        boxShadow: `0.5px 5px 5px 0px ${generateHSL(
-                          elm.title
-                        )}`,
+                        fontWeight: "bold",
+                        margin: "0",
+                        marginTop: "10px",
+                        fontSize: "18px",
                       }}
-                      icon={
-                        <elm.icon style={{ color: generateHSL(elm.title) }} />
-                      }
-                    />
-                  </p>
-                  <p style={{ margin: "0", marginBottom: "10px" }}>
-                    {elm.title}
-                  </p>
-                  <Meta title={"Count " + ": " + elm.value} />
-                  <p
-                    style={{
-                      fontWeight: "bold",
-                      margin: "0",
-                      marginTop: "10px",
-                      fontSize: "18px",
-                    }}
-                  >
-                    Ksh : {elm.amount}
-                  </p>
-                </Card>
-              </Link>
-            </Col>
-          ))}
-        </Row>
+                    >
+                      Ksh : {elm.amount}
+                    </p>
+                  </Card>
+                </Link>
+              </Col>
+            ))}
+          </Row>
+        )}
       </div>
     );
   }
@@ -96,44 +102,17 @@ class MainMenu extends Component {
 const mapStateToProps = ({ advanceRequest }) => {
   let { advanceRequestMainMenu } = advanceRequest;
   let listedMenuList = Object.entries(advanceRequestMainMenu);
-  let menuDataList = []
-  function createData(title, path, value, amount, icon) {
+  let menuDataList = [];
+  function createData(title, path, value, amount, icon, color) {
     return {
       title,
       path,
       value,
       amount,
       icon,
+      color,
     };
   }
-
-  const menuData = [
-    {
-      title: "Normal Requests",
-      path: "normal-requests",
-      icon: CheckOutlined,
-    },
-    {
-      title: "Stop Orders",
-      path: "stop-orders-requests",
-      icon: StopOutlined,
-    },
-    {
-      title: "TSC Requests",
-      path: "tsc-requests",
-      icon: CheckOutlined,
-    },
-    {
-      title: "Top Ups",
-      path: "topups-requests",
-      icon: ArrowUpOutlined,
-    },
-    {
-      title: "Refunds",
-      path: "refunds-requests",
-      icon: ArrowDownOutlined,
-    },
-  ];
 
   for (let index = 0; index < listedMenuList.length; index++) {
     const element = listedMenuList[index];
@@ -142,11 +121,11 @@ const mapStateToProps = ({ advanceRequest }) => {
       menuData[index].path,
       element[1].count,
       element[1].total,
-      menuData[index].icon
+      menuData[index].icon,
+      menuData[index].color
     );
 
-    menuDataList.push(firstList)
-    
+    menuDataList.push(firstList);
   }
   return {
     menuDataList,

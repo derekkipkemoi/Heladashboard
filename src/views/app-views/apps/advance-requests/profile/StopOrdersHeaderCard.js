@@ -5,6 +5,7 @@ import AdvanceRequestAvatar from "components/shared-components/AdvanceRequestAva
 import DownloadStopOrders from "./StopOrdersGeneralActions/DownloadStopOrders";
 import GenerateDataSheetStopOrders from "./StopOrdersGeneralActions/GenerateDataSheetStopOrders";
 import UpdateStopOrder from "./StopOrdersGeneralActions/UpdateStopOrder";
+import NewMessageModal from "../../message/NewMessageModal";
 const { Text } = Typography;
 
 const avatarStyle = {
@@ -20,7 +21,9 @@ export default function StopOrdersHeaderCard(props) {
   let name = "";
   let company = "";
   let nameLetter = "";
+  let status = "";
   if (props.personalDetails !== undefined) {
+    status = props.personalDetails.status;
     name =
       props.personalDetails.first_name + " " + props.personalDetails.surname;
     company = props.personalDetails.company;
@@ -47,35 +50,55 @@ export default function StopOrdersHeaderCard(props) {
           </div>
         </div>
         <Row>
-        <Col
-            xs={24}
-            sm={12}
-            md={8}
-            xl={8}
-            xxl={8}
-            style={{ paddingRight: "25px" }}
-          >
-            <UpdateStopOrder details={props.personalDetails}/>
-          </Col>
-        <Col
-            xs={24}
-            sm={12}
-            md={8}
-            xl={8}
-            xxl={8}
-            style={{ paddingRight: "25px" }}
-          >
-            <GenerateDataSheetStopOrders details={props.personalDetails} />
-          </Col>
+          {status === "pending" ? (
+            <Col
+              xs={24}
+              sm={12}
+              md={8}
+              xl={6}
+              xxl={6}
+              style={{ paddingRight: "25px" }}
+            >
+              <UpdateStopOrder details={props.personalDetails} />
+            </Col>
+          ) : null}
+          {status === "pending" || status === "declined" ? (
+            <Col
+              xs={24}
+              sm={12}
+              md={8}
+              xl={6}
+              xxl={6}
+              style={{ paddingRight: "25px" }}
+            >
+              <GenerateDataSheetStopOrders
+                details={props.personalDetails}
+                companyDatasheets={props.companyDatasheets}
+              />
+            </Col>
+          ) : null}
+
+          {status === "pending" ? null : (
+            <Col
+              xs={24}
+              sm={12}
+              md={8}
+              xl={6}
+              xxl={6}
+              style={{ paddingRight: "25px" }}
+            >
+              <DownloadStopOrders details={props.personalDetails} />
+            </Col>
+          )}
           <Col
             xs={24}
             sm={12}
             md={8}
-            xl={8}
-            xxl={8}
+            xl={6}
+            xxl={6}
             style={{ paddingRight: "25px" }}
           >
-            <DownloadStopOrders details={props.personalDetails} />
+            <NewMessageModal details={props.personalDetails} />
           </Col>
         </Row>
       </Card>

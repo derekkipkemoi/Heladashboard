@@ -1,7 +1,11 @@
 import React, { Component } from "react";
-import { Modal, Form, Input, Button, Checkbox, Select, Typography } from "antd";
+import { Modal, Form, Input, Button, Checkbox, Select, Typography, notification } from "antd";
 import { connect } from "react-redux";
-import { stopOrderGenerateDatasheet } from "redux/actions/AdvanceRequests";
+import { CheckCircleOutlined } from "@ant-design/icons";
+import {
+  stopOrderGenerateDatasheetNumber,
+  stopOrderGenerateDatasheet,
+} from "redux/actions/AdvanceRequests";
 const { Option } = Select;
 const { Text } = Typography;
 
@@ -10,6 +14,14 @@ class GenerateDataSheetStopOrders extends Component {
     loading: false,
     visible: false,
     checked: false,
+  };
+
+  openNotification = (message) => {
+    notification.open({
+      message: "Notification",
+      description: message,
+      icon: <CheckCircleOutlined style={{ color: "#04d182" }} />,
+    });
   };
 
   showModal = () => {
@@ -25,12 +37,23 @@ class GenerateDataSheetStopOrders extends Component {
     const formInput = {
       datasheet_type: values.datasheet_type,
       id: parseInt(this.props.details.company_id),
-      advance_request_id: this.props.advance_request_id,
+      advance_request_id: parseInt(this.props.details.advance_request_id),
       custom_sheet_no: values.custom_sheet_no,
       datasheet: this.props.datasheet,
     };
 
-    console.log("Success:", formInput);
+    console.log("Form data", formInput);
+
+    this.props.stopOrderGenerateDatasheet(formInput);
+    setTimeout(() => {
+      const { actionResponseMessage } = this.props;
+      if (actionResponseMessage) {
+        this.openNotification(actionResponseMessage.message);
+      }
+      this.setState({
+        loading: false,
+      });
+    }, 1500);
   };
 
   // "datasheet_type":"STOP ORDER",
@@ -56,8 +79,7 @@ class GenerateDataSheetStopOrders extends Component {
     });
 
     if (e.target.checked) {
-      console.log("checked = ", e.target.checked);
-      this.props.stopOrderGenerateDatasheet();
+      this.props.stopOrderGenerateDatasheetNumber();
     }
   };
 
@@ -74,11 +96,15 @@ class GenerateDataSheetStopOrders extends Component {
       companyDatasheetNumberData = companyDatasheets;
     }
 
-    const textStyle = {
-      border: "1px solid #e6ebf1",
-      padding: "10px",
-      borderRadius: "10px",
-      width: "100%",
+    const layout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 16 },
+    };
+    const tailLayout = {
+      wrapperCol: { offset: 0, span: 16 },
+    };
+    const buttonLayout = {
+      wrapperCol: { offset: 6, span: 16 },
     };
     return (
       <div>
@@ -137,17 +163,15 @@ class GenerateDataSheetStopOrders extends Component {
               </Select>
             </Form.Item>
 
-            <Form.Item name="remember">
-              <Checkbox checked={this.state.checked} onChange={this.onChange}>
-                Generate New
-              </Checkbox>
+            <Form.Item name="remember" label="Generate New">
+              <Checkbox checked={this.state.checked} onChange={this.onChange} />
             </Form.Item>
 
             <Form.Item label="Datasheet Number" name="datasheet">
               {datasheet}
             </Form.Item>
 
-            <Form.Item>
+            <Form.Item {...buttonLayout}>
               <Button
                 type="primary"
                 htmlType="submit"
@@ -164,15 +188,15 @@ class GenerateDataSheetStopOrders extends Component {
 }
 
 const mapStateToProps = ({ advanceRequest }) => {
-  const { datasheet } = advanceRequest;
-  console.log("Datasheet number", datasheet);
-
+  const { datasheet, actionResponseMessage } = advanceRequest;
   return {
     datasheet,
+    actionResponseMessage,
   };
 };
 
 const mapDispatchToProps = {
+  stopOrderGenerateDatasheetNumber,
   stopOrderGenerateDatasheet,
 };
 

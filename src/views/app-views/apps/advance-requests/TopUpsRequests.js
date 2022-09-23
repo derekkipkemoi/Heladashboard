@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import {
-  Row,
-  Col,
-  Card,
-  Avatar, Breadcrumb
-} from "antd";
+import { Row, Col, Card, Avatar, Breadcrumb } from "antd";
 import { Link } from "react-router-dom";
 import { TopUpsData } from "./TopUpsData";
+import { connect } from "react-redux";
+import { getTopupsDashboard } from "redux/actions/AdvanceRequests";
 const { Meta } = Card;
 
 class TopUpsRequests extends Component {
   state = {};
+  componentDidMount = () => {
+    this.props.getTopupsDashboard();
+  };
   render() {
     const { name, path } = this.props.location.state;
     const hRange = [150, 30];
@@ -52,29 +52,45 @@ class TopUpsRequests extends Component {
           <Breadcrumb.Item>{name}</Breadcrumb.Item>
         </Breadcrumb>
         <Row gutter={16}>
-          {TopUpsData.map((elm, i) => (
-          <Col xs={24} sm={12} md={12} lg={6} xl={6} xxl={4} key={i}>
-            <Link
+          {this.props.menuDataList.map((elm, i) => (
+            <Col xs={24} sm={12} md={12} lg={6} xl={6} xxl={4} key={i}>
+              <Link
                 to={{
                   pathname: `/app/apps/advance-requests/view-data/${elm.path}`,
-                  state: { name: name, subname: elm.title, path: path },
+                  state: {
+                    name: name,
+                    subname: elm.title,
+                    path: path,
+                    dataPath: elm.path,
+                  },
                 }}
               >
-              <Card type="flex" align="middle">
-                <p>
-                  <Avatar
-                    size={54}
+                <Card type="flex" align="middle" role="button">
+                  <p>
+                    <Avatar
+                      size={54}
+                      style={{
+                        backgroundColor: "#fff",
+                        boxShadow: `0.5px 5px 5px 0px ${elm.color}`,
+                      }}
+                      icon={<elm.icon style={{ color: elm.color }} />}
+                    />
+                  </p>
+                  <p style={{ margin: "0", marginBottom: "10px" }}>
+                    {elm.title}
+                  </p>
+                  <Meta title={"Count " + ": " + elm.value} />
+                  <p
                     style={{
-                      backgroundColor: "#fff",
-                      boxShadow: `0.5px 5px 5px 0px ${generateHSL(elm.title)}`,
+                      fontWeight: "bold",
+                      margin: "0",
+                      marginTop: "10px",
+                      fontSize: "18px",
                     }}
-                    icon={<elm.icon style={{color: generateHSL(elm.title)}} />}
-                  />
-                </p>
-                <p style={{ margin: "0", marginBottom: "10px" }}>{elm.title}</p>
-                  <Meta title={"Count " + ": "+ elm.value } />
-                  <p style={{fontWeight: "bold", margin: "0", marginTop: "10px", fontSize: "18px"}}>Ksh : {elm.amount}</p>
-              </Card>
+                  >
+                    Ksh : {elm.amount}
+                  </p>
+                </Card>
               </Link>
             </Col>
           ))}
@@ -84,4 +100,41 @@ class TopUpsRequests extends Component {
   }
 }
 
-export default TopUpsRequests;
+const mapStateToProps = ({ advanceRequest }) => {
+  let { topupsDashboard } = advanceRequest;
+  let listedMenuList = Object.entries(topupsDashboard);
+  let menuDataList = [];
+  function createData(title, path, value, amount, icon, color) {
+    return {
+      title,
+      path,
+      value,
+      amount,
+      icon,
+      color,
+    };
+  }
+
+  for (let index = 0; index < listedMenuList.length; index++) {
+    const element = listedMenuList[index];
+    let firstList = createData(
+      element[0],
+      TopUpsData[index].path,
+      element[1].total_count,
+      element[1].total_amount,
+      TopUpsData[index].icon,
+      TopUpsData[index].color
+    );
+    menuDataList.push(firstList);
+  }
+  console.log("Tops up dashboard", menuDataList);
+  return {
+    menuDataList,
+  };
+};
+
+const mapDispatchToProps = {
+  getTopupsDashboard,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopUpsRequests);

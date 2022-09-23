@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Card, Avatar, Breadcrumb } from "antd";
+import { Row, Col, Card, Avatar, Breadcrumb, Spin, Alert } from "antd";
 import { menuData } from "./NormalRequestsData";
 import { getNormalRequestsMainMenu } from "redux/actions/AdvanceRequests";
 import { connect } from "react-redux";
@@ -10,9 +10,9 @@ const { Meta } = Card;
 class NormalRequests extends Component {
   state = {};
 
-  componentDidMount =()=> {
-    this.props.getNormalRequestsMainMenu()
-  }
+  componentDidMount = () => {
+    this.props.getNormalRequestsMainMenu();
+  };
 
   render() {
     const { name, path } = this.props.location.state;
@@ -54,70 +54,79 @@ class NormalRequests extends Component {
           </Breadcrumb.Item>
           <Breadcrumb.Item>{name}</Breadcrumb.Item>
         </Breadcrumb>
-
-        <Row gutter={16}>
-          {this.props.menuDataList.map((elm, i) => (
-            <Col xs={24} sm={12} md={12} lg={6} xl={6} xxl={4} key={i}>
-              <Link
-                to={{
-                  pathname: `/app/apps/advance-requests/view-data/${elm.path}`,
-                  state: { name: name, subname: elm.title, path: path, dataPath: elm.path },
-                }}
-              >
-                <Card type="flex" align="middle" role="button">
-                  <p>
-                    <Avatar
-                      size={54}
+        {this.props.menuDataList.length < 1 ? (
+          <Spin tip="Loading...">
+            <Alert
+              message="Loading Data"
+              description="Please wait..."
+              type="info"
+            />
+          </Spin>
+        ) : (
+          <Row gutter={16}>
+            {this.props.menuDataList.map((elm, i) => (
+              <Col xs={24} sm={12} md={12} lg={6} xl={6} xxl={4} key={i}>
+                <Link
+                  to={{
+                    pathname: `/app/apps/advance-requests/view-data/${elm.path}`,
+                    state: {
+                      name: name,
+                      subname: elm.title,
+                      path: path,
+                      dataPath: elm.path,
+                    },
+                  }}
+                >
+                  <Card type="flex" align="middle" role="button">
+                    <p>
+                      <Avatar
+                        size={54}
+                        style={{
+                          backgroundColor: "#fff",
+                          boxShadow: `0.5px 5px 5px 0px ${elm.color}`,
+                        }}
+                        icon={<elm.icon style={{ color: elm.color }} />}
+                      />
+                    </p>
+                    <p style={{ margin: "0", marginBottom: "10px" }}>
+                      {elm.title}
+                    </p>
+                    <Meta title={"Count " + ": " + elm.value} />
+                    <p
                       style={{
-                        backgroundColor: "#fff",
-                        boxShadow: `0.5px 5px 5px 0px ${generateHSL(elm.title)}`,
+                        fontWeight: "bold",
+                        margin: "0",
+                        marginTop: "10px",
+                        fontSize: "18px",
                       }}
-                      icon={
-                        <elm.icon style={{ color: generateHSL(elm.title) }} />
-                      }
-                    />
-                  </p>
-                  <p style={{ margin: "0", marginBottom: "10px" }}>
-                    {elm.title}
-                  </p>
-                  <Meta title={"Count " + ": " + elm.value} />
-                  <p
-                    style={{
-                      fontWeight: "bold",
-                      margin: "0",
-                      marginTop: "10px",
-                      fontSize: "18px",
-                    }}
-                  >
-                    Ksh : {elm.amount}
-                  </p>
-                </Card>
-              </Link>
-            </Col>
-          ))}
-        </Row>
+                    >
+                      Ksh : {elm.amount}
+                    </p>
+                  </Card>
+                </Link>
+              </Col>
+            ))}
+          </Row>
+        )}
       </div>
     );
   }
 }
 
-const mapStateToProps=({advanceRequest})=> {
-  let {normalRequestMainMenu} = advanceRequest
-  let listedMenuList = Object.entries(normalRequestMainMenu)
-  let menuDataList = []
-  function createData(title, path, value, amount, icon) {
+const mapStateToProps = ({ advanceRequest }) => {
+  let { normalRequestMainMenu } = advanceRequest;
+  let listedMenuList = Object.entries(normalRequestMainMenu);
+  let menuDataList = [];
+  function createData(title, path, value, amount, icon, color) {
     return {
       title,
       path,
       value,
       amount,
       icon,
+      color
     };
   }
-
-  
-
-
 
   for (let index = 0; index < listedMenuList.length; index++) {
     const element = listedMenuList[index];
@@ -126,17 +135,19 @@ const mapStateToProps=({advanceRequest})=> {
       menuData[index].path,
       element[1].count,
       element[1].total,
-      menuData[index].icon
+      menuData[index].icon,
+      menuData[index].color
     );
-    menuDataList.push(firstList)
+    menuDataList.push(firstList);
+    console.log("Data", menuDataList);
   }
-  return{
-    menuDataList
-  }
-}
+  return {
+    menuDataList,
+  };
+};
 
-const mapDispatchToProps= {
-  getNormalRequestsMainMenu
-}
+const mapDispatchToProps = {
+  getNormalRequestsMainMenu,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps) (NormalRequests);
+export default connect(mapStateToProps, mapDispatchToProps)(NormalRequests);

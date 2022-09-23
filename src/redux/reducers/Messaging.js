@@ -4,6 +4,7 @@ import {
   GET_REMINDER_LIST,
   GET_TEMPLATE,
   GET_TEMPLATE_LIST,
+  MESSAGE_SENT,
   MESSAGE_UPDATE,
   SAVE_MESSAGES,
   SAVE_REMINDER,
@@ -22,6 +23,7 @@ const initState = {
   reminderList: [],
   template: {},
   reminder: {},
+  sentResponse: "",
 };
 
 const messaging = (state = initState, action) => {
@@ -88,6 +90,12 @@ const messaging = (state = initState, action) => {
         ...state,
         message: action.message,
         loading: false
+      };
+
+      case MESSAGE_SENT:
+      return {
+        ...state,
+        sentResponse: action.sentResponse
       };
     default:
       return state;

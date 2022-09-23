@@ -10,7 +10,7 @@ class UpdateStopOrderComponent extends Component {
   showModal = () => {
     this.setState({
       visible: true,
-      loading: false
+      loading: false,
     });
   };
 
@@ -34,12 +34,12 @@ class UpdateStopOrderComponent extends Component {
       description: message,
       icon: <CheckCircleOutlined style={{ color: "#04d182" }} />,
     });
-  }
+  };
 
   onFinish = (values) => {
     this.setState({
-      loading: true
-    })
+      loading: true,
+    });
     const formInput = {
       id: values.company_id,
       amount_on: values.amount_on,
@@ -47,8 +47,6 @@ class UpdateStopOrderComponent extends Component {
       balance: values.balance,
       account: values.account,
     };
-   
-   
 
     this.props.UpdateStopOrder(formInput);
     setTimeout(() => {
@@ -67,6 +65,16 @@ class UpdateStopOrderComponent extends Component {
   };
 
   render() {
+    const layout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 16 },
+    };
+    const tailLayout = {
+      wrapperCol: { offset: 0, span: 16 },
+    };
+    const buttonLayout = {
+      wrapperCol: { offset: 6, span: 16 },
+    };
     return (
       <div>
         <Button
@@ -82,7 +90,7 @@ class UpdateStopOrderComponent extends Component {
           Update Stop Order
         </Button>
         <Modal
-          title={<span style={{color:"#00AB6F"}}>UPDATE STOP ORDER</span>}
+          title={<span style={{ color: "#00AB6F" }}>UPDATE STOP ORDER</span>}
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
@@ -93,12 +101,14 @@ class UpdateStopOrderComponent extends Component {
           ]}
         >
           <Form
+            {...layout}
             name="basic"
             initialValues={this.props.details}
             onFinish={this.onFinish}
             onFinishFailed={this.onFinishFailed}
           >
             <Form.Item
+              {...tailLayout}
               label="ID"
               name="company_id"
               rules={[{ required: true, message: "Please input ID!" }]}
@@ -107,6 +117,7 @@ class UpdateStopOrderComponent extends Component {
             </Form.Item>
 
             <Form.Item
+              {...tailLayout}
               label="Amount On"
               name="amount_on"
               rules={[{ required: true, message: "Please input amount_on!" }]}
@@ -114,6 +125,7 @@ class UpdateStopOrderComponent extends Component {
               <Input />
             </Form.Item>
             <Form.Item
+              {...tailLayout}
               label="Amount Off"
               name="amount_off"
               rules={[{ required: true, message: "Please input amount_off!" }]}
@@ -122,6 +134,7 @@ class UpdateStopOrderComponent extends Component {
             </Form.Item>
 
             <Form.Item
+              {...tailLayout}
               label="Balance"
               name="balance"
               rules={[{ required: true, message: "Please input balance" }]}
@@ -130,6 +143,7 @@ class UpdateStopOrderComponent extends Component {
             </Form.Item>
 
             <Form.Item
+              {...tailLayout}
               label="Account"
               name="account"
               value={this.props.account}
@@ -138,8 +152,12 @@ class UpdateStopOrderComponent extends Component {
               <Input />
             </Form.Item>
 
-            <Form.Item>
-              <Button type="primary" htmlType="submit" loading={this.state.loading}>
+            <Form.Item {...buttonLayout}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                loading={this.state.loading}
+              >
                 Submit
               </Button>
             </Form.Item>
@@ -150,7 +168,7 @@ class UpdateStopOrderComponent extends Component {
   }
 }
 const mapStateToProps = ({ advanceRequest }) => {
-  const {actionResponseMessage } = advanceRequest;
+  const { actionResponseMessage } = advanceRequest;
   return {
     actionResponseMessage,
   };
@@ -160,4 +178,7 @@ const mapDispatchToProps = {
   UpdateStopOrder,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UpdateStopOrderComponent);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UpdateStopOrderComponent);

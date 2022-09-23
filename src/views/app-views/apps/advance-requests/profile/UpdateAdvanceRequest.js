@@ -31,6 +31,7 @@ function UpdateAdvanceRequest(props) {
         title={<Text style={{ color: "#00AB6F" }}>UPDATE ADVANCE REQUEST</Text>}
         visible={visible}
         onCancel={handleCancel}
+        width={700}
         footer={[
           <Button
             key="submit"

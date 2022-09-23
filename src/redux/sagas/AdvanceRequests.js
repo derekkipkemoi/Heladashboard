@@ -13,6 +13,7 @@ import {
   stopOrdersData,
   stopOrdersMenuData,
   stopOrdersUserData,
+  topupsDashboard,
 } from "redux/actions/AdvanceRequests";
 import {
   ADD_COMMENT,
@@ -24,6 +25,7 @@ import {
   GETREQUESTSDATA,
   GET_STOP_ORDERS_DATA,
   GET_STOP_ORDERS_USER_DATA,
+  GET_TOP_UPS_DASHBOARD,
   GET_USER_REQUESTS_DATA,
   MAINMENUDATA,
   NORMALREQUESTSMENU,
@@ -31,6 +33,7 @@ import {
   SEARCH_LOAN_BY_REFNO,
   STOP_ORDERS_MENU,
   STOP_ORDER_GENERATE_DATASHEET,
+  STOP_ORDER_GENERATE_DATASHEET_NUMBER,
   TSCREQUESTSMENU,
   UPDATE_ADVANCE_REQUEST,
   UPDATE_STOP_ORDER,
@@ -251,12 +254,33 @@ export function* UpdateStopOrder() {
   });
 }
 
-export function* stopOrderGenerateDataSheet() {
+export function* stopOrderGenerateDatasheetNumber() {
+  yield takeEvery(
+    STOP_ORDER_GENERATE_DATASHEET_NUMBER,
+    function* ({ payload }) {
+      try {
+        const response = yield call(
+          AppService.stopOrderGenerateDatasheetNumber
+        );
+        if (response) {
+          yield put(stopOrderDatasheetNumber(response));
+        }
+      } catch (err) {
+        console.log("Messages listing error in sagas", err);
+      }
+    }
+  );
+}
+
+export function* stopOrderGenerateDatasheet() {
   yield takeEvery(STOP_ORDER_GENERATE_DATASHEET, function* ({ payload }) {
     try {
-      const response = yield call(AppService.stopOrderGenerateDataSheet);
-      if (response) {
-        yield put(stopOrderDatasheetNumber(response));
+      const response = yield call(
+        AppService.stopOrderGenerateDatasheet,
+        payload
+      );
+      if (response.message) {
+        yield put(getAdvanceRequestActionMessage(response));
       }
     } catch (err) {
       console.log("Messages listing error in sagas", err);
@@ -270,6 +294,20 @@ export function* loanSearchByRefNo() {
       const response = yield call(AppService.loanSearchByRefNo, payload);
       if (response) {
         yield put(searchLoanByRefNoResponse(response.result));
+      }
+    } catch (err) {
+      console.log("Messages listing error in sagas", err);
+    }
+  });
+}
+
+export function* getTopUpsDashboard() {
+  yield takeEvery(GET_TOP_UPS_DASHBOARD, function* ({ payload }) {
+    try {
+      const response = yield call(AppService.getTopUpsDashboard);
+      console.log("sagas response", response);
+      if (response) {
+        yield put(topupsDashboard(response));
       }
     } catch (err) {
       console.log("Messages listing error in sagas", err);
@@ -295,7 +333,9 @@ export default function* rootSaga() {
     fork(getStopOrdersData),
     fork(getStopOrdersUserData),
     fork(UpdateStopOrder),
-    fork(stopOrderGenerateDataSheet),
-    fork(loanSearchByRefNo)
+    fork(stopOrderGenerateDatasheetNumber),
+    fork(loanSearchByRefNo),
+    fork(stopOrderGenerateDatasheet),
+    fork(getTopUpsDashboard)
   ]);
 }

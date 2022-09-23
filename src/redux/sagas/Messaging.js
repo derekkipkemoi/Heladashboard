@@ -15,6 +15,7 @@ import {
   UPDATE_TEMPLATE,
 } from "redux/constants/Messaging";
 import {
+  messageSent,
   messageUpdate,
   saveMessagesList,
   saveReminder,
@@ -39,7 +40,7 @@ export function* getMessages() {
 }
 
 export function* resetUpdateMessage() {
-  yield takeEvery(MESSAGE_UPDATE, function* ({ }) {
+  yield takeEvery(MESSAGE_UPDATE, function* ({}) {
     yield put(saveMessagesList("Empty"));
   });
 }
@@ -189,21 +190,33 @@ export function* updateReminder() {
   });
 }
 
+export function* sendMessage() {
+  yield takeEvery(SEND_MESSAGE, function* ({ payload }) {
+    try {
+      const response = yield call(AppService.sendMessage, payload);
+      if (response.message) {
+        yield put(messageSent(response.message));
+      }
+    } catch (err) {
+      console.log("Messages listing error in sagas", err);
+    }
+  });
+}
+
 export default function* rootSaga() {
   yield all([
     fork(getMessages),
-
     fork(getTemplateList),
     fork(getTemplate),
     fork(deleteTemplate),
     fork(updateTemplate),
     fork(createTemplate),
-
     fork(getReminderList),
     fork(getReminder),
     fork(deleteReminder),
     fork(updateReminder),
     fork(createReminder),
-    fork(resetUpdateMessage)
+    fork(resetUpdateMessage),
+    fork(sendMessage),
   ]);
 }

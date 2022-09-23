@@ -32,12 +32,13 @@ class DownloadStopOrders extends Component {
 
   render() {
     const { visible, loading } = this.state;
-    const textStyle = {
-      border: "1px solid #D3D3D3",
-      padding: "10px",
-      borderRadius: "10px",
+    const layout = {
+      labelCol: { span: 7 },
+      wrapperCol: { span: 16 },
     };
-    console.log("Data", this.props.details)
+    const tailLayout = {
+      wrapperCol: { offset: 0, span: 16 },
+    };
     return (
       <div>
         <Button
@@ -70,15 +71,15 @@ class DownloadStopOrders extends Component {
             </Button>,
           ]}
         >
-          <Form name="basic" initialValues={this.props.details}>
-            <Form.Item label="Datasheet Number" name="account" >
-              <Input disabled={true}/>
+          <Form {...layout}  name="basic" initialValues={this.props.details}>
+            <Form.Item {...tailLayout} label="Datasheet Number" name="account">
+              <Input disabled={true} />
             </Form.Item>
-            <Form.Item label="Status" name="status">
-              <Input disabled={true}/>
+            <Form.Item {...tailLayout} label="Status" name="status">
+              <Input disabled={true} />
             </Form.Item>
-            <Form.Item label="Date Modified" name="created_at">
-              <Input disabled={true}/>
+            <Form.Item {...tailLayout} label="Date Modified" name="created_at">
+              <Input disabled={true} />
             </Form.Item>
           </Form>
         </Modal>

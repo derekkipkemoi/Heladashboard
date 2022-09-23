@@ -10,6 +10,7 @@ import {
   GET_ADVANCE_REQUEST_ACTION_MESSAGE,
   GET_STOP_ORDERS_DATA,
   GET_STOP_ORDERS_USER_DATA,
+  GET_TOP_UPS_DASHBOARD,
   GET_USER_REQUESTS_DATA,
   MAINMENUDATA,
   MESSAGE_ADVANCE_REQUEST,
@@ -28,6 +29,8 @@ import {
   STOP_ORDERS_USER_DATA,
   STOP_ORDER_DATASHEET_NUMBER,
   STOP_ORDER_GENERATE_DATASHEET,
+  STOP_ORDER_GENERATE_DATASHEET_NUMBER,
+  TOP_UPS_DASHBOARD,
   TSCREQUESTSMENU,
   UPDATE_ADVANCE_REQUEST,
   UPDATE_STOP_ORDER,
@@ -219,9 +222,16 @@ export const UpdateStopOrder = (payload) => {
   };
 };
 
-export const stopOrderGenerateDatasheet = () => {
+export const stopOrderGenerateDatasheetNumber = () => {
+  return {
+    type: STOP_ORDER_GENERATE_DATASHEET_NUMBER,
+  };
+};
+
+export const stopOrderGenerateDatasheet = (payload) => {
   return {
     type: STOP_ORDER_GENERATE_DATASHEET,
+    payload
   };
 };
 
@@ -245,4 +255,19 @@ export const searchLoanByRefNoResponse = (loanSearchData) => {
     loanSearchData
   };
 };
+
+
+export const getTopupsDashboard = () => {
+  return {
+    type: GET_TOP_UPS_DASHBOARD
+  };
+};
+
+export const topupsDashboard = (topupsDashboard) => {
+  return {
+    type: TOP_UPS_DASHBOARD,
+    topupsDashboard
+  };
+};
+
 

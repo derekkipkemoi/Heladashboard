@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Col, Row, Card } from "antd";
+import { Col, Row, Card, Spin, Alert } from "antd";
 import ActionButtons from "./ActionButtons";
 import { connect } from "react-redux";
 import { getStopOrdersUserData } from "redux/actions/AdvanceRequests";
@@ -40,30 +40,40 @@ class ViewStopOrdersProfile extends Component {
 
     return (
       <Card>
-        <Row gutter={16} style={{ marginTop: "50px" }}>
-          <Col xs={24} sm={24} md={24} xl={24} xxl={24}>
-            <StopOrdersHeaderCard
-              personalDetails={this.props.personalDetails}
-              companyDatasheets={this.props.companyDatasheets}
+        {this.props.personalDetails === undefined ? (
+          <Spin tip="Loading...">
+            <Alert
+              message="Loading Data"
+              description="Please wait..."
+              type="info"
             />
-          </Col>
-        </Row>
-        <Row gutter={16} style={{ marginTop: "10px" }}>
-          <Col
-            className="gutter-row"
-            xs={24}
-            sm={24}
-            md={24}
-            lg={24}
-            xl={24}
-            xxl={24}
-          >
-            <StopOrdersPersonalInformationCard
-              personalDetails={this.props.personalDetails}
-              companyDatasheets={this.props.companyDatasheets}
-            />
-          </Col>
-          {/* <Col
+          </Spin>
+        ) : (
+          <div>
+            <Row gutter={16} style={{ marginTop: "50px" }}>
+              <Col xs={24} sm={24} md={24} xl={24} xxl={24}>
+                <StopOrdersHeaderCard
+                  personalDetails={this.props.personalDetails}
+                  companyDatasheets={this.props.companyDatasheets}
+                />
+              </Col>
+            </Row>
+            <Row gutter={16} style={{ marginTop: "10px" }}>
+              <Col
+                className="gutter-row"
+                xs={24}
+                sm={24}
+                md={24}
+                lg={24}
+                xl={24}
+                xxl={24}
+              >
+                <StopOrdersPersonalInformationCard
+                  personalDetails={this.props.personalDetails}
+                  companyDatasheets={this.props.companyDatasheets}
+                />
+              </Col>
+              {/* <Col
             className="gutter-row"
             xs={24}
             sm={24}
@@ -74,42 +84,44 @@ class ViewStopOrdersProfile extends Component {
           >
             <LoanInformationCard personalDetails={this.props.personalDetails} />
           </Col> */}
-        </Row>
+            </Row>
 
-        <Row gutter={16} style={{ marginTop: "20px" }}>
-          {/* <Col xs={24} sm={24} md={24} xl={12} xxl={12}>
+            <Row gutter={16} style={{ marginTop: "20px" }}>
+              {/* <Col xs={24} sm={24} md={24} xl={12} xxl={12}>
             <GeneralButtons />
           </Col> */}
-          <Col xs={24} sm={24} md={24} xl={24} xxl={24}>
-            <ActionButtonsStopOrders userId={id} />
-          </Col>
-        </Row>
+              <Col xs={24} sm={24} md={24} xl={24} xxl={24}>
+                <ActionButtonsStopOrders userId={id} />
+              </Col>
+            </Row>
 
-        <Card type="inner" title="Comments and Files">
-          <StopOrdersCommentsAndFilesMenu
-            {...this.props}
-            menuChange={(value) => this.menuChange(value)}
-          />
-          {this.state.content === "comments" ? (
-            <CommentsTable
-              data={this.props.userComments}
-              personalDetails={this.props.personalDetails}
-            />
-          ) : null}
-          {/* {this.state.content === "registration-files" ? (
+            <Card type="inner" title="Comments and Files">
+              <StopOrdersCommentsAndFilesMenu
+                {...this.props}
+                menuChange={(value) => this.menuChange(value)}
+              />
+              {this.state.content === "comments" ? (
+                <CommentsTable
+                  data={this.props.userComments}
+                  personalDetails={this.props.personalDetails}
+                />
+              ) : null}
+              {/* {this.state.content === "registration-files" ? (
             <RegistrationFilesTables
               data={this.props.userRegistrationFiles}
               personalDetails={this.props.personalDetails}
             />
           ) : null} */}
 
-          {this.state.content === "request-files" ? (
-            <UserRequestsFiles
-              data={this.props.userRequestFiles}
-              personalDetails={this.props.personalDetails}
-            />
-          ) : null}
-        </Card>
+              {this.state.content === "request-files" ? (
+                <UserRequestsFiles
+                  data={this.props.userRequestFiles}
+                  personalDetails={this.props.personalDetails}
+                />
+              ) : null}
+            </Card>
+          </div>
+        )}
       </Card>
     );
   }
@@ -123,7 +135,7 @@ const mapStateToProps = ({ advanceRequest }) => {
   const companyDatasheets = stopOrdersUserData.companyDatasheets;
   // const userRegistrationFiles = userRequestData.userRegistrationFiles;
   const userRequestFiles = stopOrdersUserData.uploadedFiles;
-  console.log("Data in stop orders", stopOrdersUserData);
+  console.log("Data in stop orders");
   return {
     personalDetails,
     userComments,

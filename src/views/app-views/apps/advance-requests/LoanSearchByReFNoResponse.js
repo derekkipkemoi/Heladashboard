@@ -3,9 +3,7 @@ import { connect } from "react-redux";
 import { Table, Card } from "antd";
 
 class LoanSearchByRefNoResponse extends Component {
-  state = {
-    
-  };
+  state = {};
   render() {
     const columns = [
       {
@@ -64,22 +62,31 @@ class LoanSearchByRefNoResponse extends Component {
       ];
     }
     return (
-      <Card type="inner" title="Search Response" bodyStyle={{ padding: "0px" }}>
-        <Table
-          showHeader={false}
-          columns={columns}
-          dataSource={data}
-          pagination={false}
-          bordered
-          size="small"
-        />
-      </Card>
+      <div>
+        {Object.keys(this.props.loanSearchData).length > 0 ? (
+          <Card
+            type="inner"
+            title="Search Response"
+            bodyStyle={{ padding: "0px" }}
+          >
+            <Table
+              showHeader={false}
+              columns={columns}
+              dataSource={data}
+              pagination={false}
+              bordered
+              size="small"
+            />
+          </Card>
+        ) : null}
+      </div>
     );
   }
 }
 
 const mapStateToProps = ({ advanceRequest }) => {
   const { loanSearchData } = advanceRequest;
+  console.log("Loan data", Object.keys(loanSearchData));
   const name =
     loanSearchData.first_name +
     " " +

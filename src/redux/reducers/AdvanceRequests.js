@@ -12,6 +12,7 @@ import {
   STOP_ORDERS_MENU_DATA,
   STOP_ORDERS_USER_DATA,
   STOP_ORDER_DATASHEET_NUMBER,
+  TOP_UPS_DASHBOARD,
 } from "../constants/AdvanceRequests";
 
 const initState = {
@@ -27,7 +28,8 @@ const initState = {
   stopOrders: [],
   stopOrdersUserData: {},
   datasheet: "",
-  loanSearchData: {}
+  loanSearchData: {},
+  topupsDashboard: {},
 };
 
 const advanceRequest = (state = initState, action) => {
@@ -74,44 +76,47 @@ const advanceRequest = (state = initState, action) => {
         responseValues: action.responseValues,
       };
 
-      case DOWNLOADED_APPLICATION:
+    case DOWNLOADED_APPLICATION:
       return {
         ...state,
         downloadedApplication: action.data,
       };
 
-      case STOP_ORDERS_MENU_DATA:
-        return {
-          ...state,
-          stopOrdersMenuData: action.stopOrdersMenuData,
-        };
+    case STOP_ORDERS_MENU_DATA:
+      return {
+        ...state,
+        stopOrdersMenuData: action.stopOrdersMenuData,
+      };
 
-        case STOP_ORDERS_DATA:
-        return {
-          ...state,
-          stopOrders: action.stopOrders,
-        };
+    case STOP_ORDERS_DATA:
+      return {
+        ...state,
+        stopOrders: action.stopOrders,
+      };
 
-        case STOP_ORDERS_USER_DATA:
-          return {
-            ...state,
-            stopOrdersUserData: action.stopOrdersUserData,
-          };
+    case STOP_ORDERS_USER_DATA:
+      return {
+        ...state,
+        stopOrdersUserData: action.stopOrdersUserData,
+      };
 
-          case STOP_ORDER_DATASHEET_NUMBER:
-          return {
-            ...state,
-            datasheet: action.datasheet,
-          };
+    case STOP_ORDER_DATASHEET_NUMBER:
+      return {
+        ...state,
+        datasheet: action.datasheet,
+      };
 
-          case SEARCH_LOAN_BY_REFNO_RESPONSE:
-          return {
-            ...state,
-            loanSearchData: action.loanSearchData,
-          };
+    case SEARCH_LOAN_BY_REFNO_RESPONSE:
+      return {
+        ...state,
+        loanSearchData: action.loanSearchData,
+      };
 
-
-
+    case TOP_UPS_DASHBOARD:
+      return {
+        ...state,
+        topupsDashboard: action.topupsDashboard,
+      };
 
     default:
       return state;

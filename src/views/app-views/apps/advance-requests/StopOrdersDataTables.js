@@ -79,6 +79,8 @@ export class StopOrdersDataTables extends Component {
       users: data,
       dataPath: path,
     });
+
+    console.log("Data", data)
   }
 
   componentDidUpdate = (prevProps) => {
@@ -119,12 +121,12 @@ export class StopOrdersDataTables extends Component {
       {
         title: "Ref No",
         dataIndex: "loan_no",
-        width: 150,
+        width: 100,
       },
       {
         title: "Borrower",
         dataIndex: "first_name",
-        width: 300,
+        width: 250,
         render: (_, record) => (
           <div className="d-flex">
             <UserAvatar
@@ -151,12 +153,12 @@ export class StopOrdersDataTables extends Component {
       {
         title: "Amount On",
         dataIndex: "amount_on",
-        width: 200,
+        width: 90,
       },
       {
         title: "Amount Off",
         dataIndex: "amount_off",
-        width: 200,
+        width: 90,
       },
 
       {
@@ -166,6 +168,12 @@ export class StopOrdersDataTables extends Component {
         sorter: (a, b) => parseInt(a.payroll_no) - parseInt(b.payroll_no),
         sortDirections: ["descend", "ascend"],
       },
+
+      // {
+      //   title: "Phone",
+      //   dataIndex: "phone",
+      //   width: 110,
+      // },
 
       {
         title: "Status",

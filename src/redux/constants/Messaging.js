@@ -1,5 +1,6 @@
 export const GET_MESSAGES = "GET_MESSAGES";
 export const SEND_MESSAGE = "SEND_MESSAGE";
+export const MESSAGE_SENT = "MESSAGE_SENT";
 export const SAVE_MESSAGES = "SAVE_MESSAGES";
 
 export const GET_TEMPLATE = "GET_TEMPLATE";
